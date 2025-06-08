@@ -2092,3 +2092,95 @@ footer {
     }
 }
 
+/* Стили для адаптивного дизайна */
+
+/* Стили для мобильных устройств */
+.mobile-device .hero {
+    background-image: none !important; /* Принудительно убираем фоновое изображение */
+    background-color: #f5f5f5 !important; /* Устанавливаем серый фон */
+    color: #333333; /* Меняем цвет текста на темный */
+}
+
+.mobile-device .hero h1,
+.mobile-device .hero p {
+    color: #333333 !important; /* Темный цвет для заголовка и текста */
+    text-shadow: none !important; /* Убираем тени текста */
+}
+
+.mobile-device .hero-overlay {
+    background-color: transparent !important; /* Убираем затемнение */
+}
+
+.mobile-device .hero .primary-button {
+    background-color: var(--primary); /* Сохраняем основной цвет кнопки */
+    color: white; /* Белый текст для контраста */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Добавляем тень для выделения */
+}
+
+/* Скрываем стрелку прокрутки на мобильных устройствах */
+.mobile-device .scroll-down {
+    display: none !important;
+}
+
+/* Скрываем кнопки навигации отзывов на мобильных устройствах */
+.mobile-device .prev-review,
+.mobile-device .next-review {
+    display: none !important;
+}
+
+/* Стили для подсказки о свайпе */
+.swipe-hint {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #777;
+    margin-top: 15px;
+    opacity: 0.7;
+    animation: fadeInOut 2s infinite;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+}
+
+/* Улучшаем стили для индикаторов на мобильных устройствах */
+.mobile-device .indicators {
+    margin-top: 15px;
+    padding: 10px 0;
+}
+
+.mobile-device .indicator {
+    width: 12px;
+    height: 12px;
+    margin: 0 6px;
+}
+
+/* Оптимизация анимации для мобильных устройств */
+.mobile-device .review-card.slide-in-right,
+.mobile-device .review-card.slide-in-left,
+.mobile-device .review-card.slide-out-right,
+.mobile-device .review-card.slide-out-left {
+    animation-duration: 0.4s; /* Ускоряем анимацию на мобильных */
+    animation-timing-function: ease-out; /* Более плавное завершение */
+    will-change: transform, opacity; /* Оптимизация производительности */
+}
+
+/* Медиа-запрос для мобильных устройств (для совместимости) */
+@media (max-width: 768px) {
+    .prev-review,
+    .next-review {
+        display: none; /* Скрываем кнопки навигации */
+    }
+    
+    .scroll-down {
+        display: none; /* Скрываем стрелку прокрутки */
+    }
+    
+    /* Увеличиваем размер индикаторов для лучшей доступности */
+    .indicator {
+        width: 12px;
+        height: 12px;
+        margin: 0 6px;
+    }
+}
+
