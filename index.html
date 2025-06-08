@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ЛогоПед - Ирина Зайцева</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/style2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- Шапка -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="#home">
+                    <img src="images/logo.png" alt="Логопед Ирина Зайцева" class="logo-image">
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#about">Обо мне</a></li>
+                    <li><a href="#services">Услуги</a></li>
+                    <li><a href="#reviews">Отзывы</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Главный экран -->
+    <section id="home" class="hero fullscreen" style="background-image: url('images/hero-bg.jpg'); background-size: cover; background-position: center;">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Логопед для вашего ребенка</h1>
+                <p>Помогаю детям обрести уверенную и чистую речь с помощью индивидуального подхода и современных методик</p>
+                <a href="#contact" class="primary-button">Записаться на консультацию</a>
+            </div>
+        </div>
+        <div class="scroll-down">
+            <a href="#about"><i class="fas fa-chevron-down"></i></a>
+        </div>
+    </section>
+
+    <!-- Обо мне -->
+    <section id="about" class="about fullscreen">
+        <div class="container">
+            <h2>Обо мне</h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="images\photo_2025-06-08_14-14-28.jpg" alt="Ирина Зайцева">
+                </div>
+                <div class="about-text">
+                    <h3>Ирина Зайцева</h3>
+                    <p class="subtitle">Дипломированный логопед-дефектолог, работаю с детьми с 2013 года</p>
+                    <p>Занимаюсь развитием и коррекцией устной и письменной речи детей и взрослых. Моим преимуществом является составление индивидуальных программ и пособий для каждого ученика, что даёт успешное развитие их речевых и коммуникативных навыков. Я абсолютно уверена, что можно достичь отличных результатов с каждым, если ученик будет чувствовать поддержку и доверие со стороны специалиста.</p>
+                    <p>В своей работе использую как классические, так и современные игровые методики, что делает занятия интересными и эффективными. Регулярно повышаю квалификацию, изучаю новые методики и подходы к коррекции речевых нарушений, посещая семинары и курсы. В своей работе использую как классические, так и современные игровые методики, что делает занятия интересными и эффективными.</p>
+                    
+                    <div class="stats-container">
+                        <div class="stat-item">
+                            <i class="fas fa-book"></i>
+                            <div class="stat-number">12+</div>
+                            <div class="stat-text">лет опыта</div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-users"></i>
+                            <div class="stat-number">800+</div>
+                            <div class="stat-text">счастливых детей</div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            <div class="stat-number">5</div>
+                            <div class="stat-text">авторских методик</div>
+                        </div>
+                    </div>
+                    
+                    <div class="about-buttons">
+                        <a href="education.html" class="secondary-button">Моё образование и квалификация <i class="fas fa-graduation-cap"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Услуги -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Мои услуги</h2>
+            <p class="section-subtitle">Индивидуальный подход к каждому ребенку</p>
+            
+            <div class="services-grid">
+                <!-- Карточка 1 -->
+                <div class="service-card" id="service-diagnostics">
+                    <div class="service-card-front">
+                        <div class="service-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <h3>Логопедическая диагностика</h3>
+                        <p>Первичная консультация для определения речевых проблем и составления плана коррекции.</p>
+                        <div class="service-footer">
+                            <div class="service-price">1000 ₽</div>
+                            <button class="service-button" data-service="diagnostics">Подробнее</button>
+                        </div>
+                    </div>
+                    <div class="service-card-back">
+                        <h3>Логопедическая диагностика</h3>
+                        <p>Первичная консультация включает:</p>
+                        <ul>
+                            <li>Оценку речевого развития</li>
+                            <li>Выявление проблемных зон</li>
+                            <li>Составление индивидуального плана коррекции</li>
+                            <li>Рекомендации для родителей</li>
+                        </ul>
+                        <div class="service-footer">
+                            <div class="service-price">1000 ₽</div>
+                            <div class="service-duration">40-45 минут</div>
+                            <button class="primary-button enroll-button">Записаться</button>
+                            <button class="back-button">Назад</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Карточка 2 -->
+                <div class="service-card" id="service-individual">
+                    <div class="service-card-front">
+                        <div class="service-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h3>Индивидуальное занятие</h3>
+                        <p>Персональные занятия для коррекции речевых нарушений с учетом индивидуальных особенностей.</p>
+                        <div class="service-footer">
+                            <div class="service-price">2500 ₽</div>
+                            <button class="service-button" data-service="individual">Подробнее</button>
+                        </div>
+                    </div>
+                    <div class="service-card-back">
+                        <h3>Индивидуальное занятие</h3>
+                        <p>Персональное занятие включает:</p>
+                        <ul>
+                            <li>Логопедический массаж</li>
+                            <li>Упражнения на развитие фонематического слуха</li>
+                            <li>Постановку и автоматизацию звуков</li>
+                            <li>Развитие связной речи</li>
+                        </ul>
+                        <div class="service-footer">
+                            <div class="service-price">2500 ₽</div>
+                            <div class="service-duration">40-45 минут</div>
+                            <button class="primary-button enroll-button">Записаться</button>
+                            <button class="back-button">Назад</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Карточка 3 -->
+                <div class="service-card" id="service-school">
+                    <div class="service-card-front">
+                        <div class="service-icon">
+                            <i class="fas fa-school"></i>
+                        </div>
+                        <h3>Подготовка к школе</h3>
+                        <p>Комплексная подготовка к школе с акцентом на развитие речи и обучение чтению.</p>
+                        <div class="service-footer">
+                            <div class="service-price">2500 ₽</div>
+                            <button class="service-button" data-service="school">Подробнее</button>
+                        </div>
+                    </div>
+                    <div class="service-card-back">
+                        <h3>Подготовка к школе</h3>
+                        <p>Программа подготовки включает:</p>
+                        <ul>
+                            <li>Развитие фонематического восприятия</li>
+                            <li>Обучение чтению и письму</li>
+                            <li>Развитие математических представлений</li>
+                            <li>Формирование учебной мотивации</li>
+                        </ul>
+                        <div class="service-footer">
+                            <div class="service-price">2500 ₽</div>
+                            <div class="service-duration">40-45 минут</div>
+                            <button class="primary-button enroll-button">Записаться</button>
+                            <button class="back-button">Назад</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Карточка 4 -->
+                <div class="service-card" id="service-online">
+                    <div class="service-card-front">
+                        <div class="service-icon">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <h3>Онлайн-занятие</h3>
+                        <p>Дистанционные занятия с логопедом через видеосвязь с использованием интерактивных материалов.</p>
+                        <div class="service-footer">
+                            <div class="service-price">2500 ₽</div>
+                            <button class="service-button" data-service="online">Подробнее</button>
+                        </div>
+                    </div>
+                    <div class="service-card-back">
+                        <h3>Онлайн-занятие</h3>
+                        <p>Дистанционное занятие включает:</p>
+                        <ul>
+                            <li>Все элементы очного занятия в онлайн-формате</li>
+                            <li>Интерактивные материалы</li>
+                            <li>Домашние задания в электронном виде</li>
+                            <li>Постоянная связь с логопедом</li>
+                        </ul>
+                        <div class="service-footer">
+                            <div class="service-price">2500 ₽</div>
+                            <div class="service-duration">40-45 минут</div>
+                            <button class="primary-button enroll-button">Записаться</button>
+                            <button class="back-button">Назад</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Отзывы -->
+    <section id="reviews" class="reviews fullscreen">
+        <div class="container">
+            <h2>Отзывы</h2>
+            <div class="reviews-slider">
+                <button class="slider-arrow prev-review"><i class="fas fa-chevron-left"></i></button>
+                
+                <div class="reviews-carousel">
+                    <div class="review-card active">
+                        <div class="review-avatar">Д</div>
+                        <div class="review-content">
+                            <div class="review-author">Дмитрий Иванов</div>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="review-text">"Обратились к Ирине по рекомендации знакомых, когда нашей дочери было 5 лет. У ребенка были проблемы с произношением шипящих звуков. Ирина быстро нашла общий язык с дочкой, занятия проходили интересно и продуктивно. Уже через 5 месяцев мы заметили значительное улучшение."</p>
+                            <div class="review-date">7 апреля 2023</div>
+                        </div>
+                    </div>
+                    
+                    <div class="review-card">
+                        <div class="review-avatar">А</div>
+                        <div class="review-content">
+                            <div class="review-author">Анна Петрова</div>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="review-text">"Ирина помогла моему сыну преодолеть заикание. Мы пробовали разных специалистов, но только с ней увидели реальный результат. Очень благодарны за профессионализм и индивидуальный подход!"</p>
+                            <div class="review-date">15 мая 2023</div>
+                        </div>
+                    </div>
+                    
+                    <div class="review-card">
+                        <div class="review-avatar">Е</div>
+                        <div class="review-content">
+                            <div class="review-author">Елена Смирнова</div>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <p class="review-text">"Мой сын занимается с Ириной уже полгода. За это время его речь значительно улучшилась, он стал более уверенным в общении со сверстниками. Ирина находит подход к каждому ребенку и делает занятия интересными."</p>
+                            <div class="review-date">2 июня 2023</div>
+                        </div>
+                    </div>
+                    
+                    <div class="review-card">
+                        <div class="review-avatar">М</div>
+                        <div class="review-content">
+                            <div class="review-author">Мария Козлова</div>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="review-text">"Хочу выразить огромную благодарность Ирине за работу с моей дочерью. У нас были проблемы с произношением нескольких звуков, и за 4 месяца занятий мы добились отличных результатов. Дочь с удовольствием ходила на занятия и выполняла домашние задания. Рекомендую всем!"</p>
+                            <div class="review-date">20 июля 2023</div>
+                        </div>
+                    </div>
+                    
+                    <div class="review-card">
+                        <div class="review-avatar">С</div>
+                        <div class="review-content">
+                            <div class="review-author">Сергей Николаев</div>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="review-text">"Наш сын (6 лет) занимается с Ириной уже 8 месяцев. За это время его речь стала намного чище и понятнее. Особенно хочу отметить индивидуальный подход и внимательность к деталям. Ирина не только исправляет речь, но и развивает память, внимание и мышление ребенка. Очень довольны результатами!"</p>
+                            <div class="review-date">5 августа 2023</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="slider-arrow next-review"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            
+            <div class="review-indicators">
+                <span class="indicator active"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+            </div>
+            
+            <div class="reviews-more">
+                <a href="https://logoped-defektolog-zajtseva-i.clients.site/#rating" class="more-reviews-button">Больше отзывов</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contact" class="contact fullscreen">
+        <div class="container">
+            <h2>Контакты</h2>
+            <div class="contact-content">
+                <div class="contact-form-container">
+                    <h3>Свяжитесь со мной</h3>
+                    <p>Заполните форму ниже, и я свяжусь с вами в ближайшее время для обсуждения деталей и записи на консультацию.</p>
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Имя *</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Телефон *</label>
+                            <input type="tel" id="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Сообщение</label>
+                            <textarea id="message" rows="4"></textarea>
+                        </div>
+                        <button type="submit" class="submit-button">Отправить</button>
+                    </form>
+                </div>
+                <div class="contact-info-container">
+                    <div class="map-container">
+                        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A9c8b5b7e9a2e2c7a9f6a0f9d0f8c7b6a&amp;source=constructor&amp;scroll=false&amp;ll=37.734567%2C55.761334&amp;z=17&amp;text=г.%20Москва%2C%20проспект%20Будённого%2C%20д.%2030А" width="100%" height="250" frameborder="0" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Контактная информация</h3>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <p>Адрес: г. Москва, проспект Буденного, д. 30А</p>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <p>Телефон: +7 (926) 285-59-43</p>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <p>Email: @mail.ru</p>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <p>Часы работы: Пн-Пт: 9:00-19:00, Сб: 10:00-15:00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>ЛогоПед</h3>
+                    <p>Профессиональная помощь в развитии речи вашего ребенка. Индивидуальный подход и эффективные методики.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-phone"></i>
+                        <p>+7 (926) 285-59-43</p>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <p>tirish@mail.ru</p>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>г. Москва, проспект Буденного, д. 30А</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Ирина Зайцева. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/carousel.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/smooth-scroll.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Фиксированная кнопка WhatsApp -->
+<a href="https://wa.me/+79262855943" class="whatsapp-button" target="_blank" rel="noopener noreferrer" aria-label="Связаться через WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+</a>
+

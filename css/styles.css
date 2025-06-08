@@ -1,0 +1,714 @@
+:root {
+    --primary: #6A7FDB;
+    --primary-dark: #5568C7;
+    --secondary: #F5F5F5;
+    --accent: #F5A9BC;
+    --text-dark: #333333;
+    --text-light: #666666;
+    --white: #FFFFFF;
+    --green: #22C55E;
+    --light-bg: #F9F9F9;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease;
+    --font-primary: 'Montserrat', sans-serif;
+    --font-heading: 'Playfair Display', serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-primary);
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: var(--white);
+}
+
+.font-montserrat {
+    font-family: var(--font-primary);
+}
+
+.font-playfair {
+    font-family: var(--font-heading);
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.fullscreen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Типография */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--primary);
+}
+
+h3 {
+    font-size: 1.8rem;
+    color: var(--primary);
+}
+
+p {
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+}
+
+/* Кнопки */
+.primary-button, .submit-button, button {
+    font-family: var(--font-primary);
+    background-color: var(--primary);
+    color: var(--white);
+    padding: 12px 24px;
+    border: none;
+    border-radius: 30px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+}
+
+.primary-button:hover, .submit-button:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(106, 127, 219, 0.3);
+}
+
+.secondary-button {
+    font-family: var(--font-primary);
+    background-color: transparent;
+    color: var(--primary);
+    padding: 12px 24px;
+    border: 2px solid var(--primary);
+    border-radius: 30px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+    margin-top: 1.5rem;
+}
+
+.secondary-button:hover {
+    background-color: var(--primary);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(106, 127, 219, 0.2);
+}
+
+.secondary-button i {
+    margin-left: 8px;
+}
+
+.about-buttons {
+    margin: 1.5rem 0;
+}
+
+/* Шапка */
+header {
+    background-color: var(--white);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    padding: 15px 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+header.header-hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+header.header-visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo a {
+    text-decoration: none;
+}
+
+.logo-image {
+    height: 50px;
+    width: auto;
+    transition: var(--transition);
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .logo-image {
+        height: 40px;
+    }
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+nav ul li a {
+    font-family: var(--font-primary);
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--text-dark);
+    transition: var(--transition);
+    position: relative;
+    padding-bottom: 5px;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary);
+    transition: var(--transition);
+}
+
+nav ul li a:hover {
+    color: var(--primary);
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--primary);
+}
+
+/* Улучшенная адаптивность для мобильного меню */
+@media (max-width: 768px) {
+    header {
+        padding: 15px 0;
+    }
+    
+    .logo {
+        font-size: 1.5rem;
+    }
+    
+    nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background-color: var(--white);
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        transition: var(--transition);
+        z-index: 1001;
+        padding: 5rem 2rem;
+        overflow-y: auto;
+    }
+    
+    nav.active {
+        right: 0;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    nav ul li a {
+        font-size: 1.1rem;
+        display: block;
+        padding: 0.5rem 0;
+    }
+    
+    .menu-toggle {
+        display: block;
+        z-index: 1002;
+        font-size: 1.8rem;
+    }
+    
+    /* Добавляем затемнение фона при открытом меню */
+    body.menu-open::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+    }
+}
+
+/* Hero секция */
+.hero {
+    position: relative;
+    padding-top: 80px;
+    overflow: hidden;
+    text-align: center;
+    color: var(--white);
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Увеличиваем затемнение для лучшей читаемости */
+    z-index: 0; /* Изменяем z-index, чтобы он был выше фона, но ниже контента */
+}
+
+.hero-content {
+    position: relative;
+    max-width: 800px;
+    padding: 4rem 0;
+    z-index: 1; /* Убедимся, что контент выше затемнения */
+    margin: 0 auto;
+    text-align: center;
+}
+
+.hero h1 {
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Усиливаем тень для лучшей читаемости */
+    font-size: 3.2rem; /* Увеличиваем размер заголовка */
+}
+
+.hero p {
+    font-size: 1.3rem;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    color: var(--white);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Усиливаем тень для лучшей читаемости */
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Улучшаем видимость кнопки на темном фоне */
+.hero .primary-button {
+    background-color: var(--primary);
+    color: var(--white);
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    padding: 14px 28px; /* Увеличиваем размер кнопки */
+    font-size: 1.1rem; /* Увеличиваем размер текста кнопки */
+}
+
+.hero .primary-button:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Адаптивность для секции hero */
+@media (max-width: 992px) {
+    .hero h1 {
+        font-size: 2.8rem;
+    }
+    
+    .hero p {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding-top: 60px; /* Уменьшаем отступ сверху */
+    }
+    
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+    
+    .hero p {
+        font-size: 1.1rem;
+        max-width: 95%;
+    }
+    
+    .hero-content {
+        padding: 3rem 0;
+    }
+    
+    .hero .primary-button {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .hero p {
+        font-size: 1rem;
+    }
+    
+    .hero-content {
+        padding: 2rem 0;
+    }
+    
+    .hero .primary-button {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+    
+    .scroll-down {
+        bottom: 15px;
+    }
+    
+    .scroll-down a {
+        font-size: 1.2rem;
+    }
+}
+
+/* Улучшаем адаптивность для очень маленьких экранов */
+@media (max-width: 360px) {
+    .hero h1 {
+        font-size: 1.6rem;
+    }
+    
+    .hero p {
+        font-size: 0.9rem;
+        margin-bottom: 2rem;
+    }
+}
+
+/* Обо мне */
+.about {
+    background-color: var(--light-bg);
+    padding: 6rem 0;
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.about-image {
+    position: relative;
+    top: -1.5rem; /* Смещаем изображение вверх для выравнивания с заголовком */
+    height: 100%; /* Устанавливаем высоту контейнера */
+    display: flex;
+    flex-direction: column;
+    margin-left: -5%; /* Смещаем контейнер влево */
+    width: 105%; /* Увеличиваем ширину контейнера */
+}
+
+.about-image img {
+    width: 115%; /* Увеличиваем размер изображения */
+    max-width: none; /* Отменяем ограничение max-width: 100% */
+    height: 100%; /* Растягиваем изображение на всю высоту контейнера */
+    object-fit: cover; /* Сохраняем пропорции изображения */
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+}
+
+.about-image img:hover {
+    transform: scale(1.02);
+}
+
+.about-text {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.about-text .subtitle {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stats-container {
+    margin-top: auto; /* Прижимаем плашки к нижней части контейнера */
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 0; /* Убираем нижний отступ */
+}
+
+.stat-item {
+    text-align: center;
+    background-color: var(--secondary);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow);
+}
+
+.stat-item i {
+    color: var(--primary);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-number {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.stat-text {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+/* Базовые стили для всех изображений */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Стили для изображений в разных секциях */
+.about-image img {
+    width: 100%;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+}
+
+.about-image img:hover {
+    transform: scale(1.02);
+}
+
+.certificate-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: var(--transition);
+}
+
+.certificate-item img:hover {
+    transform: scale(1.05);
+}
+
+/* Адаптивные изображения для галереи */
+@media (max-width: 768px) {
+    .certificates-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .certificates-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Сохраняем адаптивность для мобильных устройств */
+@media (max-width: 992px) {
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-image {
+        top: 0;
+        height: auto;
+        margin-bottom: 2rem;
+        margin-left: 0; /* Убираем смещение влево */
+        width: 100%; /* Возвращаем стандартную ширину */
+    }
+    
+    .about-image img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+    
+    .stats-container {
+        margin-top: 2rem;
+    }
+}
+
+/* Стрелка прокрутки вниз */
+.scroll-down {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2; /* Увеличиваем z-index, чтобы стрелка была поверх затемнения */
+    animation: bounce 2s infinite;
+}
+
+.scroll-down a {
+    color: var(--white);
+    font-size: 1.5rem;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    display: block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: rgba(106, 127, 219, 0.7); /* Добавляем полупрозрачный фон */
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.scroll-down a:hover {
+    background-color: var(--primary);
+    transform: translateY(-3px);
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Футер */
+footer {
+    background-color: #333;
+    color: var(--white);
+    padding: 3rem 0 1.5rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 2rem;
+}
+
+.footer-column h3 {
+    color: var(--white);
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+    font-weight: 600;
+}
+
+.footer-column p {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.footer-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.footer-contact-item i {
+    color: var(--primary);
+    font-size: 1.1rem;
+    width: 20px;
+}
+
+.footer-contact-item p {
+    margin-bottom: 0;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-bottom p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+/* Адаптивность для футера */
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .footer-column h3 {
+        font-size: 1.3rem;
+    }
+}
+
+
+
