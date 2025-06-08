@@ -17,6 +17,10 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
     
+    // Определяем, является ли устройство мобильным
+    const isMobile = window.innerWidth < 768;
+    console.log('Мобильное устройство:', isMobile ? 'Да' : 'Нет');
+    
     // Текущий индекс и флаг анимации
     let currentIndex = 0;
     let isAnimating = false;
@@ -36,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
         card.style.left = '0';
         card.style.right = '0';
         card.style.margin = '0 auto';
-        card.style.maxWidth = '700px';
+        card.style.maxWidth = isMobile ? '100%' : '700px'; // Полная ширина на мобильных
         
         // Показываем только первый отзыв
         if (idx === 0) {
@@ -55,13 +59,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Устанавливаем высоту контейнера по первой карточке
-    setTimeout(() => {
-        if (reviewCards[0]) {
-            const firstCardHeight = reviewCards[0].offsetHeight;
-            reviewsCarousel.style.height = (firstCardHeight + 20) + 'px';
-            console.log('Установлена высота контейнера:', (firstCardHeight + 20) + 'px');
+    function updateCarouselHeight() {
+        if (reviewCards[currentIndex]) {
+            const activeCardHeight = reviewCards[currentIndex].offsetHeight;
+            reviewsCarousel.style.height = (activeCardHeight + 20) + 'px';
+            console.log('Обновлена высота контейнера:', (activeCardHeight + 20) + 'px');
         }
-    }, 100);
+    }
+    
+    // Вызываем функцию обновления высоты
+    setTimeout(updateCarouselHeight, 100);
     
     // Функция для показа отзыва с улучшенной анимацией
     function showReview(index, direction = 'next') {
@@ -104,6 +111,9 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
         
+        // Определяем время анимации в зависимости от устройства
+        const animationDuration = isMobile ? 400 : 600; // мс
+        
         // После завершения анимации
         setTimeout(() => {
             // Скрываем предыдущую карточку
@@ -116,32 +126,39 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Обновляем текущий индекс
             currentIndex = index;
+            
+            // Обновляем высоту контейнера для нового отзыва
+            updateCarouselHeight();
+            
+            // Снимаем флаг анимации
             isAnimating = false;
             
             console.log('Анимация завершена, текущий индекс:', currentIndex);
-        }, 600); // Время анимации
+        }, animationDuration);
     }
     
-    // Обработчики для кнопок
-    if (prevButton) {
-        prevButton.addEventListener('click', function() {
-            console.log('Нажата кнопка "Предыдущий"');
-            let newIndex = currentIndex - 1;
-            if (newIndex < 0) newIndex = reviewCards.length - 1;
-            showReview(newIndex, 'prev');
-        });
+    // Обработчики для кнопок (только для десктопа)
+    if (!isMobile) {
+        if (prevButton) {
+            prevButton.addEventListener('click', function() {
+                console.log('Нажата кнопка "Предыдущий"');
+                let newIndex = currentIndex - 1;
+                if (newIndex < 0) newIndex = reviewCards.length - 1;
+                showReview(newIndex, 'prev');
+            });
+        }
+        
+        if (nextButton) {
+            nextButton.addEventListener('click', function() {
+                console.log('Нажата кнопка "Следующий"');
+                let newIndex = currentIndex + 1;
+                if (newIndex >= reviewCards.length) newIndex = 0;
+                showReview(newIndex, 'next');
+            });
+        }
     }
     
-    if (nextButton) {
-        nextButton.addEventListener('click', function() {
-            console.log('Нажата кнопка "Следующий"');
-            let newIndex = currentIndex + 1;
-            if (newIndex >= reviewCards.length) newIndex = 0;
-            showReview(newIndex, 'next');
-        });
-    }
-    
-    // Обработчики для индикаторов
+    // Обработчики для индикаторов (для всех устройств)
     if (indicators.length) {
         indicators.forEach((indicator, index) => {
             indicator.addEventListener('click', function() {
@@ -153,24 +170,36 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Добавляем обработчик свайпа для мобильных устройств
+    // Улучшенный обработчик свайпа для мобильных устройств
     let touchStartX = 0;
     let touchEndX = 0;
+    let touchStartTime = 0;
     
     reviewsCarousel.addEventListener('touchstart', function(e) {
         touchStartX = e.changedTouches[0].screenX;
+        touchStartTime = Date.now();
     }, {passive: true});
     
     reviewsCarousel.addEventListener('touchend', function(e) {
         touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
+        const touchEndTime = Date.now();
+        const touchDuration = touchEndTime - touchStartTime;
+        
+        // Передаем длительность касания для определения скорости свайпа
+        handleSwipe(touchDuration);
     }, {passive: true});
     
-    function handleSwipe() {
+    function handleSwipe(touchDuration) {
         const swipeDistance = touchEndX - touchStartX;
+        const swipeSpeed = Math.abs(swipeDistance) / touchDuration;
+        
+        console.log('Свайп:', swipeDistance, 'px, скорость:', swipeSpeed.toFixed(2), 'px/ms');
         
         // Минимальное расстояние для регистрации свайпа
-        if (Math.abs(swipeDistance) < 50) return;
+        // Для быстрых свайпов можно уменьшить минимальное расстояние
+        const minDistance = swipeSpeed > 0.5 ? 30 : 50;
+        
+        if (Math.abs(swipeDistance) < minDistance) return;
         
         if (swipeDistance < 0) {
             // Свайп влево - следующий отзыв
@@ -185,12 +214,20 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Настраиваем стили для кнопок навигации
-    if (prevButton && nextButton) {
-        prevButton.style.zIndex = '10';
-        nextButton.style.zIndex = '10';
-    }
+    // Обработчик изменения размера окна
+    window.addEventListener('resize', function() {
+        const newIsMobile = window.innerWidth < 768;
+        
+        // Если изменился тип устройства, обновляем настройки
+        if (newIsMobile !== isMobile) {
+            location.reload(); // Перезагружаем страницу для применения новых настроек
+        } else {
+            // Просто обновляем высоту контейнера
+            updateCarouselHeight();
+        }
+    });
     
     console.log('Инициализация карусели завершена');
 });
+
 

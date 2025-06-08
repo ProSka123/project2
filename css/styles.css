@@ -1131,52 +1131,12 @@ footer {
     right: 10px;
 }
 
-/* Улучшенные стили для кнопок навигации отзывов */
-.prev-review,
-.next-review {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: white;
-    border: none;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
-    cursor: pointer;
-    z-index: 10;
-    transition: all 0.3s ease;
-}
-
-.prev-review {
-    left: 10px;
-}
-
-.next-review {
-    right: 10px;
-}
-
-.prev-review:hover,
-.next-review:hover {
-    background-color: #f5f5f5;
-    transform: translateY(-50%) scale(1.1);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-}
-
-.prev-review i,
-.next-review i {
-    color: #333;
-    font-size: 18px;
-}
-
 /* Стили для индикаторов */
 .indicators {
     display: flex;
     justify-content: center;
     margin-top: 20px;
+    padding: 10px 0;
 }
 
 .indicator {
@@ -1186,11 +1146,48 @@ footer {
     background-color: #ddd;
     margin: 0 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .indicator.active {
-    background-color: var(--primary, #4a90e2);
+    background-color: var(--primary);
+    transform: scale(1.2);
+}
+
+/* Скрываем стрелки навигации на мобильных устройствах */
+@media (max-width: 768px) {
+    .prev-review,
+    .next-review {
+        display: none; /* Полностью скрываем стрелки на мобильных */
+    }
+    
+    /* Увеличиваем размер индикаторов для лучшей доступности на мобильных */
+    .indicator {
+        width: 12px;
+        height: 12px;
+        margin: 0 6px;
+    }
+    
+    /* Добавляем подсказку о свайпе */
+    .reviews-carousel::after {
+        content: "← Свайп →";
+        display: block;
+        text-align: center;
+        font-size: 0.8rem;
+        color: var(--text-light);
+        margin-top: 15px;
+        opacity: 0.7;
+    }
+    
+    /* Оптимизируем анимацию для мобильных устройств */
+    .review-card.slide-in-right,
+    .review-card.slide-in-left,
+    .review-card.slide-out-right,
+    .review-card.slide-out-left {
+        animation-duration: 0.4s; /* Ускоряем анимацию на мобильных */
+        animation-timing-function: ease-out; /* Более плавное завершение */
+        will-change: transform, opacity; /* Оптимизация производительности */
+    }
 }
 
 /* Улучшенные анимации для карусели отзывов */
@@ -2052,6 +2049,46 @@ footer {
     right: 10px;
 }
 
+/* Дополнительные стили для адаптации hero секции на мобильных устройствах */
+.mobile-device .hero {
+    background-image: none !important; /* Принудительно убираем фоновое изображение */
+    background-color: #f5f5f5 !important; /* Устанавливаем серый фон */
+    color: #333333; /* Меняем цвет текста на темный */
+}
 
+.mobile-device .hero h1,
+.mobile-device .hero p {
+    color: #333333 !important; /* Темный цвет для заголовка и текста */
+    text-shadow: none !important; /* Убираем тени текста */
+}
 
+.mobile-device .hero-overlay {
+    background-color: transparent !important; /* Убираем затемнение */
+}
+
+.mobile-device .hero .primary-button {
+    background-color: var(--primary); /* Сохраняем основной цвет кнопки */
+    color: white; /* Белый текст для контраста */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Добавляем тень для выделения */
+}
+
+.mobile-device .scroll-down a {
+    color: #333333 !important; /* Темный цвет для стрелки прокрутки */
+}
+
+/* Оптимизация для разных размеров мобильных экранов */
+@media (max-width: 480px) {
+    .mobile-device .hero-content {
+        padding-top: 10%; /* Уменьшаем отступ сверху для маленьких экранов */
+    }
+    
+    .mobile-device .hero h1 {
+        font-size: 1.8rem; /* Уменьшаем размер заголовка */
+    }
+    
+    .mobile-device .hero p {
+        font-size: 1rem; /* Уменьшаем размер текста */
+        margin-bottom: 1.5rem; /* Уменьшаем отступ снизу */
+    }
+}
 
