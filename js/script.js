@@ -447,6 +447,148 @@ function applyMobileButtonChanges() {
     }
 }
 
+// Улучшенная функция для свайпа отзывов на мобильных устройствах
+function fixMobileReviewsSwipe() {
+    console.log('Инициализация свайпа для мобильных отзывов');
+    
+    // Проверяем, является ли устройство мобильным
+    const isMobile = document.body.classList.contains('mobile-device');
+    if (!isMobile) return;
+    
+    // Получаем элементы карусели
+    const reviewsCarousel = document.querySelector('.reviews-carousel');
+    const reviewCards = document.querySelectorAll('.review-card');
+    const indicators = document.querySelectorAll('.indicator');
+    
+    console.log('Найдено отзывов:', reviewCards.length);
+    
+    if (!reviewsCarousel || reviewCards.length === 0) {
+        console.error('Элементы карусели не найдены');
+        return;
+    }
+    
+    // Текущий индекс отзыва
+    let currentIndex = 0;
+    
+    // Находим активный отзыв
+    reviewCards.forEach((card, index) => {
+        if (card.classList.contains('active')) {
+            currentIndex = index;
+        }
+    });
+    
+    console.log('Начальный активный отзыв:', currentIndex);
+    
+    // Настраиваем обработчики событий касания
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    // Удаляем существующие обработчики, если они есть
+    reviewsCarousel.removeEventListener('touchstart', handleTouchStart);
+    reviewsCarousel.removeEventListener('touchend', handleTouchEnd);
+    
+    // Добавляем новые обработчики
+    reviewsCarousel.addEventListener('touchstart', handleTouchStart, {passive: true});
+    reviewsCarousel.addEventListener('touchend', handleTouchEnd, {passive: true});
+    
+    function handleTouchStart(e) {
+        touchStartX = e.changedTouches[0].screenX;
+        console.log('Начало касания:', touchStartX);
+    }
+    
+    function handleTouchEnd(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        console.log('Конец касания:', touchEndX);
+        
+        // Определяем направление свайпа
+        const swipeDistance = touchEndX - touchStartX;
+        console.log('Расстояние свайпа:', swipeDistance);
+        
+        // Минимальное расстояние для регистрации свайпа (предотвращает случайные касания)
+        if (Math.abs(swipeDistance) < 50) return;
+        
+        if (swipeDistance < 0) {
+            // Свайп влево - следующий отзыв
+            showNextReview();
+        } else {
+            // Свайп вправо - предыдущий отзыв
+            showPrevReview();
+        }
+    }
+    
+    function showNextReview() {
+        console.log('Показываем следующий отзыв');
+        let newIndex = currentIndex + 1;
+        if (newIndex >= reviewCards.length) newIndex = 0;
+        showReview(newIndex);
+    }
+    
+    function showPrevReview() {
+        console.log('Показываем предыдущий отзыв');
+        let newIndex = currentIndex - 1;
+        if (newIndex < 0) newIndex = reviewCards.length - 1;
+        showReview(newIndex);
+    }
+    
+    function showReview(index) {
+        console.log('Переключаем на отзыв:', index);
+        
+        // Скрываем все отзывы
+        reviewCards.forEach(card => {
+            card.classList.remove('active');
+            card.style.display = 'none';
+        });
+        
+        // Показываем нужный отзыв
+        reviewCards[index].classList.add('active');
+        reviewCards[index].style.display = 'block';
+        
+        // Обновляем индикаторы, если они есть
+        if (indicators && indicators.length > 0) {
+            indicators.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+        
+        // Обновляем текущий индекс
+        currentIndex = index;
+    }
+    
+    // Создаем индикаторы свайпа, если их нет
+    if (!document.querySelector('.swipe-indicator')) {
+        const swipeIndicator = document.createElement('div');
+        swipeIndicator.className = 'swipe-indicator';
+        
+        // Добавляем точки по количеству отзывов
+        for (let i = 0; i < reviewCards.length; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'swipe-dot' + (i === currentIndex ? ' active' : '');
+            swipeIndicator.appendChild(dot);
+        }
+        
+        // Добавляем индикатор после карусели
+        const reviewsSection = document.querySelector('#reviews .container');
+        if (reviewsSection) {
+            reviewsSection.appendChild(swipeIndicator);
+        }
+    }
+    
+    console.log('Инициализация свайпа завершена');
+}
+
+// Вызываем функцию после полной загрузки DOM
+document.addEventListener('DOMContentLoaded', function() {
+    // Даем время для инициализации других скриптов
+    setTimeout(fixMobileReviewsSwipe, 500);
+});
+
+// Также вызываем функцию при изменении размера окна
+window.addEventListener('resize', function() {
+    setTimeout(fixMobileReviewsSwipe, 500);
+});
+
+
+
 
 
 
