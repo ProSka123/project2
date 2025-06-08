@@ -31,6 +31,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // 3. Адаптация раздела отзывов
         adaptReviewsSection(isMobile);
+        
+        // 4. Настройка поведения навигационной панели
+        setupHeaderBehavior(isMobile);
     }
     
     // 1. Функция адаптации hero секции
@@ -51,28 +54,28 @@ document.addEventListener('DOMContentLoaded', function() {
         if (isMobile) {
             console.log('Применяем мобильные стили для hero секции');
             
-            // Заменяем фоновое изображение на серый фон
+            // Заменяем фоновое изображение на темно-серый фон (#696969)
             heroSection.style.backgroundImage = 'none';
-            heroSection.style.backgroundColor = '#f5f5f5';
+            heroSection.style.backgroundColor = '#696969';
             
-            // Адаптируем текст для лучшей видимости на сером фоне
+            // Адаптируем текст для лучшей видимости на темно-сером фоне
             const heroContent = heroSection.querySelector('.hero-content');
             if (heroContent) {
-                // Меняем цвет текста на темный для лучшей читаемости
-                heroContent.style.color = '#333333';
+                // Меняем цвет текста на светлый для лучшей читаемости на темном фоне
+                heroContent.style.color = '#ffffff';
                 
                 // Находим и адаптируем заголовок и параграф
                 const heading = heroContent.querySelector('h1');
                 const paragraph = heroContent.querySelector('p');
                 
                 if (heading) {
-                    heading.style.color = '#333333';
-                    heading.style.textShadow = 'none';
+                    heading.style.color = '#ffffff';
+                    heading.style.textShadow = '0 1px 3px rgba(0, 0, 0, 0.3)';
                 }
                 
                 if (paragraph) {
-                    paragraph.style.color = '#333333';
-                    paragraph.style.textShadow = 'none';
+                    paragraph.style.color = '#f0f0f0';
+                    paragraph.style.textShadow = '0 1px 2px rgba(0, 0, 0, 0.3)';
                 }
             }
             
@@ -167,6 +170,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 swipeHint.style.opacity = '0.7';
                 reviewsCarousel.appendChild(swipeHint);
             }
+            
+            // Исправляем количество индикаторов
+            fixReviewIndicators();
         } else {
             console.log('Показываем кнопки навигации отзывов на десктопе');
             prevButton.style.display = '';
@@ -178,6 +184,117 @@ document.addEventListener('DOMContentLoaded', function() {
                 swipeHint.remove();
             }
         }
+    }
+    
+    // Функция для исправления количества индикаторов в разделе отзывов
+    function fixReviewIndicators() {
+        const reviewsCarousel = document.querySelector('.reviews-carousel');
+        if (!reviewsCarousel) return;
+        
+        const reviewCards = reviewsCarousel.querySelectorAll('.review-card');
+        const indicators = document.querySelectorAll('.indicator, .swipe-dot');
+        
+        if (!reviewCards.length || !indicators.length) return;
+        
+        console.log(`Найдено ${reviewCards.length} отзывов и ${indicators.length} индикаторов`);
+        
+        // Если индикаторов больше, чем отзывов, удаляем лишние
+        if (indicators.length > reviewCards.length) {
+            console.log(`Удаляем ${indicators.length - reviewCards.length} лишних индикаторов`);
+            
+            const indicatorsContainer = indicators[0].parentNode;
+            
+            // Удаляем все индикаторы
+            indicators.forEach(indicator => indicator.remove());
+            
+            // Создаем новые индикаторы в правильном количестве
+            for (let i = 0; i < reviewCards.length; i++) {
+                const newIndicator = document.createElement('span');
+                newIndicator.className = indicators[0].className.includes('swipe-dot') ? 'swipe-dot' : 'indicator';
+                newIndicator.classList.toggle('active', i === 0);
+                
+                // Копируем стили из первого индикатора
+                newIndicator.style.cssText = window.getComputedStyle(indicators[0]).cssText;
+                
+                indicatorsContainer.appendChild(newIndicator);
+                
+                // Добавляем обработчик клика для переключения на соответствующий отзыв
+                newIndicator.addEventListener('click', function() {
+                    // Если есть функция showReview, используем ее
+                    if (typeof showReview === 'function') {
+                        showReview(i);
+                    } else {
+                        // Иначе реализуем простое переключение
+                        reviewCards.forEach(card => card.style.display = 'none');
+                        reviewCards[i].style.display = 'flex';
+                        
+                        // Обновляем активный индикатор
+                        document.querySelectorAll('.indicator, .swipe-dot').forEach((dot, index) => {
+                            dot.classList.toggle('active', index === i);
+                        });
+                    }
+                });
+            }
+        }
+    }
+    
+    // 4. Настройка поведения навигационной панели
+    function setupHeaderBehavior(isMobile) {
+        const header = document.querySelector('header');
+        const heroSection = document.querySelector('.hero');
+        
+        if (!header || !heroSection) {
+            console.error('Не найдены необходимые элементы для настройки поведения шапки');
+            return;
+        }
+        
+        // Добавляем CSS для анимации
+        if (!document.getElementById('header-animation-styles')) {
+            const styleElement = document.createElement('style');
+            styleElement.id = 'header-animation-styles';
+            styleElement.textContent = `
+                header {
+                    transition: transform 0.3s ease, opacity 0.3s ease;
+                }
+                .header-hidden {
+                    transform: translateY(-100%);
+                    opacity: 0;
+                }
+                .header-visible {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            `;
+            document.head.appendChild(styleElement);
+        }
+        
+        // Скрываем шапку при загрузке страницы
+        header.classList.add('header-hidden');
+        
+        // Функция обработки прокрутки
+        function handleScroll() {
+            const scrollPosition = window.scrollY;
+            const heroHeight = heroSection.offsetHeight;
+            
+            // Показываем/скрываем шапку в зависимости от позиции прокрутки
+            if (scrollPosition > heroHeight * 0.7) {
+                header.classList.remove('header-hidden');
+                header.classList.add('header-visible');
+            } else {
+                header.classList.remove('header-visible');
+                header.classList.add('header-hidden');
+            }
+        }
+        
+        // Удаляем существующий обработчик, если он есть
+        window.removeEventListener('scroll', window.headerScrollHandler);
+        
+        // Добавляем новый обработчик
+        window.headerScrollHandler = handleScroll;
+        window.addEventListener('scroll', window.headerScrollHandler);
+        
+        // Вызываем обработчик сразу для установки начального состояния
+        handleScroll();
     }
     
     // Инициализация свайпа для отзывов на мобильных устройствах
@@ -239,7 +356,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     currentIndex = newIndex;
                     
                     // Обновляем индикаторы, если они есть
-                    const indicators = document.querySelectorAll('.indicator');
+                    const indicators = document.querySelectorAll('.indicator, .swipe-dot');
                     if (indicators.length) {
                         indicators.forEach((dot, i) => {
                             dot.classList.toggle('active', i === newIndex);
@@ -261,7 +378,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     currentIndex = newIndex;
                     
                     // Обновляем индикаторы, если они есть
-                    const indicators = document.querySelectorAll('.indicator');
+                    const indicators = document.querySelectorAll('.indicator, .swipe-dot');
                     if (indicators.length) {
                         indicators.forEach((dot, i) => {
                             dot.classList.toggle('active', i === newIndex);
@@ -297,4 +414,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('Инициализация адаптивного дизайна завершена');
 });
+
+
 

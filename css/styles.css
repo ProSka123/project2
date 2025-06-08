@@ -1776,333 +1776,6 @@ footer {
 
 .mobile-device .hero h1,
 .mobile-device .hero p {
-    color: #333333; /* Темный цвет для заголовка и текста */
-    text-shadow: none; /* Убираем тени текста */
-}
-
-.mobile-device .hero-overlay {
-    background-color: transparent; /* Убираем затемнение */
-}
-
-.mobile-device .hero-content {
-    padding-top: 15%; /* Смещаем контент выше */
-}
-
-/* Изменяем стиль кнопки для лучшей видимости на сером фоне */
-.mobile-device .hero .primary-button {
-    background-color: var(--primary);
-    color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Изменяем стиль стрелки прокрутки вниз */
-.mobile-device .scroll-down a {
-    color: #333333;
-}
-
-/* Анимации свайпа для мобильных устройств */
-@keyframes swipeLeft {
-    from {
-        transform: translateX(0);
-        opacity: 1;
-    }
-    to {
-        transform: translateX(-100px);
-        opacity: 0;
-    }
-}
-
-@keyframes swipeRight {
-    from {
-        transform: translateX(0);
-        opacity: 1;
-    }
-    to {
-        transform: translateX(100px);
-        opacity: 0;
-    }
-}
-
-.review-card.swipe-left {
-    animation: swipeLeft 0.3s ease forwards;
-}
-
-.review-card.swipe-right {
-    animation: swipeRight 0.3s ease forwards;
-}
-
-/* Улучшенная анимация появления */
-.review-card.active {
-    animation: fadeIn 0.4s ease forwards;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Анимации прокрутки для отзывов */
-@keyframes slideOutLeft {
-    from {
-        transform: translateX(0);
-        opacity: 1;
-    }
-    to {
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-}
-
-@keyframes slideOutRight {
-    from {
-        transform: translateX(0);
-        opacity: 1;
-    }
-    to {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-}
-
-@keyframes slideInLeft {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-@keyframes slideInRight {
-    from {
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-.review-card.slide-out-left {
-    animation: slideOutLeft 0.4s ease forwards;
-    z-index: 1;
-}
-
-.review-card.slide-out-right {
-    animation: slideOutRight 0.4s ease forwards;
-    z-index: 1;
-}
-
-.review-card.slide-in-left {
-    animation: slideInLeft 0.4s ease forwards;
-    z-index: 2; /* Выше, чем у исчезающего элемента */
-}
-
-.review-card.slide-in-right {
-    animation: slideInRight 0.4s ease forwards;
-    z-index: 2; /* Выше, чем у исчезающего элемента */
-}
-
-/* Дополнительные стили для карусели отзывов */
-.reviews-carousel {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    margin: 0 auto;
-}
-
-.reviews-slider {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    margin: 0 auto;
-}
-
-.review-card {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    align-items: flex-start;
-    background: white;
-    border-radius: 12px;
-    padding: 2rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    margin: 0 auto;
-    max-width: 800px;
-    transition: transform 0.4s ease, opacity 0.4s ease;
-}
-
-/* Стили для кнопок навигации */
-.prev-review,
-.next-review {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: white;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    z-index: 10;
-}
-
-.prev-review {
-    left: 10px;
-}
-
-.next-review {
-    right: 10px;
-}
-
-/* Стили для индикаторов */
-.indicators {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.indicator {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #ddd;
-    margin: 0 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.indicator.active {
-    background-color: var(--primary);
-}
-
-/* Дополнительные стили для карусели отзывов */
-.reviews-carousel {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    margin: 0 auto;
-}
-
-.reviews-slider {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    margin: 0 auto;
-}
-
-.review-card {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    align-items: flex-start;
-    background: white;
-    border-radius: 12px;
-    padding: 2rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    margin: 0 auto;
-    max-width: 800px;
-    transition: transform 0.4s ease, opacity 0.4s ease;
-}
-
-/* Стили для кнопок навигации */
-.prev-review,
-.next-review {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: white;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    z-index: 10;
-}
-
-.prev-review {
-    left: 10px;
-}
-
-.next-review {
-    right: 10px;
-}
-
-/* Дополнительные стили для адаптации hero секции на мобильных устройствах */
-.mobile-device .hero {
-    background-image: none !important; /* Принудительно убираем фоновое изображение */
-    background-color: #f5f5f5 !important; /* Устанавливаем серый фон */
-    color: #333333; /* Меняем цвет текста на темный */
-}
-
-.mobile-device .hero h1,
-.mobile-device .hero p {
-    color: #333333 !important; /* Темный цвет для заголовка и текста */
-    text-shadow: none !important; /* Убираем тени текста */
-}
-
-.mobile-device .hero-overlay {
-    background-color: transparent !important; /* Убираем затемнение */
-}
-
-.mobile-device .hero .primary-button {
-    background-color: var(--primary); /* Сохраняем основной цвет кнопки */
-    color: white; /* Белый текст для контраста */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Добавляем тень для выделения */
-}
-
-.mobile-device .scroll-down a {
-    color: #333333 !important; /* Темный цвет для стрелки прокрутки */
-}
-
-/* Оптимизация для разных размеров мобильных экранов */
-@media (max-width: 480px) {
-    .mobile-device .hero-content {
-        padding-top: 10%; /* Уменьшаем отступ сверху для маленьких экранов */
-    }
-    
-    .mobile-device .hero h1 {
-        font-size: 1.8rem; /* Уменьшаем размер заголовка */
-    }
-    
-    .mobile-device .hero p {
-        font-size: 1rem; /* Уменьшаем размер текста */
-        margin-bottom: 1.5rem; /* Уменьшаем отступ снизу */
-    }
-}
-
-/* Стили для адаптивного дизайна */
-
-/* Стили для мобильных устройств */
-.mobile-device .hero {
-    background-image: none !important; /* Принудительно убираем фоновое изображение */
-    background-color: #f5f5f5 !important; /* Устанавливаем серый фон */
-    color: #333333; /* Меняем цвет текста на темный */
-}
-
-.mobile-device .hero h1,
-.mobile-device .hero p {
     color: #333333 !important; /* Темный цвет для заголовка и текста */
     text-shadow: none !important; /* Убираем тени текста */
 }
@@ -2141,6 +1814,113 @@ footer {
 @keyframes fadeInOut {
     0%, 100% { opacity: 0.3; }
     50% { opacity: 0.7; }
+}
+
+/* Стили для индикаторов на мобильных устройствах */
+.mobile-device .indicators {
+    margin-top: 15px;
+    padding: 10px 0;
+}
+
+.mobile-device .indicator {
+    width: 12px;
+    height: 12px;
+    margin: 0 6px;
+}
+
+/* Оптимизация анимации для мобильных устройств */
+.mobile-device .review-card.slide-in-right,
+.mobile-device .review-card.slide-in-left,
+.mobile-device .review-card.slide-out-right,
+.mobile-device .review-card.slide-out-left {
+    animation-duration: 0.4s; /* Ускоряем анимацию на мобильных */
+    animation-timing-function: ease-out; /* Более плавное завершение */
+    will-change: transform, opacity; /* Оптимизация производительности */
+}
+
+/* Медиа-запрос для мобильных устройств (для совместимости) */
+@media (max-width: 768px) {
+    .prev-review,
+    .next-review {
+        display: none; /* Скрываем кнопки навигации */
+    }
+    
+    .scroll-down {
+        display: none; /* Скрываем стрелку прокрутки */
+    }
+    
+    /* Увеличиваем размер индикаторов для лучшей доступности */
+    .indicator {
+        width: 12px;
+        height: 12px;
+        margin: 0 6px;
+    }
+}
+
+/* Стили для адаптивного дизайна мобильной версии */
+
+/* Стили для мобильных устройств */
+.mobile-device .hero {
+    background-image: none !important; /* Принудительно убираем фоновое изображение */
+    background-color: #696969 !important; /* Устанавливаем темно-серый фон */
+    color: #ffffff; /* Меняем цвет текста на светлый */
+}
+
+.mobile-device .hero h1,
+.mobile-device .hero p {
+    color: #ffffff !important; /* Светлый цвет для заголовка и текста */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important; /* Добавляем тень для лучшей читаемости */
+}
+
+.mobile-device .hero-overlay {
+    background-color: transparent !important; /* Убираем затемнение */
+}
+
+.mobile-device .hero .primary-button {
+    background-color: var(--primary); /* Сохраняем основной цвет кнопки */
+    color: white; /* Белый текст для контраста */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Усиливаем тень для выделения на темном фоне */
+}
+
+/* Скрываем стрелку прокрутки на мобильных устройствах */
+.mobile-device .scroll-down {
+    display: none !important;
+}
+
+/* Скрываем кнопки навигации отзывов на мобильных устройствах */
+.mobile-device .prev-review,
+.mobile-device .next-review {
+    display: none !important;
+}
+
+/* Стили для подсказки о свайпе */
+.swipe-hint {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #777;
+    margin-top: 15px;
+    opacity: 0.7;
+    animation: fadeInOut 2s infinite;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+}
+
+/* Стили для анимации шапки */
+header {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.header-hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+.header-visible {
+    transform: translateY(0);
+    opacity: 1;
 }
 
 /* Улучшаем стили для индикаторов на мобильных устройствах */
@@ -2183,4 +1963,425 @@ footer {
         margin: 0 6px;
     }
 }
+
+/* Стили для адаптивного дизайна мобильной версии */
+
+/* Стили для мобильных устройств */
+.mobile-device .hero {
+    background-image: none !important; /* Принудительно убираем фоновое изображение */
+    background-color: #696969 !important; /* Устанавливаем темно-серый фон */
+    color: #ffffff; /* Меняем цвет текста на светлый */
+}
+
+.mobile-device .hero h1,
+.mobile-device .hero p {
+    color: #ffffff !important; /* Светлый цвет для заголовка и текста */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important; /* Добавляем тень для лучшей читаемости */
+}
+
+.mobile-device .hero-overlay {
+    background-color: transparent !important; /* Убираем затемнение */
+}
+
+.mobile-device .hero .primary-button {
+    background-color: var(--primary); /* Сохраняем основной цвет кнопки */
+    color: white; /* Белый текст для контраста */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Усиливаем тень для выделения на темном фоне */
+}
+
+/* Скрываем стрелку прокрутки на мобильных устройствах */
+.mobile-device .scroll-down {
+    display: none !important;
+}
+
+/* Скрываем кнопки навигации отзывов на мобильных устройствах */
+.mobile-device .prev-review,
+.mobile-device .next-review {
+    display: none !important;
+}
+
+/* Стили для подсказки о свайпе */
+.swipe-hint {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #777;
+    margin-top: 15px;
+    opacity: 0.7;
+    animation: fadeInOut 2s infinite;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+}
+
+/* Стили для индикаторов на мобильных устройствах */
+.mobile-device .indicators {
+    margin-top: 15px;
+    padding: 10px 0;
+}
+
+.mobile-device .indicator {
+    width: 12px;
+    height: 12px;
+    margin: 0 6px;
+}
+
+/* Оптимизация анимации для мобильных устройств */
+.mobile-device .review-card.slide-in-right,
+.mobile-device .review-card.slide-in-left,
+.mobile-device .review-card.slide-out-right,
+.mobile-device .review-card.slide-out-left {
+    animation-duration: 0.4s; /* Ускоряем анимацию на мобильных */
+    animation-timing-function: ease-out; /* Более плавное завершение */
+    will-change: transform, opacity; /* Оптимизация производительности */
+}
+
+/* Медиа-запрос для мобильных устройств (для совместимости) */
+@media (max-width: 768px) {
+    .prev-review,
+    .next-review {
+        display: none; /* Скрываем кнопки навигации */
+    }
+    
+    .scroll-down {
+        display: none; /* Скрываем стрелку прокрутки */
+    }
+    
+    /* Увеличиваем размер индикаторов для лучшей доступности */
+    .indicator {
+        width: 12px;
+        height: 12px;
+        margin: 0 6px;
+    }
+}
+
+/* Стили для адаптивного дизайна мобильной версии */
+
+/* Стили для мобильных устройств */
+.mobile-device .hero {
+    background-image: none !important; /* Принудительно убираем фоновое изображение */
+    background-color: #696969 !important; /* Устанавливаем темно-серый фон */
+    color: #ffffff; /* Меняем цвет текста на светлый */
+}
+
+.mobile-device .hero h1,
+.mobile-device .hero p {
+    color: #ffffff !important; /* Светлый цвет для заголовка и текста */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important; /* Добавляем тень для лучшей читаемости */
+}
+
+.mobile-device .hero-overlay {
+    background-color: transparent !important; /* Убираем затемнение */
+}
+
+.mobile-device .hero .primary-button {
+    background-color: var(--primary); /* Сохраняем основной цвет кнопки */
+    color: white; /* Белый текст для контраста */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Усиливаем тень для выделения на темном фоне */
+}
+
+/* Скрываем стрелку прокрутки на мобильных устройствах */
+.mobile-device .scroll-down {
+    display: none !important;
+}
+
+/* Скрываем кнопки навигации отзывов на мобильных устройствах */
+.mobile-device .prev-review,
+.mobile-device .next-review {
+    display: none !important;
+}
+
+/* Стили для подсказки о свайпе */
+.swipe-hint {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #777;
+    margin-top: 15px;
+    opacity: 0.7;
+    animation: fadeInOut 2s infinite;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+}
+
+/* Стили для индикаторов на мобильных устройствах */
+.mobile-device .indicators {
+    margin-top: 15px;
+    padding: 10px 0;
+}
+
+.mobile-device .indicator {
+    width: 12px;
+    height: 12px;
+    margin: 0 6px;
+}
+
+/* Оптимизация анимации для мобильных устройств */
+.mobile-device .review-card.slide-in-right,
+.mobile-device .review-card.slide-in-left,
+.mobile-device .review-card.slide-out-right,
+.mobile-device .review-card.slide-out-left {
+    animation-duration: 0.4s; /* Ускоряем анимацию на мобильных */
+    animation-timing-function: ease-out; /* Более плавное завершение */
+    will-change: transform, opacity; /* Оптимизация производительности */
+}
+
+/* Медиа-запрос для мобильных устройств (для совместимости) */
+@media (max-width: 768px) {
+    .prev-review,
+    .next-review {
+        display: none; /* Скрываем кнопки навигации */
+    }
+    
+    .scroll-down {
+        display: none; /* Скрываем стрелку прокрутки */
+    }
+    
+    /* Увеличиваем размер индикаторов для лучшей доступности */
+    .indicator {
+        width: 12px;
+        height: 12px;
+        margin: 0 6px;
+    }
+}
+
+/* Стили для адаптивного дизайна мобильной версии */
+
+/* Стили для мобильных устройств */
+.mobile-device .hero {
+    background-image: none !important; /* Принудительно убираем фоновое изображение */
+    background-color: #696969 !important; /* Устанавливаем темно-серый фон */
+    color: #ffffff; /* Меняем цвет текста на светлый */
+}
+
+.mobile-device .hero h1,
+.mobile-device .hero p {
+    color: #ffffff !important; /* Светлый цвет для заголовка и текста */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important; /* Добавляем тень для лучшей читаемости */
+}
+
+.mobile-device .hero-overlay {
+    background-color: transparent !important; /* Убираем затемнение */
+}
+
+.mobile-device .hero .primary-button {
+    background-color: var(--primary); /* Сохраняем основной цвет кнопки */
+    color: white; /* Белый текст для контраста */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Усиливаем тень для выделения на темном фоне */
+}
+
+/* Скрываем стрелку прокрутки на мобильных устройствах */
+.mobile-device .scroll-down {
+    display: none !important;
+}
+
+/* Скрываем кнопки навигации отзывов на мобильных устройствах */
+.mobile-device .prev-review,
+.mobile-device .next-review {
+    display: none !important;
+}
+
+/* Стили для подсказки о свайпе */
+.swipe-hint {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #777;
+    margin-top: 15px;
+    opacity: 0.7;
+    animation: fadeInOut 2s infinite;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+}
+
+/* Стили для индикаторов на мобильных устройствах */
+.mobile-device .indicators {
+    margin-top: 15px;
+    padding: 10px 0;
+}
+
+.mobile-device .indicator {
+    width: 12px;
+    height: 12px;
+    margin: 0 6px;
+}
+
+/* Оптимизация анимации для мобильных устройств */
+.mobile-device .review-card.slide-in-right,
+.mobile-device .review-card.slide-in-left,
+.mobile-device .review-card.slide-out-right,
+.mobile-device .review-card.slide-out-left {
+    animation-duration: 0.4s; /* Ускоряем анимацию на мобильных */
+    animation-timing-function: ease-out; /* Более плавное завершение */
+    will-change: transform, opacity; /* Оптимизация производительности */
+}
+
+/* Медиа-запрос для мобильных устройств (для совместимости) */
+@media (max-width: 768px) {
+    .prev-review,
+    .next-review {
+        display: none; /* Скрываем кнопки навигации */
+    }
+    
+    .scroll-down {
+        display: none; /* Скрываем стрелку прокрутки */
+    }
+    
+    /* Увеличиваем размер индикаторов для лучшей доступности */
+    .indicator {
+        width: 12px;
+        height: 12px;
+        margin: 0 6px;
+    }
+}
+
+/* Стили для адаптивного дизайна мобильной версии */
+
+/* Стили для мобильных устройств */
+.mobile-device .hero {
+    background-image: none !important; /* Принудительно убираем фоновое изображение */
+    background-color: #696969 !important; /* Устанавливаем темно-серый фон */
+    color: #ffffff; /* Меняем цвет текста на светлый */
+}
+
+.mobile-device .hero h1,
+.mobile-device .hero p {
+    color: #ffffff !important; /* Светлый цвет для заголовка и текста */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important; /* Добавляем тень для лучшей читаемости */
+}
+
+.mobile-device .hero-overlay {
+    background-color: transparent !important; /* Убираем затемнение */
+}
+
+.mobile-device .hero .primary-button {
+    background-color: var(--primary); /* Сохраняем основной цвет кнопки */
+    color: white; /* Белый текст для контраста */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Усиливаем тень для выделения на темном фоне */
+}
+
+/* Скрываем стрелку прокрутки на мобильных устройствах */
+.mobile-device .scroll-down {
+    display: none !important;
+}
+
+/* Скрываем кнопки навигации отзывов на мобильных устройствах */
+.mobile-device .prev-review,
+.mobile-device .next-review {
+    display: none !important;
+}
+
+/* Стили для подсказки о свайпе */
+.swipe-hint {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #777;
+    margin-top: 15px;
+    opacity: 0.7;
+    animation: fadeInOut 2s infinite;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+}
+
+/* Стили для индикаторов на мобильных устройствах */
+.mobile-device .indicators {
+    margin-top: 15px;
+    padding: 10px 0;
+}
+
+.mobile-device .indicator {
+    width: 12px;
+    height: 12px;
+    margin: 0 6px;
+}
+
+/* Оптимизация анимации для мобильных устройств */
+.mobile-device .review-card.slide-in-right,
+.mobile-device .review-card.slide-in-left,
+.mobile-device .review-card.slide-out-right,
+.mobile-device .review-card.slide-out-left {
+    animation-duration: 0.4s; /* Ускоряем анимацию на мобильных */
+    animation-timing-function: ease-out; /* Более плавное завершение */
+    will-change: transform, opacity; /* Оптимизация производительности */
+}
+
+/* Медиа-запрос для мобильных устройств (для совместимости) */
+@media (max-width: 768px) {
+    .prev-review,
+    .next-review {
+        display: none; /* Скрываем кнопки навигации */
+    }
+    
+    .scroll-down {
+        display: none; /* Скрываем стрелку прокрутки */
+    }
+    
+    /* Увеличиваем размер индикаторов для лучшей доступности */
+    .indicator {
+        width: 12px;
+        height: 12px;
+        margin: 0 6px;
+    }
+}
+
+/* Стили для адаптивного дизайна мобильной версии */
+
+/* Стили для мобильных устройств */
+.mobile-device .hero {
+    background-image: none !important; /* Принудительно убираем фоновое изображение */
+    background-color: #696969 !important; /* Устанавливаем темно-серый фон */
+    color: #ffffff; /* Меняем цвет текста на светлый */
+}
+
+.mobile-device .hero h1,
+.mobile-device .hero p {
+    color: #ffffff !important; /* Светлый цвет для заголовка и текста */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important; /* Добавляем тень для лучшей читаемости */
+}
+
+.mobile-device .hero-overlay {
+    background-color: transparent !important; /* Убираем затемнение */
+}
+
+.mobile-device .hero .primary-button {
+    background-color: var(--primary); /* Сохраняем основной цвет кнопки */
+    color: white; /* Белый текст для контраста */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Усиливаем тень для выделения на темном фоне */
+}
+
+/* Скрываем стрелку прокрутки на мобильных устройствах */
+.mobile-device .scroll-down {
+    display: none !important;
+}
+
+/* Скрываем кнопки навигации отзывов на мобильных устройствах */
+.mobile-device .prev-review,
+.mobile-device .next-review {
+    display: none !important;
+}
+
+/* Стили для подсказки о свайпе */
+.swipe-hint {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #777;
+    margin-top: 15px;
+    opacity: 0.7;
+    animation: fadeInOut 2s infinite;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+}
+
+/* Стили для индикаторов на мобильных устройствах
 
