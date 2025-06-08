@@ -908,4 +908,1150 @@ footer {
     50% { opacity: 0.7; }
 }
 
+/* Стили для мобильной версии hero секции */
+.mobile-device .hero {
+    background-image: none !important; /* Принудительно убираем фоновое изображение */
+    background-color: #f5f5f5 !important; /* Устанавливаем серый фон */
+    color: #333333; /* Меняем цвет текста на темный */
+}
+
+.mobile-device .hero h1,
+.mobile-device .hero p {
+    color: #333333; /* Темный цвет для заголовка и текста */
+    text-shadow: none; /* Убираем тени текста */
+}
+
+.mobile-device .hero-overlay {
+    background-color: transparent; /* Убираем затемнение */
+}
+
+.mobile-device .hero-content {
+    padding-top: 15%; /* Смещаем контент выше */
+}
+
+/* Изменяем стиль кнопки для лучшей видимости на сером фоне */
+.mobile-device .hero .primary-button {
+    background-color: var(--primary);
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Изменяем стиль стрелки прокрутки вниз */
+.mobile-device .scroll-down a {
+    color: #333333;
+}
+
+/* Анимации свайпа для мобильных устройств */
+@keyframes swipeLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+}
+
+@keyframes swipeRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+}
+
+.review-card.swipe-left {
+    animation: swipeLeft 0.3s ease forwards;
+}
+
+.review-card.swipe-right {
+    animation: swipeRight 0.3s ease forwards;
+}
+
+/* Улучшенная анимация появления */
+.review-card.active {
+    animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Анимации прокрутки для отзывов */
+@keyframes slideOutLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.review-card.slide-out-left {
+    animation: slideOutLeft 0.4s ease forwards;
+    z-index: 1;
+}
+
+.review-card.slide-out-right {
+    animation: slideOutRight 0.4s ease forwards;
+    z-index: 1;
+}
+
+.review-card.slide-in-left {
+    animation: slideInLeft 0.4s ease forwards;
+    z-index: 2; /* Выше, чем у исчезающего элемента */
+}
+
+.review-card.slide-in-right {
+    animation: slideInRight 0.4s ease forwards;
+    z-index: 2; /* Выше, чем у исчезающего элемента */
+}
+
+/* Базовые стили для карусели отзывов */
+.reviews-slider {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto;
+    min-height: 300px;
+}
+
+.reviews-carousel {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.review-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    margin: 0 auto;
+    max-width: 800px;
+    display: flex;
+    align-items: flex-start;
+    text-align: left;
+    transition: opacity 0.5s ease;
+}
+
+.review-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--primary, #4a90e2);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+.review-content {
+    flex: 1;
+}
+
+/* Стили для кнопок навигации */
+.prev-review,
+.next-review {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    z-index: 10;
+}
+
+.prev-review {
+    left: 10px;
+}
+
+.next-review {
+    right: 10px;
+}
+
+/* Улучшенные стили для кнопок навигации отзывов */
+.prev-review,
+.next-review {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.prev-review {
+    left: 10px;
+}
+
+.next-review {
+    right: 10px;
+}
+
+.prev-review:hover,
+.next-review:hover {
+    background-color: #f5f5f5;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.prev-review i,
+.next-review i {
+    color: #333;
+    font-size: 18px;
+}
+
+/* Стили для индикаторов */
+.indicators {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ddd;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.indicator.active {
+    background-color: var(--primary, #4a90e2);
+}
+
+/* Улучшенные анимации для карусели отзывов */
+@keyframes slideInRight {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideOutLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+.review-card.slide-in-right {
+    animation: slideInRight 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.review-card.slide-in-left {
+    animation: slideInLeft 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.review-card.slide-out-right {
+    animation: slideOutRight 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.review-card.slide-out-left {
+    animation: slideOutLeft 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Адаптивность для секции hero */
+@media (max-width: 992px) {
+    .hero h1 {
+        font-size: 2.8rem;
+    }
+    
+    .hero p {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding-top: 60px; /* Уменьшаем отступ сверху */
+    }
+    
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+    
+    .hero p {
+        font-size: 1.1rem;
+        max-width: 95%;
+    }
+    
+    .hero-content {
+        padding: 3rem 0;
+    }
+    
+    .hero .primary-button {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .hero p {
+        font-size: 1rem;
+    }
+    
+    .hero-content {
+        padding: 2rem 0;
+    }
+    
+    .hero .primary-button {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+    
+    .scroll-down {
+        bottom: 15px;
+    }
+    
+    .scroll-down a {
+        font-size: 1.2rem;
+    }
+}
+
+/* Улучшаем адаптивность для очень маленьких экранов */
+@media (max-width: 360px) {
+    .hero h1 {
+        font-size: 1.6rem;
+    }
+    
+    .hero p {
+        font-size: 0.9rem;
+        margin-bottom: 2rem;
+    }
+}
+
+/* Обо мне */
+.about {
+    background-color: var(--light-bg);
+    padding: 6rem 0;
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.about-image {
+    position: relative;
+    top: -1.5rem; /* Смещаем изображение вверх для выравнивания с заголовком */
+    height: 100%; /* Устанавливаем высоту контейнера */
+    display: flex;
+    flex-direction: column;
+    margin-left: -5%; /* Смещаем контейнер влево */
+    width: 105%; /* Увеличиваем ширину контейнера */
+}
+
+.about-image img {
+    width: 115%; /* Увеличиваем размер изображения */
+    max-width: none; /* Отменяем ограничение max-width: 100% */
+    height: 100%; /* Растягиваем изображение на всю высоту контейнера */
+    object-fit: cover; /* Сохраняем пропорции изображения */
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+}
+
+.about-image img:hover {
+    transform: scale(1.02);
+}
+
+.about-text {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.about-text .subtitle {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stats-container {
+    margin-top: auto; /* Прижимаем плашки к нижней части контейнера */
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 0; /* Убираем нижний отступ */
+}
+
+.stat-item {
+    text-align: center;
+    background-color: var(--secondary);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow);
+}
+
+.stat-item i {
+    color: var(--primary);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-number {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.stat-text {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+/* Базовые стили для всех изображений */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Стили для изображений в разных секциях */
+.about-image img {
+    width: 100%;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+}
+
+.about-image img:hover {
+    transform: scale(1.02);
+}
+
+.certificate-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: var(--transition);
+}
+
+.certificate-item img:hover {
+    transform: scale(1.05);
+}
+
+/* Адаптивные изображения для галереи */
+@media (max-width: 768px) {
+    .certificates-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .certificates-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Сохраняем адаптивность для мобильных устройств */
+@media (max-width: 992px) {
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-image {
+        top: 0;
+        height: auto;
+        margin-bottom: 2rem;
+        margin-left: 0; /* Убираем смещение влево */
+        width: 100%; /* Возвращаем стандартную ширину */
+    }
+    
+    .about-image img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+    
+    .stats-container {
+        margin-top: 2rem;
+    }
+}
+
+/* Стрелка прокрутки вниз */
+.scroll-down {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2; /* Увеличиваем z-index, чтобы стрелка была поверх затемнения */
+    animation: bounce 2s infinite;
+}
+
+.scroll-down a {
+    color: var(--white);
+    font-size: 1.5rem;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    display: block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: rgba(106, 127, 219, 0.7); /* Добавляем полупрозрачный фон */
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.scroll-down a:hover {
+    background-color: var(--primary);
+    transform: translateY(-3px);
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Футер */
+footer {
+    background-color: #333;
+    color: var(--white);
+    padding: 3rem 0 1.5rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 2rem;
+}
+
+.footer-column h3 {
+    color: var(--white);
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+    font-weight: 600;
+}
+
+.footer-column p {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.footer-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.footer-contact-item i {
+    color: var(--primary);
+    font-size: 1.1rem;
+    width: 20px;
+}
+
+.footer-contact-item p {
+    margin-bottom: 0;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-bottom p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+/* Адаптивность для футера */
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .footer-column h3 {
+        font-size: 1.3rem;
+    }
+}
+
+/* Базовые стили для всех устройств */
+
+/* Специфичные стили для мобильных устройств */
+.mobile-device .hero {
+    background-position: center center;
+    height: 100vh; /* Полная высота экрана */
+}
+
+/* Улучшенная навигация для мобильных устройств */
+.mobile-device nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 300px;
+    height: 100vh;
+    background-color: var(--white);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    z-index: 1001;
+    padding: 5rem 2rem;
+    overflow-y: auto;
+}
+
+.mobile-device nav.active {
+    right: 0;
+}
+
+.mobile-device nav ul {
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.mobile-device nav ul li a {
+    font-size: 1.1rem;
+    display: block;
+    padding: 0.5rem 0;
+}
+
+/* Улучшенная секция отзывов для мобильных устройств */
+.mobile-device .review-card {
+    width: 100%;
+    padding: 1.5rem;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.mobile-device .review-avatar {
+    margin-right: 0;
+    margin-bottom: 1rem;
+}
+
+.mobile-device .slider-arrow {
+    display: none; /* Скрываем стрелки навигации */
+}
+
+/* Индикатор свайпа */
+.mobile-device .swipe-indicator {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+    gap: 8px;
+}
+
+.mobile-device .swipe-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(106, 127, 219, 0.3);
+    transition: var(--transition);
+}
+
+.mobile-device .swipe-dot.active {
+    background-color: var(--primary);
+    transform: scale(1.2);
+}
+
+/* Стили для мобильной версии секции "Обо мне" */
+.mobile-device .about-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.mobile-device .about-image {
+    margin-left: 0;
+    width: 100%;
+    top: 0;
+}
+
+.mobile-device .about-image img {
+    width: 100%;
+    max-width: 100%;
+}
+
+.mobile-device .stats-container {
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.mobile-device .stat-item {
+    width: 100%;
+    padding: 1.2rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.mobile-device .stat-number {
+    font-size: 2rem;
+    color: var(--primary);
+}
+
+.mobile-device .stat-text {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+}
+
+.mobile-device .about-text p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+}
+
+/* Стили для мобильной версии кнопки */
+.mobile-device .secondary-button {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.mobile-device .secondary-button i {
+    display: none; /* Скрываем иконку */
+}
+
+/* Стили для индикатора свайпа */
+.swipe-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 20px auto;
+}
+
+.swipe-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(106, 127, 219, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.swipe-dot.active {
+    background-color: var(--primary);
+    transform: scale(1.3);
+}
+
+/* Добавляем подсказку о свайпе для мобильных устройств */
+.mobile-device .reviews-carousel::after {
+    content: "← Свайп →";
+    display: block;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-top: 10px;
+    opacity: 0.7;
+    animation: fadeInOut 2s infinite;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+}
+
+/* Стили для мобильной версии hero секции */
+.mobile-device .hero {
+    background-image: none !important; /* Принудительно убираем фоновое изображение */
+    background-color: #f5f5f5 !important; /* Устанавливаем серый фон */
+    color: #333333; /* Меняем цвет текста на темный */
+}
+
+.mobile-device .hero h1,
+.mobile-device .hero p {
+    color: #333333; /* Темный цвет для заголовка и текста */
+    text-shadow: none; /* Убираем тени текста */
+}
+
+.mobile-device .hero-overlay {
+    background-color: transparent; /* Убираем затемнение */
+}
+
+.mobile-device .hero-content {
+    padding-top: 15%; /* Смещаем контент выше */
+}
+
+/* Изменяем стиль кнопки для лучшей видимости на сером фоне */
+.mobile-device .hero .primary-button {
+    background-color: var(--primary);
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Изменяем стиль стрелки прокрутки вниз */
+.mobile-device .scroll-down a {
+    color: #333333;
+}
+
+/* Анимации свайпа для мобильных устройств */
+@keyframes swipeLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+}
+
+@keyframes swipeRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+}
+
+.review-card.swipe-left {
+    animation: swipeLeft 0.3s ease forwards;
+}
+
+.review-card.swipe-right {
+    animation: swipeRight 0.3s ease forwards;
+}
+
+/* Улучшенная анимация появления */
+.review-card.active {
+    animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Анимации прокрутки для отзывов */
+@keyframes slideOutLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.review-card.slide-out-left {
+    animation: slideOutLeft 0.4s ease forwards;
+    z-index: 1;
+}
+
+.review-card.slide-out-right {
+    animation: slideOutRight 0.4s ease forwards;
+    z-index: 1;
+}
+
+.review-card.slide-in-left {
+    animation: slideInLeft 0.4s ease forwards;
+    z-index: 2; /* Выше, чем у исчезающего элемента */
+}
+
+.review-card.slide-in-right {
+    animation: slideInRight 0.4s ease forwards;
+    z-index: 2; /* Выше, чем у исчезающего элемента */
+}
+
+/* Дополнительные стили для карусели отзывов */
+.reviews-carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.reviews-slider {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.review-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    margin: 0 auto;
+    max-width: 800px;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+/* Стили для кнопок навигации */
+.prev-review,
+.next-review {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    z-index: 10;
+}
+
+.prev-review {
+    left: 10px;
+}
+
+.next-review {
+    right: 10px;
+}
+
+/* Стили для индикаторов */
+.indicators {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ddd;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.indicator.active {
+    background-color: var(--primary);
+}
+
+/* Дополнительные стили для карусели отзывов */
+.reviews-carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.reviews-slider {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.review-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    margin: 0 auto;
+    max-width: 800px;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+/* Стили для кнопок навигации */
+.prev-review,
+.next-review {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    z-index: 10;
+}
+
+.prev-review {
+    left: 10px;
+}
+
+.next-review {
+    right: 10px;
+}
+
+
+
 

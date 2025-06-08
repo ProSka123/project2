@@ -300,16 +300,22 @@ document.addEventListener('DOMContentLoaded', function() {
             }, false);
             
             function handleSwipe() {
-                if (touchEndX < touchStartX) {
+                const swipeDistance = touchEndX - touchStartX;
+                console.log('Расстояние свайпа:', swipeDistance);
+                
+                // Минимальное расстояние для регистрации свайпа
+                if (Math.abs(swipeDistance) < 50) return;
+                
+                if (swipeDistance < 0) {
                     // Свайп влево - следующий отзыв
                     let newIndex = currentIndex + 1;
                     if (newIndex >= reviewCards.length) newIndex = 0;
-                    showReview(newIndex);
-                } else if (touchEndX > touchStartX) {
+                    showReview(newIndex, 'next');
+                } else {
                     // Свайп вправо - предыдущий отзыв
                     let newIndex = currentIndex - 1;
                     if (newIndex < 0) newIndex = reviewCards.length - 1;
-                    showReview(newIndex);
+                    showReview(newIndex, 'prev');
                 }
             }
         }
@@ -586,6 +592,71 @@ document.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('resize', function() {
     setTimeout(fixMobileReviewsSwipe, 500);
 });
+
+// Функция для применения мобильных изменений
+function applyMobileChanges() {
+    const isMobile = isMobileDevice();
+    
+    if (isMobile) {
+        document.body.classList.add('mobile-device');
+        
+        // Заменяем фоновое изображение в hero секции на серый фон
+        const heroSection = document.querySelector('.hero');
+        if (heroSection) {
+            // Полностью удаляем фоновое изображение и устанавливаем серый фон
+            heroSection.style.backgroundImage = 'none';
+            heroSection.style.backgroundColor = '#f5f5f5';
+            
+            // Также меняем цвет текста на темный для лучшей читаемости на сером фоне
+            const heroContent = heroSection.querySelector('.hero-content');
+            if (heroContent) {
+                heroContent.style.color = '#333333';
+                
+                // Меняем цвет заголовка и параграфа
+                const heading = heroContent.querySelector('h1');
+                const paragraph = heroContent.querySelector('p');
+                
+                if (heading) heading.style.color = '#333333';
+                if (paragraph) paragraph.style.color = '#333333';
+                
+                // Убираем тени текста, которые могли быть добавлены для читаемости на темном фоне
+                if (heading) heading.style.textShadow = 'none';
+                if (paragraph) paragraph.style.textShadow = 'none';
+            }
+            
+            // Убираем затемнение, если оно есть
+            const overlay = heroSection.querySelector('.hero-overlay');
+            if (overlay) {
+                overlay.style.backgroundColor = 'transparent';
+            }
+        }
+        
+        // Смещаем контент выше
+        const heroContent = document.querySelector('.hero-content');
+        if (heroContent) {
+            heroContent.style.paddingTop = '15%';
+        }
+        
+        // Инициализируем свайп для отзывов
+        setTimeout(fixMobileReviewsSwipe, 500);
+    } else {
+        document.body.classList.remove('mobile-device');
+    }
+}
+
+// Вызываем функцию после полной загрузки DOM
+document.addEventListener('DOMContentLoaded', function() {
+    applyMobileChanges();
+});
+
+// Также вызываем функцию при изменении размера окна
+window.addEventListener('resize', function() {
+    applyMobileChanges();
+});
+
+
+
+
 
 
 
