@@ -28,6 +28,12 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
+        // Сохраняем оригинальный фон, если он еще не сохранен
+        if (!heroSection.dataset.originalBg && heroSection.style.backgroundImage) {
+            heroSection.dataset.originalBg = heroSection.style.backgroundImage;
+            console.log('Сохранен оригинальный фон:', heroSection.dataset.originalBg);
+        }
+        
         if (isMobile) {
             console.log('Применяем мобильные стили для hero секции');
             
@@ -76,8 +82,15 @@ document.addEventListener('DOMContentLoaded', function() {
             // Удаляем класс для мобильных устройств
             document.body.classList.remove('mobile-device');
             
-            // Восстанавливаем оригинальные стили
-            heroSection.style.backgroundImage = '';
+            // Восстанавливаем оригинальное фоновое изображение
+            if (heroSection.dataset.originalBg) {
+                heroSection.style.backgroundImage = heroSection.dataset.originalBg;
+            } else {
+                // Если оригинальный фон не был сохранен, используем значение из HTML
+                heroSection.style.backgroundImage = 'url("images/hero-bg.jpg")';
+            }
+            
+            // Убираем серый фон
             heroSection.style.backgroundColor = '';
             
             const heroContent = heroSection.querySelector('.hero-content');
