@@ -731,6 +731,58 @@ footer {
     }
 }
 
+/* Базовые стили для всех устройств */
 
+/* Специфичные стили для мобильных устройств */
+.mobile-device .hero {
+    background-position: center center;
+    height: 100vh; /* Полная высота экрана */
+}
 
+/* Улучшенная навигация для мобильных устройств */
+.mobile-device nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 300px;
+    height: 100vh;
+    background-color: var(--white);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    z-index: 1001;
+    padding: 5rem 2rem;
+    overflow-y: auto;
+}
+
+.mobile-device nav.active {
+    right: 0;
+}
+
+.mobile-device nav ul {
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.mobile-device nav ul li a {
+    font-size: 1.1rem;
+    display: block;
+    padding: 0.5rem 0;
+}
+
+/* Улучшенная секция отзывов для мобильных устройств */
+.mobile-device .review-card {
+    padding: 1.5rem;
+    flex-direction: column;
+}
+
+.mobile-device .review-avatar {
+    margin-right: 0;
+    margin-bottom: 1rem;
+}
+
+.mobile-device .slider-arrow {
+    width: 35px;
+    height: 35px;
+}
 

@@ -1,4 +1,36 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Определение устройства пользователя
+    function detectDevice() {
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+        
+        // Добавляем класс к body для CSS-стилизации
+        document.body.classList.add(isMobile ? 'mobile-device' : 'desktop-device');
+        
+        console.log('Устройство пользователя:', isMobile ? 'Мобильное' : 'ПК');
+        
+        // Применяем специфичные для устройства изменения
+        if (isMobile) {
+            applyMobileSpecificChanges();
+        }
+        
+        return isMobile;
+    }
+    
+    // Функция для применения изменений для мобильных устройств
+    function applyMobileSpecificChanges() {
+        // 1. Заменяем фоновое изображение в hero секции
+        const heroSection = document.querySelector('.hero');
+        if (heroSection) {
+            heroSection.style.backgroundImage = 'url("images/hero-bg-mobile.jpg")';
+        }
+        
+        // 2. Другие JavaScript-изменения для мобильных устройств
+        // ...
+    }
+    
+    // Вызываем функцию определения устройства
+    const isMobile = detectDevice();
+    
     // Проверка загрузки логотипа
     const logoImg = new Image();
     logoImg.onload = function() {
@@ -325,6 +357,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
+
 
 
 

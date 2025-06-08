@@ -68,34 +68,42 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Добавляем свайп для мобильных устройств
-    const reviewsCarousel = document.querySelector('.reviews-carousel');
-    
-    let touchStartX = 0;
-    let touchEndX = 0;
-    
-    reviewsCarousel.addEventListener('touchstart', function(e) {
-        touchStartX = e.changedTouches[0].screenX;
-    }, false);
-    
-    reviewsCarousel.addEventListener('touchend', function(e) {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    }, false);
-    
-    function handleSwipe() {
-        if (touchEndX < touchStartX) {
-            // Свайп влево - следующий отзыв
-            let newIndex = currentIndex + 1;
-            if (newIndex >= reviewCards.length) newIndex = 0;
-            showReview(newIndex);
-        } else if (touchEndX > touchStartX) {
-            // Свайп вправо - предыдущий отзыв
-            let newIndex = currentIndex - 1;
-            if (newIndex < 0) newIndex = reviewCards.length - 1;
-            showReview(newIndex);
+    // Улучшение секции отзывов для мобильных устройств
+    function enhanceMobileReviews() {
+        const isMobile = document.body.classList.contains('mobile-device');
+        
+        if (isMobile) {
+            // Добавляем свайп для мобильных устройств
+            const reviewsCarousel = document.querySelector('.reviews-carousel');
+            
+            if (reviewsCarousel) {
+                let touchStartX = 0;
+                let touchEndX = 0;
+                
+                reviewsCarousel.addEventListener('touchstart', function(e) {
+                    touchStartX = e.changedTouches[0].screenX;
+                }, false);
+                
+                reviewsCarousel.addEventListener('touchend', function(e) {
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleSwipe();
+                }, false);
+                
+                function handleSwipe() {
+                    if (touchEndX < touchStartX) {
+                        // Свайп влево - следующий отзыв
+                        document.querySelector('.slider-arrow.next')?.click();
+                    } else if (touchEndX > touchStartX) {
+                        // Свайп вправо - предыдущий отзыв
+                        document.querySelector('.slider-arrow.prev')?.click();
+                    }
+                }
+            }
         }
     }
+
+    // Вызываем функцию после загрузки DOM
+    document.addEventListener('DOMContentLoaded', enhanceMobileReviews);
     
     // Автоматическая смена отзывов
     let reviewInterval = setInterval(function() {

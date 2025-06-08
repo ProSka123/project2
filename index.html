@@ -10,6 +10,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    
+    <!-- Предзагрузка изображений в зависимости от устройства -->
+    <script>
+        // Определяем тип устройства
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+        
+        // Предзагружаем соответствующее изображение
+        const preloadLink = document.createElement('link');
+        preloadLink.rel = 'preload';
+        preloadLink.as = 'image';
+        preloadLink.href = isMobile ? 'images/hero-bg-mobile.jpg' : 'images/hero-bg.jpg';
+        document.head.appendChild(preloadLink);
+    </script>
 </head>
 <body>
     <!-- Шапка -->
@@ -457,5 +470,6 @@
 <a href="https://wa.me/+79262855943" class="whatsapp-button" target="_blank" rel="noopener noreferrer" aria-label="Связаться через WhatsApp">
     <i class="fab fa-whatsapp"></i>
 </a>
+
 
 
