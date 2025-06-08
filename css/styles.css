@@ -772,8 +772,10 @@ footer {
 
 /* Улучшенная секция отзывов для мобильных устройств */
 .mobile-device .review-card {
+    width: 100%;
     padding: 1.5rem;
     flex-direction: column;
+    margin: 0 auto;
 }
 
 .mobile-device .review-avatar {
@@ -782,7 +784,90 @@ footer {
 }
 
 .mobile-device .slider-arrow {
-    width: 35px;
-    height: 35px;
+    display: none; /* Скрываем стрелки навигации */
 }
+
+/* Индикатор свайпа */
+.mobile-device .swipe-indicator {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+    gap: 8px;
+}
+
+.mobile-device .swipe-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(106, 127, 219, 0.3);
+    transition: var(--transition);
+}
+
+.mobile-device .swipe-dot.active {
+    background-color: var(--primary);
+    transform: scale(1.2);
+}
+
+/* Стили для мобильной версии секции "Обо мне" */
+.mobile-device .about-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.mobile-device .about-image {
+    margin-left: 0;
+    width: 100%;
+    top: 0;
+}
+
+.mobile-device .about-image img {
+    width: 100%;
+    max-width: 100%;
+}
+
+.mobile-device .stats-container {
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.mobile-device .stat-item {
+    width: 100%;
+    padding: 1.2rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.mobile-device .stat-number {
+    font-size: 2rem;
+    color: var(--primary);
+}
+
+.mobile-device .stat-text {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+}
+
+.mobile-device .about-text p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+}
+
+/* Стили для мобильной версии кнопки */
+.mobile-device .secondary-button {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.mobile-device .secondary-button i {
+    display: none; /* Скрываем иконку */
+}
+
+
+
 

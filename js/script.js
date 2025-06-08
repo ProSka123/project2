@@ -16,18 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return isMobile;
     }
     
-    // Функция для применения изменений для мобильных устройств
-    function applyMobileSpecificChanges() {
-        // 1. Заменяем фоновое изображение в hero секции
-        const heroSection = document.querySelector('.hero');
-        if (heroSection) {
-            heroSection.style.backgroundImage = 'url("images/hero-bg-mobile.jpg")';
-        }
-        
-        // 2. Другие JavaScript-изменения для мобильных устройств
-        // ...
-    }
-    
     // Вызываем функцию определения устройства
     const isMobile = detectDevice();
     
@@ -358,15 +346,106 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+function applyMobileReviewsChanges() {
+    // Добавляем свайп для мобильных устройств
+    const reviewsCarousel = document.querySelector('.reviews-carousel');
+    const reviewCards = document.querySelectorAll('.review-card');
+    
+    if (reviewsCarousel && reviewCards.length > 0) {
+        // Создаем индикатор свайпа (точки)
+        const swipeIndicator = document.createElement('div');
+        swipeIndicator.className = 'swipe-indicator';
+        
+        // Добавляем точки по количеству отзывов
+        for (let i = 0; i < reviewCards.length; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'swipe-dot' + (i === 0 ? ' active' : '');
+            swipeIndicator.appendChild(dot);
+        }
+        
+        // Добавляем индикатор после карусели
+        reviewsCarousel.parentNode.insertBefore(swipeIndicator, reviewsCarousel.nextSibling);
+        
+        // Настраиваем свайп
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let currentIndex = 0;
+        
+        reviewsCarousel.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }, false);
+        
+        reviewsCarousel.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, false);
+        
+        function handleSwipe() {
+            if (touchEndX < touchStartX) {
+                // Свайп влево - следующий отзыв
+                let newIndex = currentIndex + 1;
+                if (newIndex >= reviewCards.length) newIndex = 0;
+                showReview(newIndex);
+            } else if (touchEndX > touchStartX) {
+                // Свайп вправо - предыдущий отзыв
+                let newIndex = currentIndex - 1;
+                if (newIndex < 0) newIndex = reviewCards.length - 1;
+                showReview(newIndex);
+            }
+        }
+        
+        function showReview(index) {
+            // Скрываем все отзывы
+            reviewCards.forEach(card => card.style.display = 'none');
+            
+            // Показываем нужный отзыв
+            reviewCards[index].style.display = 'flex';
+            
+            // Обновляем индикатор
+            const dots = document.querySelectorAll('.swipe-dot');
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+            
+            currentIndex = index;
+        }
+        
+        // Инициализация - показываем первый отзыв
+        showReview(0);
+    }
+}
 
+function applyMobileAboutChanges() {
+    // Дополнительные изменения для секции "Обо мне"
+    const statItems = document.querySelectorAll('.stat-item');
+    
+    if (statItems.length > 0) {
+        statItems.forEach(item => {
+            // Увеличиваем контраст
+            item.style.backgroundColor = 'white';
+            item.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.1)';
+        });
+    }
+}
 
-
-
-
-
-
-
-
+function applyMobileButtonChanges() {
+    // Изменения для кнопки "Мое образование и квалификация"
+    const educationButton = document.querySelector('.secondary-button[href="education.html"]');
+    
+    if (educationButton) {
+        // Удаляем иконку
+        const icon = educationButton.querySelector('i');
+        if (icon) {
+            icon.remove();
+        }
+        
+        // Увеличиваем размер кнопки
+        educationButton.style.padding = '15px 20px';
+        educationButton.style.fontSize = '1.1rem';
+        educationButton.style.width = '100%';
+        educationButton.style.textAlign = 'center';
+    }
+}
 
 
 
