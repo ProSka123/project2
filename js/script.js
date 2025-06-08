@@ -1,4 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Проверка загрузки логотипа
+    const logoImg = new Image();
+    logoImg.onload = function() {
+        console.log('Логотип успешно загружен');
+    };
+    logoImg.onerror = function() {
+        console.error('Ошибка загрузки логотипа. Проверьте путь: images/logo.png');
+    };
+    logoImg.src = 'images/logo.png';
+    
     // Проверка загрузки фонового изображения
     const img = new Image();
     img.onload = function() {
@@ -315,6 +325,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
 
 
 
