@@ -3,21 +3,15 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Инициализация адаптивного дизайна');
     
     // Функция определения мобильного устройства
-    function isMobileDevice() {
-        // Проверка по User Agent
-        const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
-        const isMobileByUA = mobileRegex.test(navigator.userAgent);
-        
-        // Проверка по ширине экрана
-        const isMobileByWidth = window.innerWidth < 768;
-        
-        // Считаем устройство мобильным, если хотя бы один из критериев выполняется
-        return isMobileByUA || isMobileByWidth;
+    function detectDevice() {
+        const isMobile = window.innerWidth < 768;
+        console.log('Определение устройства: ' + (isMobile ? 'мобильное' : 'десктоп'), 'Ширина экрана:', window.innerWidth);
+        return isMobile;
     }
-    
+
     // Функция адаптации интерфейса
     function adaptInterface() {
-        const isMobile = isMobileDevice();
+        const isMobile = detectDevice();
         console.log('Устройство определено как:', isMobile ? 'мобильное' : 'десктоп');
         
         // Добавляем/удаляем класс для мобильных устройств
@@ -37,90 +31,35 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // 1. Функция адаптации hero секции
-    function adaptHeroSection(isMobile) {
+    function adaptHeroSection() {
         const heroSection = document.querySelector('.hero');
+        if (!heroSection) return;
         
-        if (!heroSection) {
-            console.error('Hero секция не найдена');
-            return;
-        }
+        // Определяем тип устройства
+        const isMobile = window.innerWidth < 768;
         
-        // Сохраняем оригинальный фон, если он еще не сохранен
-        if (!heroSection.dataset.originalBg && heroSection.style.backgroundImage) {
-            heroSection.dataset.originalBg = heroSection.style.backgroundImage;
-            console.log('Сохранен оригинальный фон:', heroSection.dataset.originalBg);
-        }
-        
+        // Применяем соответствующие стили
         if (isMobile) {
-            console.log('Применяем мобильные стили для hero секции');
-            
-            // Заменяем фоновое изображение на темно-серый фон (#696969)
+            // Мобильные стили
             heroSection.style.backgroundImage = 'none';
             heroSection.style.backgroundColor = '#696969';
             
-            // Адаптируем текст для лучшей видимости на темно-сером фоне
-            const heroContent = heroSection.querySelector('.hero-content');
-            if (heroContent) {
-                // Меняем цвет текста на светлый для лучшей читаемости на темном фоне
-                heroContent.style.color = '#ffffff';
-                
-                // Находим и адаптируем заголовок и параграф
-                const heading = heroContent.querySelector('h1');
-                const paragraph = heroContent.querySelector('p');
-                
-                if (heading) {
-                    heading.style.color = '#ffffff';
-                    heading.style.textShadow = '0 1px 3px rgba(0, 0, 0, 0.3)';
-                }
-                
-                if (paragraph) {
-                    paragraph.style.color = '#f0f0f0';
-                    paragraph.style.textShadow = '0 1px 2px rgba(0, 0, 0, 0.3)';
-                }
-            }
-            
-            // Убираем затемнение, если оно есть
+            // Убираем затемнение
             const overlay = heroSection.querySelector('.hero-overlay');
-            if (overlay) {
-                overlay.style.backgroundColor = 'transparent';
-            }
-        } else {
-            console.log('Применяем десктопные стили для hero секции');
+            if (overlay) overlay.style.backgroundColor = 'transparent';
             
-            // Восстанавливаем оригинальное фоновое изображение
-            if (heroSection.dataset.originalBg) {
-                heroSection.style.backgroundImage = heroSection.dataset.originalBg;
-            } else {
-                // Если оригинальный фон не был сохранен, используем значение из HTML
-                heroSection.style.backgroundImage = 'url("images/hero-bg.jpg")';
-            }
-            
-            // Убираем серый фон
-            heroSection.style.backgroundColor = '';
-            
+            // Смещаем контент выше
             const heroContent = heroSection.querySelector('.hero-content');
-            if (heroContent) {
-                heroContent.style.color = '';
-                
-                const heading = heroContent.querySelector('h1');
-                const paragraph = heroContent.querySelector('p');
-                
-                if (heading) {
-                    heading.style.color = '';
-                    heading.style.textShadow = '';
-                }
-                
-                if (paragraph) {
-                    paragraph.style.color = '';
-                    paragraph.style.textShadow = '';
-                }
-            }
+            if (heroContent) heroContent.style.paddingTop = '10%';
+        } else {
+            // Десктопные стили
+            heroSection.style.backgroundImage = "url('../images/hero-bg.jpg')";
+            heroSection.style.backgroundSize = 'cover';
+            heroSection.style.backgroundPosition = 'center';
             
             // Восстанавливаем затемнение
             const overlay = heroSection.querySelector('.hero-overlay');
-            if (overlay) {
-                overlay.style.backgroundColor = '';
-            }
+            if (overlay) overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
         }
     }
     
@@ -393,27 +332,32 @@ document.addEventListener('DOMContentLoaded', function() {
     adaptInterface();
     
     // Инициализируем свайп для отзывов
-    if (isMobileDevice()) {
+    if (detectDevice()) {
         initReviewsSwipe();
     }
     
     // Вызываем функцию адаптации при изменении размера окна
-    let resizeTimer;
     window.addEventListener('resize', function() {
-        // Используем debounce для оптимизации производительности
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function() {
-            adaptInterface();
-            
-            // Если устройство стало мобильным, инициализируем свайп
-            if (isMobileDevice()) {
-                initReviewsSwipe();
-            }
-        }, 250);
+        adaptInterface();
+        
+        // Если устройство стало мобильным, инициализируем свайп
+        if (detectDevice()) {
+            initReviewsSwipe();
+        }
     });
     
     console.log('Инициализация адаптивного дизайна завершена');
 });
+
+// Вызываем функцию при загрузке и изменении размера окна
+document.addEventListener('DOMContentLoaded', adaptHeroSection);
+window.addEventListener('resize', adaptHeroSection);
+
+
+
+
+
+
 
 
 
