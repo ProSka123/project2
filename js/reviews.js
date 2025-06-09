@@ -70,31 +70,53 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Улучшение секции отзывов для мобильных устройств
     function enhanceMobileReviews() {
-        const isMobile = document.body.classList.contains('mobile-device');
+        const isMobile = window.innerWidth < 768;
         
         if (isMobile) {
             const reviewsCarousel = document.querySelector('.reviews-carousel');
+            const reviewCards = document.querySelectorAll('.review-card');
             
-            if (reviewsCarousel) {
-                let touchStartY = 0;
-                let touchEndY = 0;
+            if (reviewsCarousel && reviewCards.length) {
+                // Создаем индикатор свайпа, если его нет
+                if (!document.querySelector('.swipe-indicator')) {
+                    const swipeIndicator = document.createElement('div');
+                    swipeIndicator.className = 'swipe-indicator';
+                    
+                    // Добавляем точки по количеству отзывов
+                    for (let i = 0; i < reviewCards.length; i++) {
+                        const dot = document.createElement('div');
+                        dot.className = 'swipe-dot' + (i === 0 ? ' active' : '');
+                        swipeIndicator.appendChild(dot);
+                    }
+                    
+                    // Добавляем индикатор после карусели
+                    reviewsCarousel.parentNode.appendChild(swipeIndicator);
+                }
+                
+                // Добавляем обработчики свайпа
+                let touchStartX = 0;
+                let touchEndX = 0;
                 
                 reviewsCarousel.addEventListener('touchstart', function(e) {
-                    touchStartY = e.changedTouches[0].screenY;
-                }, false);
+                    touchStartX = e.changedTouches[0].screenX;
+                }, {passive: true});
                 
                 reviewsCarousel.addEventListener('touchend', function(e) {
-                    touchEndY = e.changedTouches[0].screenY;
-                    handleVerticalSwipe();
-                }, false);
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleSwipe();
+                }, {passive: true});
                 
-                function handleVerticalSwipe() {
-                    if (touchEndY < touchStartY - 50) {
-                        // Swipe up - next review
-                        document.querySelector('.slider-arrow.next')?.click();
-                    } else if (touchEndY > touchStartY + 50) {
-                        // Swipe down - previous review
-                        document.querySelector('.slider-arrow.prev')?.click();
+                function handleSwipe() {
+                    if (touchEndX < touchStartX - 30) {
+                        // Свайп влево - следующий отзыв
+                        let newIndex = currentIndex + 1;
+                        if (newIndex >= reviewCards.length) newIndex = 0;
+                        showReview(newIndex);
+                    } else if (touchEndX > touchStartX + 30) {
+                        // Свайп вправо - предыдущий отзыв
+                        let newIndex = currentIndex - 1;
+                        if (newIndex < 0) newIndex = reviewCards.length - 1;
+                        showReview(newIndex);
                     }
                 }
             }
@@ -130,4 +152,5 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('Здесь будут показаны дополнительные отзывы или произойдет переход на страницу с отзывами');
     });
 });
+
 
