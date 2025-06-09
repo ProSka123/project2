@@ -884,19 +884,37 @@ footer {
 
 /* Улучшенная секция отзывов для мобильных устройств */
 .mobile-device .review-card {
-    width: 100%;
-    padding: 1.5rem;
-    flex-direction: column;
+    width: 90%;
+    padding: 1.2rem;
     margin: 0 auto;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
 .mobile-device .review-avatar {
-    margin-right: 0;
-    margin-bottom: 1rem;
+    align-self: center;
+    margin-bottom: 0.8rem;
+    width: 50px;
+    height: 50px;
 }
 
-.mobile-device .slider-arrow {
-    display: none; /* Скрываем стрелки навигации */
+/* Vertical swipe indicator */
+.mobile-device .reviews-carousel::after {
+    content: "↑ Свайп ↓";
+}
+
+/* Side dots indicator */
+.mobile-device .swipe-indicator {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    flex-direction: column;
+    gap: 10px;
 }
 
 /* Индикатор свайпа */
@@ -2478,6 +2496,108 @@ footer {
     object-fit: cover; /* Сохраняем пропорции изображения */
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
+    transition: var(--transition);
+}
+
+.about-image img:hover {
+    transform: scale(1.02);
+}
+
+.about-text {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.about-text .subtitle {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stats-container {
+    margin-top: auto; /* Прижимаем плашки к нижней части контейнера */
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 0; /* Убираем нижний отступ */
+}
+
+.stat-item {
+    text-align: center;
+    background-color: var(--secondary);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow);
+}
+
+.stat-item i {
+    color: var(--primary);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-number {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.stat-text {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+/* Базовые стили для всех изображений */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Стили для изображений в разных секциях */
+.about-image img {
+    width: 100%;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+}
+
+.about-image img:hover {
+    transform: scale(1.02);
+}
+
+.certificate-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: var(--transition);
+}
+
+.certificate-item img:hover {
+    transform: scale(1.05);
+}
+
+/* Адаптивные изображения для галереи */
+@media (max-width: 768px) {
+    .certificates-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .certificates-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Сохраняем адаптивность для мобильных устройств */
+@media
     transition: var(--transition);
 }
 
@@ -4529,6 +4649,7 @@ footer {
         padding: 0 1rem;
     }
 }
+
 
 
 

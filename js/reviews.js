@@ -73,28 +73,27 @@ document.addEventListener('DOMContentLoaded', function() {
         const isMobile = document.body.classList.contains('mobile-device');
         
         if (isMobile) {
-            // Добавляем свайп для мобильных устройств
             const reviewsCarousel = document.querySelector('.reviews-carousel');
             
             if (reviewsCarousel) {
-                let touchStartX = 0;
-                let touchEndX = 0;
+                let touchStartY = 0;
+                let touchEndY = 0;
                 
                 reviewsCarousel.addEventListener('touchstart', function(e) {
-                    touchStartX = e.changedTouches[0].screenX;
+                    touchStartY = e.changedTouches[0].screenY;
                 }, false);
                 
                 reviewsCarousel.addEventListener('touchend', function(e) {
-                    touchEndX = e.changedTouches[0].screenX;
-                    handleSwipe();
+                    touchEndY = e.changedTouches[0].screenY;
+                    handleVerticalSwipe();
                 }, false);
                 
-                function handleSwipe() {
-                    if (touchEndX < touchStartX) {
-                        // Свайп влево - следующий отзыв
+                function handleVerticalSwipe() {
+                    if (touchEndY < touchStartY - 50) {
+                        // Swipe up - next review
                         document.querySelector('.slider-arrow.next')?.click();
-                    } else if (touchEndX > touchStartX) {
-                        // Свайп вправо - предыдущий отзыв
+                    } else if (touchEndY > touchStartY + 50) {
+                        // Swipe down - previous review
                         document.querySelector('.slider-arrow.prev')?.click();
                     }
                 }
@@ -131,3 +130,4 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('Здесь будут показаны дополнительные отзывы или произойдет переход на страницу с отзывами');
     });
 });
+
