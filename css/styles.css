@@ -251,21 +251,27 @@ nav ul li a:hover::after {
     width: 100%;
 }
 
+/* Стили для кнопки-гамбургера */
 .menu-toggle {
     display: none;
     font-size: 1.5rem;
     cursor: pointer;
     color: var(--primary);
+    transition: var(--transition);
+    z-index: 1002;
 }
 
-/* Улучшенная адаптивность для мобильного меню */
+.menu-toggle:hover {
+    color: var(--primary-dark);
+    transform: scale(1.1);
+}
+
+/* Адаптивность для мобильного меню */
 @media (max-width: 768px) {
-    header {
-        padding: 15px 0;
-    }
-    
-    .logo {
-        font-size: 1.5rem;
+    .menu-toggle {
+        display: block;
+        position: relative;
+        font-size: 1.8rem;
     }
     
     nav {
@@ -277,7 +283,7 @@ nav ul li a:hover::after {
         height: 100vh;
         background-color: var(--white);
         box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-        transition: var(--transition);
+        transition: all 0.3s ease-in-out;
         z-index: 1001;
         padding: 5rem 2rem;
         overflow-y: auto;
@@ -298,13 +304,7 @@ nav ul li a:hover::after {
         padding: 0.5rem 0;
     }
     
-    .menu-toggle {
-        display: block;
-        z-index: 1002;
-        font-size: 1.8rem;
-    }
-    
-    /* Добавляем затемнение фона при открытом меню */
+    /* Затемнение фона при открытом меню */
     body.menu-open::before {
         content: '';
         position: fixed;
@@ -314,6 +314,12 @@ nav ul li a:hover::after {
         height: 100%;
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    body.menu-open::before {
+        opacity: 1;
     }
 }
 

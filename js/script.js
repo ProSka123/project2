@@ -72,35 +72,85 @@ document.addEventListener('DOMContentLoaded', function() {
     handleScroll();
     
     // Улучшенная работа мобильного меню
-    const menuToggle = document.querySelector('.menu-toggle');
-    const nav = document.querySelector('nav');
-    const body = document.body;
-    
-    // Открытие/закрытие меню
-    menuToggle.addEventListener('click', function() {
-        nav.classList.toggle('active');
-        body.classList.toggle('menu-open');
+    document.addEventListener('DOMContentLoaded', function() {
+        // Определяем устройство
+        detectDevice();
+        
+        // Инициализация мобильного меню
+        initMobileMenu();
+        
+        // Другие инициализации...
     });
-    
-    // Закрытие меню при клике на пункт меню
-    const menuLinks = document.querySelectorAll('nav ul li a');
-    menuLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            nav.classList.remove('active');
-            body.classList.remove('menu-open');
-        });
-    });
-    
-    // Закрытие меню при клике вне меню
-    document.addEventListener('click', function(e) {
-        if (nav.classList.contains('active') && 
-            !nav.contains(e.target) && 
-            !menuToggle.contains(e.target)) {
-            nav.classList.remove('active');
-            body.classList.remove('menu-open');
+
+    // Функция инициализации мобильного меню
+    function initMobileMenu() {
+        const menuToggle = document.querySelector('.menu-toggle');
+        const nav = document.querySelector('nav');
+        const body = document.body;
+        
+        if (!menuToggle || !nav) {
+            console.error('Элементы меню не найдены');
+            return;
         }
-    });
-    
+        
+        console.log('Инициализация мобильного меню');
+        
+        // Открытие/закрытие меню при клике на гамбургер
+        menuToggle.addEventListener('click', function(e) {
+            e.stopPropagation(); // Предотвращаем всплытие события
+            
+            console.log('Клик по кнопке меню');
+            nav.classList.toggle('active');
+            body.classList.toggle('menu-open');
+            
+            // Изменяем иконку в зависимости от состояния меню
+            const icon = menuToggle.querySelector('i');
+            if (icon) {
+                if (nav.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        });
+        
+        // Закрытие меню при клике на пункт меню
+        const menuLinks = document.querySelectorAll('nav ul li a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                nav.classList.remove('active');
+                body.classList.remove('menu-open');
+                
+                // Возвращаем иконку гамбургера
+                const icon = menuToggle.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        });
+        
+        // Закрытие меню при клике вне меню
+        document.addEventListener('click', function(e) {
+            if (nav.classList.contains('active') && 
+                !nav.contains(e.target) && 
+                !menuToggle.contains(e.target)) {
+                
+                nav.classList.remove('active');
+                body.classList.remove('menu-open');
+                
+                // Возвращаем иконку гамбургера
+                const icon = menuToggle.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        });
+    }
+
     // Плавная прокрутка к секциям
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -356,3 +406,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// Также вызываем функцию при изменении размера окна
+window.addEventListener('resize', function() {
+    detectDevice();
+});
