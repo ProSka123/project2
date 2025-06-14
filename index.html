@@ -15,7 +15,6 @@
     <script>
         // Определяем тип устройства
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
-        
         // Предзагружаем соответствующее изображение
         const preloadLink = document.createElement('link');
         preloadLink.rel = 'preload';
@@ -239,107 +238,149 @@
     </section>
 
     <!-- Отзывы -->
-    <section id="reviews" class="reviews">
+    <section id="reviews" class="reviews fullscreen">
         <div class="container">
-            <h2>Отзывы</h2>
-            <div class="reviews-slider">
-                <button class="prev-review"><i class="fas fa-chevron-left"></i></button>
-                
-                <div class="reviews-carousel">
-                    <div class="review-card active">
-                        <div class="review-avatar">Д</div>
-                        <div class="review-content">
-                            <div class="review-author">Дмитрий Иванов</div>
-                            <div class="review-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
+            <div class="title-container">
+                <h2 class="reviews-title">Отзывы</h2>
+            </div>
+            <div class="rating-summary">
+                <div class="rating-value">5.0</div>
+                <div class="rating-details">
+                    <div class="rating-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="reviews-count">49 отзывов</div>
+                </div>
+            </div>
+            <div class="reviews-container">
+                <div class="reviews-grid">
+                    <!-- Первая колонка -->
+                    <div>
+                        <!-- Отзыв 1 -->
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="reviewer-avatar">
+                                    <span>Е</span>
+                                </div>
+                                <div class="reviewer-info">
+                                    <div class="reviewer-name">Екатерина Н.</div>
+                                    <div class="review-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="review-date">7 июня</div>
+                                </div>
                             </div>
-                            <p class="review-text">"Обратились к Ирине по рекомендации знакомых, когда нашей дочери было 5 лет. У ребенка были проблемы с произношением шипящих звуков. Ирина быстро нашла общий язык с дочкой, занятия проходили интересно и продуктивно. Уже через 5 месяцев мы заметили значительное улучшение."</p>
-                            <div class="review-date">7 апреля 2023</div>
+                            <div class="review-text">
+                                Ирина наш спаситель! У сына очень серьезные проблемы со звуками и всего за 4,5 месяца огромный прогресс! Ребенок летит на занятия с удовольствием. Нам нереально повезло найти такого специалиста!
+                            </div>
+                        </div>
+                        
+                        <!-- Отзыв 2 -->
+                        <div class="review-card" style="margin-top: 1.5rem;">
+                            <div class="review-header">
+                                <div class="reviewer-avatar">
+                                    <span>И</span>
+                                </div>
+                                <div class="reviewer-info">
+                                    <div class="reviewer-name">Invisible</div>
+                                    <div class="review-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="review-date">21 января</div>
+                                </div>
+                            </div>
+                            <div class="review-text">
+                                Ирина, замечательный, необыкновенный, чуткий, добрый человек! Отличный специалист, дочь занимается с огромным удовольствием,за несколько месяцев из неговорящей малышки, дочь превратилась в болтушку. Низкий поклон за работу, за отношение и за необыкновенную добрую улыбку! И если бы можно было поставить 10 звезд, хотя и 10 тоже мало!
+                            </div>
+                        </div>
+                        
+                        <!-- Отзыв 3 -->
+                        <div class="review-card" style="margin-top: 1.5rem;">
+                            <div class="review-header">
+                                <div class="reviewer-avatar">
+                                    <span>М</span>
+                                </div>
+                                <div class="reviewer-info">
+                                    <div class="reviewer-name">Мария Соперс</div>
+                                    <div class="review-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="review-date">15 января</div>
+                                </div>
+                            </div>
+                            <div class="review-text">
+                                Хотим выразить огромную благодарность Ирине! Помогла сыну поставить шипящие, звук Р и Л. Ирина -замечательный специалист! ❤️ К каждому ребенку свой подход, сын с радостью бежал на занятия, выполнял домашние задания. Спасибо Вам за вашу доброту и теплоту! Будем очень скучать! 😊 Успехов Вам в работе! Спасибо огромное за ваш труд, нам очень повезло найти именно Вас! 👍 👍 Всем рекомендую 👍
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="review-card">
-                        <div class="review-avatar">А</div>
-                        <div class="review-content">
-                            <div class="review-author">Анна Петрова</div>
-                            <div class="review-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
+                    <!-- Вторая колонка -->
+                    <div>
+                        <!-- Отзыв 4 -->
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="reviewer-avatar">
+                                    <span>Д</span>
+                                </div>
+                                <div class="reviewer-info">
+                                    <div class="reviewer-name">Дарья Касаткина</div>
+                                    <div class="review-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="review-date">22 мая</div>
+                                </div>
                             </div>
-                            <p class="review-text">"Ирина помогла моему сыну преодолеть заикание. Мы пробовали разных специалистов, но только с ней увидели реальный результат. Очень благодарны за профессионализм и индивидуальный подход!"</p>
-                            <div class="review-date">15 мая 2023</div>
+                            <div class="review-text">
+                                Ох, Ирина Александровна покорила сердце моего ребенка на раз. Моментально нашла подход к сыну, все 3,5 месяца занятий ходит с удовольствием. Вся форма занятий - игра, понятные домашние задания, пришли с проблемой произношения буквы Р, 5,5 лет. Не сразу все получилось, но Ирина Александровна уверила, что все будет хорошо. Так и вышло, благодаря занятиям и настрою ребенка он плавно стал выговаривать звук в словах. Закончили занятия даже немного с грустью, потому что нам нравилось приходить к ИА, но цель достигнута и этому мы больше рады. Если кто-то в поисках хорошего логопеда пусть этот отзыв будет для вас знаком!
+                            </div>
+                            <div class="review-more">Подробнее</div>
                         </div>
-                    </div>
-                    
-                    <div class="review-card">
-                        <div class="review-avatar">Е</div>
-                        <div class="review-content">
-                            <div class="review-author">Елена Смирнова</div>
-                            <div class="review-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
+                        
+                        <!-- Отзыв 5 -->
+                        <div class="review-card" style="margin-top: 1.5rem;">
+                            <div class="review-header">
+                                <div class="reviewer-avatar">
+                                    <span>Е</span>
+                                </div>
+                                <div class="reviewer-info">
+                                    <div class="reviewer-name">Елена Я.</div>
+                                    <div class="review-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="review-date">19 января</div>
+                                </div>
                             </div>
-                            <p class="review-text">"Мой сын занимается с Ириной уже полгода. За это время его речь значительно улучшилась, он стал более уверенным в общении со сверстниками. Ирина находит подход к каждому ребенку и делает занятия интересными."</p>
-                            <div class="review-date">2 июня 2023</div>
-                        </div>
-                    </div>
-                    
-                    <div class="review-card">
-                        <div class="review-avatar">М</div>
-                        <div class="review-content">
-                            <div class="review-author">Мария Козлова</div>
-                            <div class="review-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
+                            <div class="review-text">
+                                Ирина Александровна прекрасный человек и специалист. Благодаря Ирине Александровне начались качественные изменения в развитии моего ребёнка. К Ирине Александровне мы пришли на занятия, когда сыну было 6 лет, с задержкой психического и речевого развития. До этого занимались 2,5 года с другим логопедом. Результаты были минимальные. Приятно того, что Ирина Александровна нашла подход к моему сыну, подобрала максимально эффективные для него методики обучения, объясняла мне, как с ним заниматься дома, она дала мне много ценных советов. По её рекомендации мы нашли отличного нейропсихолога.
                             </div>
-                            <p class="review-text">"Хочу выразить огромную благодарность Ирине за работу с моей дочерью. У нас были проблемы с произношением нескольких звуков, и за 4 месяца занятий мы добились отличных результатов. Дочь с удовольствием ходила на занятия и выполняла домашние задания. Рекомендую всем!"</p>
-                            <div class="review-date">20 июля 2023</div>
-                        </div>
-                    </div>
-                    
-                    <div class="review-card">
-                        <div class="review-avatar">С</div>
-                        <div class="review-content">
-                            <div class="review-author">Сергей Николаев</div>
-                            <div class="review-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <p class="review-text">"Наш сын (6 лет) занимается с Ириной уже 8 месяцев. За это время его речь стала намного чище и понятнее. Особенно хочу отметить индивидуальный подход и внимательность к деталям. Ирина не только исправляет речь, но и развивает память, внимание и мышление ребенка. Очень довольны результатами!"</p>
-                            <div class="review-date">5 августа 2023</div>
+                            <div class="review-more">Подробнее</div>
                         </div>
                     </div>
                 </div>
-                
-                <button class="next-review"><i class="fas fa-chevron-right"></i></button>
-            </div>
-            
-            <div class="indicators">
-                <span class="indicator active"></span>
-                <span class="indicator"></span>
-                <span class="indicator"></span>
-                <span class="indicator"></span>
-                <span class="indicator"></span>
-            </div>
-            
-            <div class="reviews-more">
-                <a href="https://logoped-defektolog-zajtseva-i.clients.site/#rating" class="more-reviews-button">Больше отзывов</a>
             </div>
         </div>
     </section>
@@ -432,7 +473,6 @@
     </footer>
 
     <script src="js/script.js"></script>
-    <script src="js/carousel.js"></script>
     <script src="js/services.js"></script>
     <script src="js/smooth-scroll.js"></script>
     <script src="js/device-detection.js"></script>
@@ -471,6 +511,53 @@
 <a href="https://wa.me/+79262855943" class="whatsapp-button" target="_blank" rel="noopener noreferrer" aria-label="Связаться через WhatsApp">
     <i class="fab fa-whatsapp"></i>
 </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Удаляем добавленный прямоугольник -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY;
                 
                 window.scrollTo({
-                    top: targetPosition - headerHeight - 20, // Дополнительный отступ
+                    top: targetPosition - headerHeight, // Убираем дополнительный отступ
                     behavior: 'smooth'
                 });
                 
@@ -201,224 +201,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Карусель отзывов
-    initReviewsCarousel();
+    // Удаляем перенаправление для ссылок на отзывы - удалено
     
-    function initReviewsCarousel() {
-        const reviewCards = document.querySelectorAll('.review-card');
-        const dots = document.querySelectorAll('.review-dots .dot');
-        const prevButton = document.querySelector('.prev-review');
-        const nextButton = document.querySelector('.next-review');
-        
-        // Проверяем, есть ли элементы на странице
-        if (reviewCards.length === 0 || dots.length === 0) {
-            console.error('Элементы карусели отзывов не найдены');
-            return;
-        }
-        
-        console.log('Инициализация карусели отзывов');
-        console.log('Найдено отзывов:', reviewCards.length);
-        console.log('Найдено точек:', dots.length);
-        
-        let currentIndex = 0;
-        
-        // Функция для отображения отзыва по индексу
-        function showReview(index) {
-            console.log('Показываем отзыв с индексом:', index);
-            
-            // Скрываем все отзывы
-            reviewCards.forEach(card => {
-                card.classList.remove('active');
-                card.style.display = 'none';
-            });
-            
-            // Убираем активный класс у всех точек
-            dots.forEach(dot => {
-                dot.classList.remove('active');
-            });
-            
-            // Показываем нужный отзыв и активируем соответствующую точку
-            if (reviewCards[index]) {
-                reviewCards[index].classList.add('active');
-                reviewCards[index].style.display = 'block';
-                
-                if (dots[index]) {
-                    dots[index].classList.add('active');
-                }
-                
-                // Обновляем текущий индекс
-                currentIndex = index;
-            } else {
-                console.error('Отзыв с индексом', index, 'не найден');
-            }
-        }
-        
-        // Инициализация: показываем первый отзыв
-        showReview(0);
-        
-        // Обработчики для кнопок
-        if (prevButton) {
-            prevButton.addEventListener('click', function() {
-                console.log('Нажата кнопка "Предыдущий"');
-                let newIndex = currentIndex - 1;
-                if (newIndex < 0) newIndex = reviewCards.length - 1;
-                showReview(newIndex);
-            });
-        }
-        
-        if (nextButton) {
-            nextButton.addEventListener('click', function() {
-                console.log('Нажата кнопка "Следующий"');
-                let newIndex = currentIndex + 1;
-                if (newIndex >= reviewCards.length) newIndex = 0;
-                showReview(newIndex);
-            });
-        }
-        
-        // Обработчики для точек
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', function() {
-                console.log('Нажата точка с индексом:', index);
-                showReview(index);
-            });
-        });
-        
-        // Добавляем свайп для мобильных устройств
-        const reviewsCarousel = document.querySelector('.reviews-carousel');
-        
-        if (reviewsCarousel) {
-            let touchStartX = 0;
-            let touchEndX = 0;
-            
-            reviewsCarousel.addEventListener('touchstart', function(e) {
-                touchStartX = e.changedTouches[0].screenX;
-            }, false);
-            
-            reviewsCarousel.addEventListener('touchend', function(e) {
-                touchEndX = e.changedTouches[0].screenX;
-                handleSwipe();
-            }, false);
-            
-            function handleSwipe() {
-                const swipeDistance = touchEndX - touchStartX;
-                console.log('Расстояние свайпа:', swipeDistance);
-                
-                // Минимальное расстояние для регистрации свайпа
-                if (Math.abs(swipeDistance) < 50) return;
-                
-                if (swipeDistance < 0) {
-                    // Свайп влево - следующий отзыв
-                    let newIndex = currentIndex + 1;
-                    if (newIndex >= reviewCards.length) newIndex = 0;
-                    showReview(newIndex, 'next');
-                } else {
-                    // Свайп вправо - предыдущий отзыв
-                    let newIndex = currentIndex - 1;
-                    if (newIndex < 0) newIndex = reviewCards.length - 1;
-                    showReview(newIndex, 'prev');
-                }
-            }
-        }
-        
-        // Автоматическая смена отзывов
-        let reviewInterval = setInterval(function() {
-            let newIndex = currentIndex + 1;
-            if (newIndex >= reviewCards.length) newIndex = 0;
-            showReview(newIndex);
-        }, 5000);
-        
-        // Остановка автоматической смены при наведении
-        if (reviewsCarousel) {
-            reviewsCarousel.addEventListener('mouseenter', function() {
-                clearInterval(reviewInterval);
-            });
-            
-            reviewsCarousel.addEventListener('mouseleave', function() {
-                reviewInterval = setInterval(function() {
-                    let newIndex = currentIndex + 1;
-                    if (newIndex >= reviewCards.length) newIndex = 0;
-                    showReview(newIndex);
-                }, 5000);
-            });
-        }
-        
-        // Кнопка "Больше отзывов"
-        const moreReviewsButton = document.querySelector('.more-reviews-button');
-        if (moreReviewsButton) {
-            moreReviewsButton.addEventListener('click', function() {
-                alert('Здесь будут показаны дополнительные отзывы или произойдет переход на страницу с отзывами');
-            });
-        }
-    }
+    // Кнопка "Больше отзывов" должна вести на внешний сайт - удалено
 });
 
 function applyMobileReviewsChanges() {
-    // Добавляем свайп для мобильных устройств
-    const reviewsCarousel = document.querySelector('.reviews-carousel');
-    const reviewCards = document.querySelectorAll('.review-card');
-    
-    if (reviewsCarousel && reviewCards.length > 0) {
-        // Создаем индикатор свайпа (точки)
-        const swipeIndicator = document.createElement('div');
-        swipeIndicator.className = 'swipe-indicator';
-        
-        // Добавляем точки по количеству отзывов
-        for (let i = 0; i < reviewCards.length; i++) {
-            const dot = document.createElement('div');
-            dot.className = 'swipe-dot' + (i === 0 ? ' active' : '');
-            swipeIndicator.appendChild(dot);
-        }
-        
-        // Добавляем индикатор после карусели
-        reviewsCarousel.parentNode.insertBefore(swipeIndicator, reviewsCarousel.nextSibling);
-        
-        // Настраиваем свайп
-        let touchStartX = 0;
-        let touchEndX = 0;
-        let currentIndex = 0;
-        
-        reviewsCarousel.addEventListener('touchstart', function(e) {
-            touchStartX = e.changedTouches[0].screenX;
-        }, false);
-        
-        reviewsCarousel.addEventListener('touchend', function(e) {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        }, false);
-        
-        function handleSwipe() {
-            if (touchEndX < touchStartX) {
-                // Свайп влево - следующий отзыв
-                let newIndex = currentIndex + 1;
-                if (newIndex >= reviewCards.length) newIndex = 0;
-                showReview(newIndex);
-            } else if (touchEndX > touchStartX) {
-                // Свайп вправо - предыдущий отзыв
-                let newIndex = currentIndex - 1;
-                if (newIndex < 0) newIndex = reviewCards.length - 1;
-                showReview(newIndex);
-            }
-        }
-        
-        function showReview(index) {
-            // Скрываем все отзывы
-            reviewCards.forEach(card => card.style.display = 'none');
-            
-            // Показываем нужный отзыв
-            reviewCards[index].style.display = 'flex';
-            
-            // Обновляем индикатор
-            const dots = document.querySelectorAll('.swipe-dot');
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
-            });
-            
-            currentIndex = index;
-        }
-        
-        // Инициализация - показываем первый отзыв
-        showReview(0);
-    }
+    // Функция удалена
 }
 
 function applyMobileAboutChanges() {
@@ -453,133 +242,9 @@ function applyMobileButtonChanges() {
     }
 }
 
-// Улучшенная функция для свайпа отзывов на мобильных устройствах
+// Улучшенная функция для свайпа отзывов на мобильных устройствах - удалена
 function fixMobileReviewsSwipe() {
-    console.log('Инициализация свайпа для мобильных отзывов');
-    
-    // Проверяем, является ли устройство мобильным
-    const isMobile = document.body.classList.contains('mobile-device');
-    if (!isMobile) return;
-    
-    // Получаем элементы карусели
-    const reviewsCarousel = document.querySelector('.reviews-carousel');
-    const reviewCards = document.querySelectorAll('.review-card');
-    const indicators = document.querySelectorAll('.indicator');
-    
-    console.log('Найдено отзывов:', reviewCards.length);
-    
-    if (!reviewsCarousel || reviewCards.length === 0) {
-        console.error('Элементы карусели не найдены');
-        return;
-    }
-    
-    // Текущий индекс отзыва
-    let currentIndex = 0;
-    
-    // Находим активный отзыв
-    reviewCards.forEach((card, index) => {
-        if (card.classList.contains('active')) {
-            currentIndex = index;
-        }
-    });
-    
-    console.log('Начальный активный отзыв:', currentIndex);
-    
-    // Настраиваем обработчики событий касания
-    let touchStartX = 0;
-    let touchEndX = 0;
-    
-    // Удаляем существующие обработчики, если они есть
-    reviewsCarousel.removeEventListener('touchstart', handleTouchStart);
-    reviewsCarousel.removeEventListener('touchend', handleTouchEnd);
-    
-    // Добавляем новые обработчики
-    reviewsCarousel.addEventListener('touchstart', handleTouchStart, {passive: true});
-    reviewsCarousel.addEventListener('touchend', handleTouchEnd, {passive: true});
-    
-    function handleTouchStart(e) {
-        touchStartX = e.changedTouches[0].screenX;
-        console.log('Начало касания:', touchStartX);
-    }
-    
-    function handleTouchEnd(e) {
-        touchEndX = e.changedTouches[0].screenX;
-        console.log('Конец касания:', touchEndX);
-        
-        // Определяем направление свайпа
-        const swipeDistance = touchEndX - touchStartX;
-        console.log('Расстояние свайпа:', swipeDistance);
-        
-        // Минимальное расстояние для регистрации свайпа (предотвращает случайные касания)
-        if (Math.abs(swipeDistance) < 50) return;
-        
-        if (swipeDistance < 0) {
-            // Свайп влево - следующий отзыв
-            showNextReview();
-        } else {
-            // Свайп вправо - предыдущий отзыв
-            showPrevReview();
-        }
-    }
-    
-    function showNextReview() {
-        console.log('Показываем следующий отзыв');
-        let newIndex = currentIndex + 1;
-        if (newIndex >= reviewCards.length) newIndex = 0;
-        showReview(newIndex);
-    }
-    
-    function showPrevReview() {
-        console.log('Показываем предыдущий отзыв');
-        let newIndex = currentIndex - 1;
-        if (newIndex < 0) newIndex = reviewCards.length - 1;
-        showReview(newIndex);
-    }
-    
-    function showReview(index) {
-        console.log('Переключаем на отзыв:', index);
-        
-        // Скрываем все отзывы
-        reviewCards.forEach(card => {
-            card.classList.remove('active');
-            card.style.display = 'none';
-        });
-        
-        // Показываем нужный отзыв
-        reviewCards[index].classList.add('active');
-        reviewCards[index].style.display = 'block';
-        
-        // Обновляем индикаторы, если они есть
-        if (indicators && indicators.length > 0) {
-            indicators.forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
-            });
-        }
-        
-        // Обновляем текущий индекс
-        currentIndex = index;
-    }
-    
-    // Создаем индикаторы свайпа, если их нет
-    if (!document.querySelector('.swipe-indicator')) {
-        const swipeIndicator = document.createElement('div');
-        swipeIndicator.className = 'swipe-indicator';
-        
-        // Добавляем точки по количеству отзывов
-        for (let i = 0; i < reviewCards.length; i++) {
-            const dot = document.createElement('div');
-            dot.className = 'swipe-dot' + (i === currentIndex ? ' active' : '');
-            swipeIndicator.appendChild(dot);
-        }
-        
-        // Добавляем индикатор после карусели
-        const reviewsSection = document.querySelector('#reviews .container');
-        if (reviewsSection) {
-            reviewsSection.appendChild(swipeIndicator);
-        }
-    }
-    
-    console.log('Инициализация свайпа завершена');
+    // Функция удалена
 }
 
 // Вызываем функцию после полной загрузки DOM
@@ -595,7 +260,8 @@ window.addEventListener('resize', function() {
 
 // Функция для применения мобильных изменений
 function applyMobileChanges() {
-    const isMobile = isMobileDevice();
+    // Check if the device is mobile
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
     
     if (isMobile) {
         document.body.classList.add('mobile-device');
@@ -606,23 +272,6 @@ function applyMobileChanges() {
             // Полностью удаляем фоновое изображение и устанавливаем серый фон
             heroSection.style.backgroundImage = 'none';
             heroSection.style.backgroundColor = '#f5f5f5';
-            
-            // Также меняем цвет текста на темный для лучшей читаемости на сером фоне
-            const heroContent = heroSection.querySelector('.hero-content');
-            if (heroContent) {
-                heroContent.style.color = '#333333';
-                
-                // Меняем цвет заголовка и параграфа
-                const heading = heroContent.querySelector('h1');
-                const paragraph = heroContent.querySelector('p');
-                
-                if (heading) heading.style.color = '#333333';
-                if (paragraph) paragraph.style.color = '#333333';
-                
-                // Убираем тени текста, которые могли быть добавлены для читаемости на темном фоне
-                if (heading) heading.style.textShadow = 'none';
-                if (paragraph) paragraph.style.textShadow = 'none';
-            }
             
             // Убираем затемнение, если оно есть
             const overlay = heroSection.querySelector('.hero-overlay');
@@ -637,8 +286,8 @@ function applyMobileChanges() {
             heroContent.style.paddingTop = '15%';
         }
         
-        // Инициализируем свайп для отзывов
-        setTimeout(fixMobileReviewsSwipe, 500);
+        // Удаляем инициализацию свайпа для отзывов
+        // setTimeout(fixMobileReviewsSwipe, 500); - removed
     } else {
         document.body.classList.remove('mobile-device');
     }
@@ -654,12 +303,56 @@ window.addEventListener('resize', function() {
     applyMobileChanges();
 });
 
-
-
-
-
-
-
-
-
+// Добавляем функционал для кнопки "Подробнее" в отзывах
+document.addEventListener('DOMContentLoaded', function() {
+    // Находим все кнопки "Подробнее"
+    const moreButtons = document.querySelectorAll('.review-more');
+    
+    // Добавляем обработчик события для каждой кнопки
+    moreButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Находим текст отзыва, связанный с этой кнопкой
+            const reviewText = this.previousElementSibling;
+            
+            // Переключаем класс expanded для текста отзыва
+            reviewText.classList.toggle('expanded');
+            
+            // Меняем текст кнопки в зависимости от состояния
+            if (reviewText.classList.contains('expanded')) {
+                this.textContent = 'Свернуть';
+            } else {
+                this.textContent = 'Подробнее';
+            }
+        });
+    });
+    
+    // Проверяем, нужно ли отображать кнопку "Подробнее" для каждого отзыва
+    const reviewTexts = document.querySelectorAll('.review-text');
+    reviewTexts.forEach(text => {
+        // Если высота содержимого больше, чем максимальная высота в CSS
+        if (text.scrollHeight > text.clientHeight) {
+            // Если после текста нет кнопки "Подробнее", добавляем её
+            if (!text.nextElementSibling || !text.nextElementSibling.classList.contains('review-more')) {
+                const moreButton = document.createElement('div');
+                moreButton.className = 'review-more';
+                moreButton.textContent = 'Подробнее';
+                
+                // Добавляем обработчик события для новой кнопки
+                moreButton.addEventListener('click', function() {
+                    text.classList.toggle('expanded');
+                    this.textContent = text.classList.contains('expanded') ? 'Свернуть' : 'Подробнее';
+                });
+                
+                // Вставляем кнопку после текста отзыва
+                text.parentNode.insertBefore(moreButton, text.nextSibling);
+            }
+        } else {
+            // Если высота содержимого меньше максимальной высоты, скрываем кнопку "Подробнее"
+            const nextElement = text.nextElementSibling;
+            if (nextElement && nextElement.classList.contains('review-more')) {
+                nextElement.style.display = 'none';
+            }
+        }
+    });
+});
 

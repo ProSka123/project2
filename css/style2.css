@@ -259,18 +259,211 @@
     margin-top: 1.5rem;
 }
 
-/* Отзывы - новый минималистичный стиль */
+/* Отзывы - точно как на скриншоте */
 .reviews {
     background-color: #f9f9f9;
-    padding: 6rem 0;
-    text-align: center;
+    min-height: 100vh;
+    padding: 4rem 0;
+    display: flex;
+    align-items: center;
 }
 
-.reviews h2 {
-    margin-bottom: 3rem;
-    font-family: var(--font-heading);
+/* Стили для контейнера отзывов со скроллбаром */
+.reviews-container {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    height: 80vh;
+    margin: 0 auto;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 2rem;
+    overflow-y: auto;
+    border: 1px solid #d0d0d0;
+    
+    /* Стили для скроллбара */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: transparent transparent; /* Firefox */
+    transition: scrollbar-color 0.3s ease;
+}
+
+/* Стили для скроллбара в WebKit браузерах (Chrome, Safari, Edge) */
+.reviews-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.reviews-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.reviews-container::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+/* Показываем скроллбар при наведении или активном скроллинге */
+.reviews-container:hover::-webkit-scrollbar-thumb,
+.reviews-container:active::-webkit-scrollbar-thumb,
+.reviews-container:focus::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.reviews-container:hover {
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent; /* Firefox */
+}
+
+/* При активном скроллинге делаем скроллбар немного темнее */
+.reviews-container:active::-webkit-scrollbar-thumb,
+.reviews-container:focus::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.reviews-header-row {
+    margin-bottom: 0.5rem;
+    text-align: left;
+}
+
+.reviews-header-row h2 {
+    font-size: 1.8rem;
     font-weight: 600;
-    color: var(--text-dark);
+    margin-bottom: 0;
+    color: #333;
+    text-align: left;
+    border-bottom: none;
+}
+
+.rating-row {
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.rating-block {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.rating-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-right: 0.5rem;
+    color: #333;
+}
+
+.rating-stars {
+    color: #FFD700;
+    font-size: 1rem;
+    margin-right: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.rating-count {
+    font-size: 0.9rem;
+    color: #666;
+    margin-left: 0.5rem;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.review-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 1.2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    position: relative;
+}
+
+.review-header {
+    display: flex;
+    margin-bottom: 0.8rem;
+}
+
+.reviewer-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-right: 0.8rem;
+    flex-shrink: 0;
+}
+
+.reviewer-info {
+    flex: 1;
+}
+
+.reviewer-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+    color: #333;
+}
+
+.review-rating {
+    color: #FFD700;
+    font-size: 0.8rem;
+    margin-bottom: 0.2rem;
+}
+
+.review-date {
+    font-size: 0.75rem;
+    color: #666;
+}
+
+.review-text {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: #333;
+    overflow: hidden;
+    position: relative;
+}
+
+.review-text.expanded {
+    max-height: none;
+}
+
+.review-more {
+    color: #4a90e2;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    cursor: pointer;
+    display: inline-block;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .reviews-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .review-card {
+        padding: 1rem;
+    }
+    
+    .reviewer-avatar {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .review-text {
+        font-size: 0.8rem;
+    }
 }
 
 /* Стили для карусели отзывов */
