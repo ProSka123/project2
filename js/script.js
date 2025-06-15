@@ -45,13 +45,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('header');
     const heroSection = document.querySelector('.hero');
     let heroHeight = 0;
-    
+
     if (heroSection) {
         heroHeight = heroSection.offsetHeight;
         // Скрываем шапку при загрузке страницы
         header.classList.add('header-hidden');
     }
-    
+
     function handleScroll() {
         const scrollPosition = window.scrollY;
         
@@ -67,7 +67,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Анимация при скролле
         checkScroll();
     }
-    
+
+    // Добавляем обработчик события прокрутки
     window.addEventListener('scroll', handleScroll);
     
     // Вызываем обработчик при загрузке страницы
