@@ -91,14 +91,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const body = document.body;
         
         if (!menuToggle || !nav) {
-            console.error('Элементы меню не найдены');
+            console.error('Элементы меню не найдены: menuToggle =', menuToggle, 'nav =', nav);
             return;
         }
         
-        console.log('Инициализация мобильного меню');
+        console.log('Инициализация мобильного меню успешна');
         
         // Открытие/закрытие меню при клике на гамбургер
         menuToggle.addEventListener('click', function(e) {
+            e.preventDefault();
             e.stopPropagation(); // Предотвращаем всплытие события
             
             console.log('Клик по кнопке меню');
@@ -109,19 +110,26 @@ document.addEventListener('DOMContentLoaded', function() {
             const icon = menuToggle.querySelector('i');
             if (icon) {
                 if (nav.classList.contains('active')) {
+                    console.log('Меню открыто, меняем иконку на крестик');
                     icon.classList.remove('fa-bars');
                     icon.classList.add('fa-times');
                 } else {
+                    console.log('Меню закрыто, меняем иконку на гамбургер');
                     icon.classList.remove('fa-times');
                     icon.classList.add('fa-bars');
                 }
+            } else {
+                console.error('Иконка меню не найдена');
             }
         });
         
         // Закрытие меню при клике на пункт меню
         const menuLinks = document.querySelectorAll('nav ul li a');
+        console.log('Найдено пунктов меню:', menuLinks.length);
+        
         menuLinks.forEach(link => {
             link.addEventListener('click', function() {
+                console.log('Клик по пункту меню:', this.textContent);
                 nav.classList.remove('active');
                 body.classList.remove('menu-open');
                 
@@ -140,6 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 !nav.contains(e.target) && 
                 !menuToggle.contains(e.target)) {
                 
+                console.log('Клик вне меню, закрываем меню');
                 nav.classList.remove('active');
                 body.classList.remove('menu-open');
                 
@@ -472,8 +481,11 @@ function detectDevice() {
 
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM полностью загружен');
+    
     // Определяем устройство
-    detectDevice();
+    const isMobile = detectDevice();
+    console.log('Тип устройства определен:', isMobile ? 'мобильное' : 'десктоп');
     
     // Инициализация мобильного меню
     initMobileMenu();
@@ -483,5 +495,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Обновление при изменении размера окна
 window.addEventListener('resize', function() {
+    console.log('Изменение размера окна, ширина:', window.innerWidth);
     detectDevice();
 });
