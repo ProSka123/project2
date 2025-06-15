@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Применяем специфичные для устройства изменения
         if (isMobile) {
             applyMobileSpecificChanges();
+        } else {
+            applyDesktopSpecificChanges();
         }
         
         return isMobile;
@@ -407,6 +409,79 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Также вызываем функцию при изменении размера окна
+window.addEventListener('resize', function() {
+    detectDevice();
+});
+
+// Функция для применения специфичных изменений для мобильных устройств
+function applyMobileSpecificChanges() {
+    // Проверяем, находимся ли мы на главной странице
+    const isHomePage = window.location.pathname === '/' || 
+                       window.location.pathname === '/index.html' || 
+                       window.location.pathname.endsWith('/index.html');
+    
+    // Если мы на главной странице, настраиваем навигацию
+    if (isHomePage) {
+        // Находим ссылку на отзывы
+        const reviewsLink = document.querySelector('.reviews-link');
+        if (reviewsLink) {
+            // Меняем ссылку на отдельную страницу для мобильных устройств
+            reviewsLink.setAttribute('href', 'reviews.html');
+            console.log('Мобильное устройство: ссылка на отзывы изменена на reviews.html');
+        }
+    }
+}
+
+// Функция для применения специфичных изменений для десктопных устройств
+function applyDesktopSpecificChanges() {
+    // Проверяем, находимся ли мы на главной странице
+    const isHomePage = window.location.pathname === '/' || 
+                       window.location.pathname === '/index.html' || 
+                       window.location.pathname.endsWith('/index.html');
+    
+    // Если мы на главной странице, настраиваем навигацию
+    if (isHomePage) {
+        // Находим ссылку на отзывы
+        const reviewsLink = document.querySelector('.reviews-link');
+        if (reviewsLink) {
+            // Убеждаемся, что ссылка ведет на якорь на текущей странице
+            reviewsLink.setAttribute('href', '#reviews');
+            console.log('Десктопное устройство: ссылка на отзывы установлена на #reviews');
+        }
+    }
+}
+
+// Функция определения устройства и применения соответствующих изменений
+function detectDevice() {
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+    
+    // Добавляем класс к body для CSS-стилизации
+    document.body.classList.add(isMobile ? 'mobile-device' : 'desktop-device');
+    
+    console.log('Устройство пользователя:', isMobile ? 'Мобильное' : 'ПК');
+    
+    // Применяем специфичные для устройства изменения
+    if (isMobile) {
+        applyMobileSpecificChanges();
+    } else {
+        applyDesktopSpecificChanges();
+    }
+    
+    return isMobile;
+}
+
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    // Определяем устройство
+    detectDevice();
+    
+    // Инициализация мобильного меню
+    initMobileMenu();
+    
+    // Другие инициализации...
+});
+
+// Обновление при изменении размера окна
 window.addEventListener('resize', function() {
     detectDevice();
 });
