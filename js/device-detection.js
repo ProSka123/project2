@@ -1,18 +1,14 @@
 // Определение устройства и адаптация интерфейса
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Инициализация адаптивного дизайна');
-    
     // Функция определения мобильного устройства
     function detectDevice() {
         const isMobile = window.innerWidth < 768;
-        console.log('Определение устройства: ' + (isMobile ? 'мобильное' : 'десктоп'), 'Ширина экрана:', window.innerWidth);
         return isMobile;
     }
 
     // Функция адаптации интерфейса
     function adaptInterface() {
         const isMobile = detectDevice();
-        console.log('Устройство определено как:', isMobile ? 'мобильное' : 'десктоп');
         
         // Добавляем/удаляем класс для мобильных устройств
         document.body.classList.toggle('mobile-device', isMobile);
@@ -28,6 +24,11 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // 4. Настройка поведения навигационной панели
         setupHeaderBehavior(isMobile);
+        
+        // 5. Инициализация мобильного меню
+        if (typeof initMobileMenu === 'function') {
+            initMobileMenu();
+        }
     }
     
     // 1. Функция адаптации hero секции
@@ -170,6 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Вызываем функцию при загрузке и изменении размера окна
 document.addEventListener('DOMContentLoaded', adaptHeroSection);
 window.addEventListener('resize', adaptHeroSection);
+
 
 
 

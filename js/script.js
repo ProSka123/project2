@@ -86,80 +86,61 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Функция инициализации мобильного меню
     function initMobileMenu() {
+        // Получаем необходимые элементы
         const menuToggle = document.querySelector('.menu-toggle');
         const nav = document.querySelector('nav');
-        const body = document.body;
         
-        if (!menuToggle || !nav) {
-            console.error('Элементы меню не найдены: menuToggle =', menuToggle, 'nav =', nav);
-            return;
-        }
+        // Проверяем наличие элементов
+        if (!menuToggle || !nav) return;
         
-        console.log('Инициализация мобильного меню успешна');
-        
-        // Открытие/закрытие меню при клике на гамбургер
-        menuToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation(); // Предотвращаем всплытие события
-            
-            console.log('Клик по кнопке меню');
+        // Обработчик клика по кнопке-гамбургер
+        menuToggle.onclick = function() {
+            // Переключаем классы для меню и body
             nav.classList.toggle('active');
-            body.classList.toggle('menu-open');
+            document.body.classList.toggle('menu-open');
             
-            // Изменяем иконку в зависимости от состояния меню
-            const icon = menuToggle.querySelector('i');
+            // Получаем иконку и меняем её в зависимости от состояния меню
+            const icon = this.querySelector('i');
             if (icon) {
+                // Простое переключение между классами иконок
                 if (nav.classList.contains('active')) {
-                    console.log('Меню открыто, меняем иконку на крестик');
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
+                    icon.className = 'fas fa-times'; // Крестик
                 } else {
-                    console.log('Меню закрыто, меняем иконку на гамбургер');
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
+                    icon.className = 'fas fa-bars';  // Гамбургер
                 }
-            } else {
-                console.error('Иконка меню не найдена');
             }
-        });
+        };
         
         // Закрытие меню при клике на пункт меню
-        const menuLinks = document.querySelectorAll('nav ul li a');
-        console.log('Найдено пунктов меню:', menuLinks.length);
-        
-        menuLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                console.log('Клик по пункту меню:', this.textContent);
+        const menuLinks = nav.querySelectorAll('ul li a');
+        for (let i = 0; i < menuLinks.length; i++) {
+            menuLinks[i].onclick = function() {
+                // Закрываем меню
                 nav.classList.remove('active');
-                body.classList.remove('menu-open');
+                document.body.classList.remove('menu-open');
                 
                 // Возвращаем иконку гамбургера
                 const icon = menuToggle.querySelector('i');
-                if (icon) {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
-            });
-        });
+                if (icon) icon.className = 'fas fa-bars';
+            };
+        }
         
         // Закрытие меню при клике вне меню
-        document.addEventListener('click', function(e) {
+        document.onclick = function(e) {
+            // Проверяем, что меню открыто и клик был не по меню и не по кнопке
             if (nav.classList.contains('active') && 
                 !nav.contains(e.target) && 
                 !menuToggle.contains(e.target)) {
                 
-                console.log('Клик вне меню, закрываем меню');
+                // Закрываем меню
                 nav.classList.remove('active');
-                body.classList.remove('menu-open');
+                document.body.classList.remove('menu-open');
                 
                 // Возвращаем иконку гамбургера
                 const icon = menuToggle.querySelector('i');
-                if (icon) {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
+                if (icon) icon.className = 'fas fa-bars';
             }
-        });
+        };
     }
 
     // Плавная прокрутка к секциям
