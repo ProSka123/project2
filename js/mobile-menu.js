@@ -24,6 +24,15 @@ function initMobileMenu() {
         nav.classList.toggle('active');
         document.body.classList.toggle('menu-open');
         
+        // Сохраняем позицию прокрутки при открытии меню
+        if (document.body.classList.contains('menu-open')) {
+            document.body.dataset.scrollY = window.scrollY;
+        } else {
+            // Восстанавливаем позицию прокрутки при закрытии меню
+            const scrollY = document.body.dataset.scrollY || 0;
+            window.scrollTo(0, scrollY);
+        }
+        
         // Получаем иконку и меняем её в зависимости от состояния меню
         const icon = this.querySelector('i');
         if (icon) {
@@ -79,3 +88,4 @@ window.addEventListener('resize', function() {
     // Инициализируем мобильное меню
     initMobileMenu();
 });
+
