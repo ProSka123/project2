@@ -1907,7 +1907,6 @@ footer {
     .reviews-page .reviews-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
-        width: 90%;
     }
     
     .reviews-page .review-card {
@@ -1934,57 +1933,67 @@ footer {
     }
     
     /* Улучшенная навигация для мобильной версии страницы отзывов */
-}
-
-/* Исправление визуальных проблем на мобильных устройствах */
-@media (max-width: 768px) {
-    /* Улучшение навигации */
-    .menu-toggle {
-        display: block;
-        font-size: 1.8rem;
-        color: var(--primary);
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 0.5rem;
-        z-index: 1002;
+    .reviews-page .container {
+        width: 90%;
+        padding: 0 15px;
     }
     
-    /* Мобильное меню */
-    nav.active {
-        right: 0;
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    /* Добавляем разделитель между отзывами для визуального разделения */
+    .reviews-page .review-card:not(:last-child) {
+        margin-bottom: 1rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        padding-bottom: 1.5rem;
     }
     
-    /* Предотвращение прокрутки при открытом меню */
-    body.menu-open {
-        overflow: hidden;
+    /* Улучшаем отображение рейтинга */
+    .reviews-page .review-rating {
+        font-size: 0.9rem;
     }
     
-    /* Улучшение отображения кнопки WhatsApp */
-    .whatsapp-button {
-        width: 50px;
-        height: 50px;
+    /* Добавляем кнопку "Наверх" для удобной навигации */
+    .back-to-top {
+        position: fixed;
         bottom: 20px;
         right: 20px;
-        font-size: 24px;
+        width: 40px;
+        height: 40px;
+        background-color: var(--primary);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        z-index: 100;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
     }
     
-    /* Исправление отображения форм */
-    input, textarea, select {
-        font-size: 16px; /* Предотвращает масштабирование на iOS */
+    .back-to-top.visible {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+/* Дополнительные стили для очень маленьких экранов */
+@media (max-width: 480px) {
+    .reviews-page h1 {
+        font-size: 1.8rem;
     }
     
-    /* Исправление отображения модальных окон */
-    .modal-content {
-        border-radius: 10px;
-        margin: 10% auto;
+    .reviews-page .review-card {
+        padding: 1rem;
     }
     
-    /* Исправление отображения карточек */
-    .card, .service-card, .review-card {
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
+    .reviews-page .reviewer-avatar {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .reviews-page .review-text {
+        font-size: 0.85rem;
     }
 }
     .reviews-page .container {
@@ -2001,8 +2010,7 @@ footer {
     
     /* Улучшаем отображение рейтинга */
     .reviews-page .review-rating {
-        font-size: 1.2rem;
-        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
     }
 }
 
@@ -2110,28 +2118,28 @@ footer {
 /* Стили для кнопки "Больше отзывов" */
 .reviews-more {
     text-align: center;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    margin-top: 3rem;
+    width: 100%;
 }
 
 .more-reviews-button {
     display: inline-block;
-    padding: 0.8rem 2rem;
+    padding: 1rem 2rem;
     background-color: var(--primary);
     color: white;
     border-radius: 30px;
     text-decoration: none;
-    font-family: var(--font-primary);
     font-weight: 500;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: 1.1rem;
+    transition: var(--transition);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
 }
 
 .more-reviews-button:hover {
-    background-color: var(--primary-dark, #3a7bc8);
+    background-color: var(--primary-dark);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
 /* Адаптивность для мобильных устройств */

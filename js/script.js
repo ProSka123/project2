@@ -296,3 +296,125 @@ document.addEventListener('DOMContentLoaded', ensureMobileDividersVisibility);
 
 // Вызываем функцию при изменении размера окна
 window.addEventListener('resize', ensureMobileDividersVisibility);
+
+// Добавляем функцию для улучшения мобильного опыта
+function enhanceMobileExperience() {
+    // Проверяем, является ли устройство мобильным
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+    
+    if (isMobile) {
+        // Добавляем мета-тег viewport, если его нет
+        if (!document.querySelector('meta[name="viewport"]')) {
+            const metaViewport = document.createElement('meta');
+            metaViewport.name = 'viewport';
+            metaViewport.content = 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0';
+            document.head.appendChild(metaViewport);
+        }
+        
+        // Улучшаем обработку касаний для карусели отзывов
+        const reviewsCarousel = document.querySelector('.reviews-carousel');
+        if (reviewsCarousel) {
+            let startX, moveX;
+            let isScrolling;
+            
+            reviewsCarousel.addEventListener('touchstart', function(e) {
+                startX = e.touches[0].clientX;
+                isScrolling = undefined;
+            }, { passive: true });
+            
+            reviewsCarousel.addEventListener('touchmove', function(e) {
+                if (!startX) return;
+                
+                moveX = e.touches[0].clientX;
+                const diffX = startX - moveX;
+                
+                // Определяем, является ли это вертикальной прокруткой
+                if (isScrolling === undefined) {
+                    isScrolling = Math.abs(diffX) < Math.abs(e.touches[0].clientY - e.touches[0].clientY);
+                }
+                
+                // Если это горизонтальный свайп, предотвращаем прокрутку страницы
+                if (!isScrolling) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+            
+            reviewsCarousel.addEventListener('touchend', function(e) {
+                if (!startX || !moveX || isScrolling) return;
+                
+                const diffX = startX - moveX;
+                
+                // Если свайп достаточно длинный, переключаем отзыв
+                if (Math.abs(diffX) > 50) {
+                    if (diffX > 0) {
+                        // Свайп влево - следующий отзыв
+                        const nextButton = document.querySelector('.next-review');
+                        if (nextButton) nextButton.click();
+                    } else {
+                        // Свайп вправо - предыдущий отзыв
+                        const prevButton = document.querySelector('.prev-review');
+                        if (prevButton) prevButton.click();
+                    }
+                }
+                
+                // Сбрасываем значения
+                startX = null;
+                moveX = null;
+                isScrolling = undefined;
+            }, { passive: true });
+        }
+        
+        // Улучшаем обработку касаний для всех кнопок
+        document.querySelectorAll('button, .primary-button, .secondary-button, .more-reviews-button')
+            .forEach(button => {
+                button.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
+                }, { passive: true });
+                
+                button.addEventListener('touchend', function() {
+                    this.style.transform = 'scale(1)';
+                }, { passive: true });
+            });
+        
+        // Добавляем активное состояние для ссылок навигации
+        document.querySelectorAll('nav ul li a').forEach(link => {
+            link.addEventListener('touchstart', function() {
+                this.style.opacity = '0.7';
+            }, { passive: true });
+            
+            link.addEventListener('touchend', function() {
+                this.style.opacity = '1';
+            }, { passive: true });
+        });
+    }
+}
+
+// Вызываем функцию после загрузки DOM
+document.addEventListener('DOMContentLoaded', function() {
+    enhanceMobileExperience();
+    
+    // Добавляем обработчик для закрытия мобильного меню при клике на ссылку
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) {
+        document.querySelectorAll('nav ul li a').forEach(link => {
+            link.addEventListener('click', function() {
+                const nav = document.querySelector('nav');
+                if (nav && nav.classList.contains('active')) {
+                    nav.classList.remove('active');
+                    
+                    // Также убираем overlay, если он есть
+                    const overlay = document.querySelector('.menu-overlay');
+                    if (overlay) {
+                        overlay.style.opacity = '0';
+                        setTimeout(() => {
+                            overlay.style.display = 'none';
+                        }, 300);
+                    }
+                }
+            });
+        });
+    }
+});
+
+// Обновляем при изменении размера окна
+window.addEventListener('resize', enhanceMobileExperience);

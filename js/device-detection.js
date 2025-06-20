@@ -29,6 +29,12 @@ function adaptInterface() {
     
     // Настройка поведения навигационной панели
     setupHeaderBehavior(isMobile);
+    
+    // Оптимизация изображений
+    optimizeImages(isMobile);
+    
+    // Настройка сенсорных событий для карусели отзывов
+    setupTouchEvents(isMobile);
 }
 
 // Инициализация при загрузке DOM
@@ -45,7 +51,7 @@ function adaptHeroSection() {
     // Определяем тип устройства
     const isMobile = window.innerWidth < 768;
     
-    // Применяем соответствующие стили
+    // Применяем соответствующие стили только для мобильных
     if (isMobile) {
         // Мобильные стили
         heroSection.style.backgroundImage = 'none';
@@ -55,18 +61,18 @@ function adaptHeroSection() {
         const overlay = heroSection.querySelector('.hero-overlay');
         if (overlay) overlay.style.backgroundColor = 'transparent';
         
-        // Смещаем контент выше
+        // Настраиваем текст
         const heroContent = heroSection.querySelector('.hero-content');
-        if (heroContent) heroContent.style.paddingTop = '10%';
-    } else {
-        // Десктопные стили
-        heroSection.style.backgroundImage = "url('../images/hero-bg.jpg')";
-        heroSection.style.backgroundSize = 'cover';
-        heroSection.style.backgroundPosition = 'center';
-        
-        // Восстанавливаем затемнение
-        const overlay = heroSection.querySelector('.hero-overlay');
-        if (overlay) overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+        if (heroContent) {
+            heroContent.style.paddingTop = '15%';
+            
+            // Настраиваем цвет текста
+            const heading = heroContent.querySelector('h1');
+            const paragraph = heroContent.querySelector('p');
+            
+            if (heading) heading.style.color = '#ffffff';
+            if (paragraph) paragraph.style.color = '#ffffff';
+        }
     }
 }
 
@@ -177,14 +183,66 @@ console.log('Инициализация адаптивного дизайна з
 document.addEventListener('DOMContentLoaded', adaptHeroSection);
 window.addEventListener('resize', adaptHeroSection);
 
+// Функция оптимизации изображений
+function optimizeImages(isMobile) {
+    document.querySelectorAll('img[data-src]').forEach(img => {
+        if (isMobile && img.dataset.mobileSrc) {
+            img.src = img.dataset.mobileSrc;
+        } else {
+            img.src = img.dataset.src;
+        }
+        
+        // Добавляем атрибуты для оптимизации загрузки
+        img.loading = 'lazy';
+        
+        // Добавляем размеры для предотвращения смещения макета
+        if (img.dataset.width && img.dataset.height) {
+            img.width = img.dataset.width;
+            img.height = img.dataset.height;
+        }
+    });
+}
 
-
-
-
-
-
-
-
-
-
+// Настройка сенсорных событий для карусели
+function setupTouchEvents(isMobile) {
+    if (!isMobile) return;
+    
+    const carousels = document.querySelectorAll('.reviews-carousel');
+    
+    carousels.forEach(carousel => {
+        let startX, moveX;
+        let threshold = 100; // Минимальное расстояние для свайпа
+        
+        carousel.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        }, { passive: true });
+        
+        carousel.addEventListener('touchmove', (e) => {
+            moveX = e.touches[0].clientX;
+        }, { passive: true });
+        
+        carousel.addEventListener('touchend', () => {
+            if (!startX || !moveX) return;
+            
+            const diff = startX - moveX;
+            
+            if (Math.abs(diff) > threshold) {
+                // Свайп влево (следующий отзыв)
+                if (diff > 0) {
+                    const nextBtn = document.querySelector('.next-review');
+                    if (nextBtn) nextBtn.click();
+                }
+                // Свайп вправо (предыдущий отзыв)
+                else {
+                    const prevBtn = document.querySelector('.prev-review');
+                    if (prevBtn) prevBtn.click();
+                }
+            }
+            
+            // Сбрасываем значения
+            startX = null;
+            moveX = null;
+        }, { passive: true });
+    });
+}
 
