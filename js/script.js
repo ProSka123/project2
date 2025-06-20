@@ -173,7 +173,13 @@ function adaptHeroSection() {
         // Применяем стили для мобильной версии
         Object.assign(heroSection.style, {
             backgroundImage: 'none',
-            backgroundColor: '#696969'
+            backgroundColor: '#696969',
+            minHeight: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '0',
+            margin: '0'
         });
 
         // Убираем затемнение
@@ -182,58 +188,130 @@ function adaptHeroSection() {
             overlay.style.backgroundColor = 'transparent';
         }
 
-        // Смещаем контент выше
+        // Оптимизируем контент
         const heroContent = heroSection.querySelector('.hero-content');
         if (heroContent) {
-            heroContent.style.paddingTop = '15%';
-        }
-
-        // Скрываем стрелку прокрутки
-        const scrollDown = heroSection.querySelector('.scroll-down');
-        if (scrollDown) {
-            scrollDown.style.display = 'none';
+            Object.assign(heroContent.style, {
+                padding: '0 20px',
+                width: '100%',
+                maxWidth: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                minHeight: '100vh'
+            });
+            
+            // Оптимизируем заголовок
+            const heading = heroContent.querySelector('h1');
+            if (heading) {
+                Object.assign(heading.style, {
+                    fontSize: '2.2rem',
+                    lineHeight: '1.2',
+                    marginBottom: '1.5rem',
+                    textAlign: 'center'
+                });
+            }
+            
+            // Оптимизируем параграф
+            const paragraph = heroContent.querySelector('p');
+            if (paragraph) {
+                Object.assign(paragraph.style, {
+                    fontSize: '1.1rem',
+                    lineHeight: '1.6',
+                    marginBottom: '2rem',
+                    textAlign: 'center'
+                });
+            }
+            
+            // Оптимизируем кнопку
+            const button = heroContent.querySelector('.primary-button');
+            if (button) {
+                Object.assign(button.style, {
+                    width: '100%',
+                    maxWidth: '300px',
+                    padding: '15px 24px',
+                    fontSize: '17px',
+                    fontWeight: '600',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 10px rgba(74, 144, 226, 0.25)'
+                });
+            }
         }
     } catch (error) {
         console.error('Ошибка при адаптации hero секции:', error);
     }
 }
 
-// Функция для применения всех мобильных оптимизаций
-function applyMobileOptimizations() {
+// Функция для скрытия секции отзывов на мобильных устройствах
+function hideReviewsOnMobile() {
     try {
         const isMobile = window.innerWidth < 768;
-
-        if (isMobile) {
-            document.body.classList.add('mobile-device');
-
-            // Инициализируем мобильное меню
-            const cleanupMenu = initMobileMenu();
-
-            // Оптимизируем изображения
-            optimizeImagesForMobile();
-
-            // Адаптируем hero секцию
-            adaptHeroSection();
-
-            // Добавляем разделители между секциями
-            addMobileSectionDividers();
-
-            // Инициализируем свайп для карусели отзывов
-            initReviewsSwipe();
-
-            // Настраиваем ссылки для мобильной версии
-            const reviewsLink = document.querySelector('.reviews-link');
-            if (reviewsLink) {
-                reviewsLink.setAttribute('href', 'reviews.html');
-            }
-
-            // Сохраняем функцию очистки для возможного использования
-            if (cleanupMenu && typeof cleanupMenu === 'function') {
-                window.mobileMenuCleanup = cleanupMenu;
-            }
-        }
+        const reviewsSection = document.getElementById('reviews');
+        
+        if (!reviewsSection || !isMobile) return;
+        
+        // Скрываем секцию отзывов
+        reviewsSection.style.display = 'none';
     } catch (error) {
-        console.error('Ошибка при применении мобильных оптимизаций:', error);
+        console.error('Ошибка при скрытии секции отзывов:', error);
+    }
+}
+
+// Функция для оптимизации шапки на мобильных устройствах
+function optimizeHeaderForMobile() {
+    try {
+        const isMobile = window.innerWidth < 768;
+        
+        if (!isMobile) return;
+        
+        // Находим элементы шапки
+        const menuToggle = document.querySelector('.menu-toggle i');
+        const logoText = document.querySelector('.logo-text');
+        const mobileLogo = document.querySelector('.mobile-logo-text');
+        
+        // Меняем цвет иконки меню
+        if (menuToggle) {
+            menuToggle.style.color = 'var(--primary)';
+            menuToggle.style.fontSize = '24px';
+        }
+        
+        // Скрываем текст логотипа
+        if (logoText) logoText.style.display = 'none';
+        if (mobileLogo) mobileLogo.style.display = 'none';
+    } catch (error) {
+        console.error('Ошибка при оптимизации шапки:', error);
+    }
+}
+
+// Функция для применения всех мобильных оптимизаций
+function applyMobileOptimizations() {
+    if (window.innerWidth < 768) {
+        document.body.classList.add('mobile-device');
+
+        // Инициализируем мобильное меню
+        initMobileMenu();
+
+        // Оптимизируем изображения
+        optimizeImagesForMobile();
+
+        // Адаптируем hero секцию
+        adaptHeroSection();
+
+        // Добавляем разделители между секциями
+        addMobileSectionDividers();
+
+        // Скрываем секцию отзывов
+        hideReviewsOnMobile();
+        
+        // Оптимизируем шапку
+        optimizeHeaderForMobile();
+
+        // Настраиваем ссылки для мобильной версии
+        const reviewsLink = document.querySelector('.reviews-link');
+        if (reviewsLink) {
+            reviewsLink.setAttribute('href', 'reviews.html');
+        }
     }
 }
 
