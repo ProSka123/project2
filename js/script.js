@@ -1,298 +1,277 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Используем единую функцию определения устройства
-    const isMobile = window.detectDevice ? window.detectDevice() : 
-        (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768);
-    
-    // Применяем специфичные для устройства изменения
-    if (isMobile) {
-        applyMobileSpecificChanges();
-    } else {
-        applyDesktopSpecificChanges();
-    }
-    
-    // Остальной код...
-});
+// Улучшенная функция для мобильного меню
+function initMobileMenu() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('nav');
+    const body = document.body;
 
-function applyMobileReviewsChanges() {
-    // Функция удалена
-}
+    if (!menuToggle || !nav) return;
 
-function applyMobileAboutChanges() {
-    // Дополнительные изменения для секции "Обо мне"
-    const statItems = document.querySelectorAll('.stat-item');
-    
-    if (statItems.length > 0) {
-        statItems.forEach(item => {
-            // Увеличиваем контраст
-            item.style.backgroundColor = 'white';
-            item.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.1)';
-        });
-    }
-}
+    // Кэшируем иконку для повторного использования
+    const icon = menuToggle.querySelector('i');
 
-function applyMobileButtonChanges() {
-    // Изменения для кнопки "Мое образование и квалификация"
-    const educationButton = document.querySelector('.secondary-button[href="education.html"]');
-    
-    if (educationButton) {
-        // Удаляем иконку
-        const icon = educationButton.querySelector('i');
-        if (icon) {
-            icon.remove();
+    // Функция для переключения иконки меню
+    function toggleMenuIcon(isActive) {
+        if (!icon) return;
+
+        if (isActive) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
         }
-        
-        // Увеличиваем размер кнопки
-        educationButton.style.padding = '15px 20px';
-        educationButton.style.fontSize = '1.1rem';
-        educationButton.style.width = '100%';
-        educationButton.style.textAlign = 'center';
+    }
+
+    // Функция для закрытия меню
+    function closeMenu() {
+        nav.classList.remove('active');
+        body.classList.remove('menu-open');
+        toggleMenuIcon(false);
+    }
+
+    // Обработчик для открытия/закрытия меню
+    function handleMenuToggle() {
+        const isActive = nav.classList.toggle('active');
+        body.classList.toggle('menu-open');
+        toggleMenuIcon(isActive);
+    }
+
+    // Обработчик клика вне меню
+    function handleOutsideClick(event) {
+        if (!nav.contains(event.target) &&
+            !menuToggle.contains(event.target) &&
+            nav.classList.contains('active')) {
+            closeMenu();
+        }
+    }
+
+    // Добавляем обработчики событий
+    menuToggle.addEventListener('click', handleMenuToggle);
+
+    // Закрытие меню при клике на ссылку
+    const navLinks = nav.querySelectorAll('a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    // Закрытие меню при клике вне меню
+    document.addEventListener('click', handleOutsideClick);
+
+    // Возвращаем функцию для очистки обработчиков
+    return function cleanup() {
+        menuToggle.removeEventListener('click', handleMenuToggle);
+        navLinks.forEach(link => {
+            link.removeEventListener('click', closeMenu);
+        });
+        document.removeEventListener('click', handleOutsideClick);
+    };
+}
+
+// Функция для оптимизации изображений на мобильных устройствах
+function optimizeImagesForMobile() {
+    try {
+        const isMobile = window.innerWidth < 768;
+
+        if (isMobile) {
+            const images = document.querySelectorAll('img[data-mobile-src]');
+            images.forEach(img => {
+                if (img.dataset.mobileSrc && img.src !== img.dataset.mobileSrc) {
+                    img.src = img.dataset.mobileSrc;
+                }
+            });
+        }
+    } catch (error) {
+        console.error('Ошибка при оптимизации изображений:', error);
     }
 }
 
-// Улучшенная функция для свайпа отзывов на мобильных устройствах - удалена
-function fixMobileReviewsSwipe() {
-    // Функция удалена
-}
+// Функция для инициализации свайпа в карусели отзывов
+function initReviewsSwipe() {
+    try {
+        const carousel = document.querySelector('.reviews-carousel');
+        if (!carousel) return;
 
-// Вызываем функцию после полной загрузки DOM
-document.addEventListener('DOMContentLoaded', function() {
-    // Даем время для инициализации других скриптов
-    setTimeout(fixMobileReviewsSwipe, 500);
-});
+        let startX = 0;
+        let endX = 0;
+        const threshold = 50; // Минимальное расстояние для свайпа
 
-// Также вызываем функцию при изменении размера окна
-window.addEventListener('resize', function() {
-    setTimeout(fixMobileReviewsSwipe, 500);
-});
+        // Кэшируем кнопки для лучшей производительности
+        const nextButton = document.querySelector('.next-review');
+        const prevButton = document.querySelector('.prev-review');
 
-// Функция для применения мобильных изменений
-function applyMobileChanges() {
-    // Check if the device is mobile
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
-    
-    if (isMobile) {
-        document.body.classList.add('mobile-device');
-        
-        // Заменяем фоновое изображение в hero секции на серый фон
-        const heroSection = document.querySelector('.hero');
-        if (heroSection) {
-            // Полностью удаляем фоновое изображение и устанавливаем серый фон
-            heroSection.style.backgroundImage = 'none';
-            heroSection.style.backgroundColor = '#f5f5f5';
-            
-            // Убираем затемнение, если оно есть
-            const overlay = heroSection.querySelector('.hero-overlay');
-            if (overlay) {
-                overlay.style.backgroundColor = 'transparent';
+        function handleTouchStart(e) {
+            startX = e.touches[0].clientX;
+        }
+
+        function handleTouchEnd(e) {
+            endX = e.changedTouches[0].clientX;
+
+            // Определяем направление свайпа
+            const swipeDistance = startX - endX;
+
+            if (Math.abs(swipeDistance) > threshold) {
+                if (swipeDistance > 0) {
+                    // Свайп влево - следующий отзыв
+                    if (nextButton) nextButton.click();
+                } else {
+                    // Свайп вправо - предыдущий отзыв
+                    if (prevButton) prevButton.click();
+                }
             }
         }
-        
+
+        carousel.addEventListener('touchstart', handleTouchStart, { passive: true });
+        carousel.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+        // Возвращаем функцию для очистки обработчиков
+        return function cleanup() {
+            carousel.removeEventListener('touchstart', handleTouchStart);
+            carousel.removeEventListener('touchend', handleTouchEnd);
+        };
+    } catch (error) {
+        console.error('Ошибка при инициализации свайпа:', error);
+        return null;
+    }
+}
+
+// Функция для добавления разделителей между секциями на мобильных устройствах
+function addMobileSectionDividers() {
+    try {
+        const isMobile = window.innerWidth < 768;
+
+        if (isMobile) {
+            const sections = document.querySelectorAll('section');
+
+            // Проверяем, не добавлены ли уже разделители
+            const existingDividers = document.querySelectorAll('.mobile-section-divider');
+            if (existingDividers.length > 0) return;
+
+            sections.forEach((section, index) => {
+                if (index > 0 && section.parentNode) { // Пропускаем первую секцию
+                    // Создаем разделитель
+                    const divider = document.createElement('div');
+                    divider.className = 'mobile-section-divider';
+
+                    // Вставляем разделитель перед текущей секцией
+                    section.parentNode.insertBefore(divider, section);
+                }
+            });
+        }
+    } catch (error) {
+        console.error('Ошибка при добавлении разделителей секций:', error);
+    }
+}
+
+// Функция для адаптации hero секции на мобильных устройствах
+function adaptHeroSection() {
+    try {
+        const isMobile = window.innerWidth < 768;
+        const heroSection = document.querySelector('.hero');
+
+        if (!heroSection || !isMobile) return;
+
+        // Применяем стили для мобильной версии
+        Object.assign(heroSection.style, {
+            backgroundImage: 'none',
+            backgroundColor: '#696969'
+        });
+
+        // Убираем затемнение
+        const overlay = heroSection.querySelector('.hero-overlay');
+        if (overlay) {
+            overlay.style.backgroundColor = 'transparent';
+        }
+
         // Смещаем контент выше
-        const heroContent = document.querySelector('.hero-content');
+        const heroContent = heroSection.querySelector('.hero-content');
         if (heroContent) {
             heroContent.style.paddingTop = '15%';
         }
-        
-        // Удаляем инициализацию свайпа для отзывов
-        // setTimeout(fixMobileReviewsSwipe, 500); - removed
-    } else {
-        document.body.classList.remove('mobile-device');
+
+        // Скрываем стрелку прокрутки
+        const scrollDown = heroSection.querySelector('.scroll-down');
+        if (scrollDown) {
+            scrollDown.style.display = 'none';
+        }
+    } catch (error) {
+        console.error('Ошибка при адаптации hero секции:', error);
     }
 }
 
-// Вызываем функцию после полной загрузки DOM
-document.addEventListener('DOMContentLoaded', function() {
-    applyMobileChanges();
-});
+// Функция для применения всех мобильных оптимизаций
+function applyMobileOptimizations() {
+    try {
+        const isMobile = window.innerWidth < 768;
 
-// Также вызываем функцию при изменении размера окна
-window.addEventListener('resize', function() {
-    applyMobileChanges();
-});
+        if (isMobile) {
+            document.body.classList.add('mobile-device');
 
-// Добавляем функционал для кнопки "Подробнее" в отзывах
-document.addEventListener('DOMContentLoaded', function() {
-    // Находим все кнопки "Подробнее"
-    const moreButtons = document.querySelectorAll('.review-more');
-    
-    // Добавляем обработчик события для каждой кнопки
-    moreButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Находим текст отзыва, связанный с этой кнопкой
-            const reviewText = this.previousElementSibling;
-            
-            // Переключаем класс expanded для текста отзыва
-            reviewText.classList.toggle('expanded');
-            
-            // Меняем текст кнопки в зависимости от состояния
-            if (reviewText.classList.contains('expanded')) {
-                this.textContent = 'Свернуть';
-            } else {
-                this.textContent = 'Подробнее';
+            // Инициализируем мобильное меню
+            const cleanupMenu = initMobileMenu();
+
+            // Оптимизируем изображения
+            optimizeImagesForMobile();
+
+            // Адаптируем hero секцию
+            adaptHeroSection();
+
+            // Добавляем разделители между секциями
+            addMobileSectionDividers();
+
+            // Инициализируем свайп для карусели отзывов
+            initReviewsSwipe();
+
+            // Настраиваем ссылки для мобильной версии
+            const reviewsLink = document.querySelector('.reviews-link');
+            if (reviewsLink) {
+                reviewsLink.setAttribute('href', 'reviews.html');
             }
-        });
-    });
-    
-    // Проверяем, нужно ли отображать кнопку "Подробнее" для каждого отзыва
-    const reviewTexts = document.querySelectorAll('.review-text');
-    reviewTexts.forEach(text => {
-        // Если высота содержимого больше, чем максимальная высота в CSS
-        if (text.scrollHeight > text.clientHeight) {
-            // Если после текста нет кнопки "Подробнее", добавляем её
-            if (!text.nextElementSibling || !text.nextElementSibling.classList.contains('review-more')) {
-                const moreButton = document.createElement('div');
-                moreButton.className = 'review-more';
-                moreButton.textContent = 'Подробнее';
-                
-                // Добавляем обработчик события для новой кнопки
-                moreButton.addEventListener('click', function() {
-                    text.classList.toggle('expanded');
-                    this.textContent = text.classList.contains('expanded') ? 'Свернуть' : 'Подробнее';
-                });
-                
-                // Вставляем кнопку после текста отзыва
-                text.parentNode.insertBefore(moreButton, text.nextSibling);
-            }
-        } else {
-            // Если высота содержимого меньше максимальной высоты, скрываем кнопку "Подробнее"
-            const nextElement = text.nextElementSibling;
-            if (nextElement && nextElement.classList.contains('review-more')) {
-                nextElement.style.display = 'none';
+
+            // Сохраняем функцию очистки для возможного использования
+            if (cleanupMenu && typeof cleanupMenu === 'function') {
+                window.mobileMenuCleanup = cleanupMenu;
             }
         }
-    });
-});
-
-// Также вызываем функцию при изменении размера окна
-window.addEventListener('resize', function() {
-    detectDevice();
-});
-
-// Функция для применения специфичных изменений для мобильных устройств
-function applyMobileSpecificChanges() {
-    // Проверяем, находимся ли мы на главной странице
-    const isHomePage = window.location.pathname === '/' || 
-                       window.location.pathname === '/index.html' || 
-                       window.location.pathname.endsWith('/index.html');
-    
-    // Если мы на главной странице, настраиваем навигацию
-    if (isHomePage) {
-        // Находим ссылку на отзывы
-        const reviewsLink = document.querySelector('.reviews-link');
-        if (reviewsLink) {
-            // Меняем ссылку на отдельную страницу для мобильных устройств
-            reviewsLink.setAttribute('href', 'reviews.html');
-        }
-    }
-    
-    // Оптимизация для мобильных устройств
-    document.querySelectorAll('img').forEach(img => {
-        if (!img.dataset.src) return;
-        
-        // Если есть мобильная версия изображения, используем её
-        if (img.dataset.mobileSrc) {
-            img.src = img.dataset.mobileSrc;
-        }
-    });
-}
-
-// Функция для применения специфичных изменений для десктопных устройств
-function applyDesktopSpecificChanges() {
-    // Проверяем, находимся ли мы на главной странице
-    const isHomePage = window.location.pathname === '/' || 
-                       window.location.pathname === '/index.html' || 
-                       window.location.pathname.endsWith('/index.html');
-    
-    // Если мы на главной странице, настраиваем навигацию
-    if (isHomePage) {
-        // Находим ссылку на отзывы
-        const reviewsLink = document.querySelector('.reviews-link');
-        if (reviewsLink) {
-            // Убеждаемся, что ссылка ведет на якорь на текущей странице
-            reviewsLink.setAttribute('href', '#reviews');
-        }
+    } catch (error) {
+        console.error('Ошибка при применении мобильных оптимизаций:', error);
     }
 }
 
-// Функция определения устройства и применения соответствующих изменений
-function detectDevice() {
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
-    
-    // Добавляем класс к body для CSS-стилизации
-    document.body.classList.add(isMobile ? 'mobile-device' : 'desktop-device');
-    
-    console.log('Устройство пользователя:', isMobile ? 'Мобильное' : 'ПК');
-    
-    // Применяем специфичные для устройства изменения
-    if (isMobile) {
-        applyMobileSpecificChanges();
-    } else {
-        applyDesktopSpecificChanges();
-    }
-    
-    return isMobile;
+// Дебаунс функция для оптимизации обработчика resize
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
 }
 
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM полностью загружен');
-    
-    // Определяем устройство
-    const isMobile = detectDevice();
-    console.log('Тип устройства определен:', isMobile ? 'мобильное' : 'десктоп');
-    
-    // Инициализация мобильного меню
-    initMobileMenu();
-    
-    // Другие инициализации...
-});
+    applyMobileOptimizations();
 
-// Обновление при изменении размера окна
-window.addEventListener('resize', function() {
-    console.log('Изменение размера окна, ширина:', window.innerWidth);
-    detectDevice();
-});
+    // Оптимизированный обработчик изменения размера окна
+    const handleResize = debounce(function() {
+        try {
+            const wasMobile = document.body.classList.contains('mobile-device');
+            const isMobile = window.innerWidth < 768;
 
-// Функция для обеспечения отображения разделителей на мобильных устройствах
-function ensureMobileDividersVisibility() {
-    // Проверяем ширину экрана
-    const isMobile = window.innerWidth <= 768;
-    
-    // Находим все разделители
-    const dividers = document.querySelectorAll('.mobile-section-divider');
-    
-    // Устанавливаем стили в зависимости от устройства
-    dividers.forEach(divider => {
-        if (isMobile) {
-            divider.style.display = 'block';
-            divider.style.width = '80%';
-            divider.style.height = '1px';
-            divider.style.margin = '2rem auto';
-            divider.style.background = 'linear-gradient(to right, transparent, var(--primary-dark, #3a7bc8), transparent)';
-            divider.style.position = 'relative';
-            
-            // Добавляем декоративный элемент через JavaScript
-            if (!divider.querySelector('.divider-dot')) {
-                const dot = document.createElement('span');
-                dot.className = 'divider-dot';
-                dot.style.position = 'absolute';
-                dot.style.top = '50%';
-                dot.style.left = '50%';
-                dot.style.transform = 'translate(-50%, -50%)';
-                dot.style.width = '6px';
-                dot.style.height = '6px';
-                dot.style.borderRadius = '50%';
-                dot.style.backgroundColor = 'var(--primary, #4a90e2)';
-                divider.appendChild(dot);
+            // Если изменился тип устройства, перезагружаем страницу
+            if (wasMobile !== isMobile) {
+                // Очищаем обработчики перед перезагрузкой
+                if (window.mobileMenuCleanup && typeof window.mobileMenuCleanup === 'function') {
+                    window.mobileMenuCleanup();
+                }
+                location.reload();
             }
-        } else {
-            divider.style.display = 'none';
+        } catch (error) {
+            console.error('Ошибка при обработке изменения размера окна:', error);
         }
-    });
-}
+    }, 250);
 
-// Вызываем функцию при загрузке страницы
-document.addEventListener('DOMContentLoaded', ensureMobileDividersVisibility);
-
-// Вызываем функцию при изменении размера окна
-window.addEventListener('resize', ensureMobileDividersVisibility);
+    window.addEventListener('resize', handleResize);
+});
