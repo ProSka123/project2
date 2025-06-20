@@ -35,6 +35,12 @@ function adaptInterface() {
     
     // Настройка сенсорных событий для карусели отзывов
     setupTouchEvents(isMobile);
+    
+    // Адаптация карточек услуг
+    adaptServiceCards(isMobile);
+    
+    // Адаптация формы контактов
+    adaptContactForm(isMobile);
 }
 
 // Инициализация при загрузке DOM
@@ -44,16 +50,13 @@ document.addEventListener('DOMContentLoaded', adaptInterface);
 window.addEventListener('resize', adaptInterface);
 
 // 1. Функция адаптации hero секции
-function adaptHeroSection() {
+function adaptHeroSection(isMobile) {
     const heroSection = document.querySelector('.hero');
     if (!heroSection) return;
     
-    // Определяем тип устройства
-    const isMobile = window.innerWidth < 768;
-    
-    // Применяем соответствующие стили только для мобильных
     if (isMobile) {
         // Мобильные стили
+        heroSection.style.height = '100vh';
         heroSection.style.backgroundImage = 'none';
         heroSection.style.backgroundColor = '#696969';
         
@@ -65,13 +68,51 @@ function adaptHeroSection() {
         const heroContent = heroSection.querySelector('.hero-content');
         if (heroContent) {
             heroContent.style.paddingTop = '15%';
+            heroContent.style.textAlign = 'center';
             
             // Настраиваем цвет текста
             const heading = heroContent.querySelector('h1');
             const paragraph = heroContent.querySelector('p');
             
-            if (heading) heading.style.color = '#ffffff';
-            if (paragraph) paragraph.style.color = '#ffffff';
+            if (heading) {
+                heading.style.color = '#ffffff';
+                heading.style.fontSize = '2rem';
+                heading.style.marginBottom = '1rem';
+            }
+            
+            if (paragraph) {
+                paragraph.style.color = '#ffffff';
+                paragraph.style.fontSize = '1rem';
+                paragraph.style.marginBottom = '2rem';
+            }
+            
+            // Настраиваем кнопку
+            const button = heroContent.querySelector('.primary-button');
+            if (button) {
+                button.style.width = '100%';
+                button.style.maxWidth = '300px';
+                button.style.padding = '15px 20px';
+                button.style.fontSize = '1.1rem';
+            }
+        }
+    } else {
+        // Сбрасываем стили для десктопа
+        heroSection.style = '';
+        
+        const overlay = heroSection.querySelector('.hero-overlay');
+        if (overlay) overlay.style = '';
+        
+        const heroContent = heroSection.querySelector('.hero-content');
+        if (heroContent) {
+            heroContent.style = '';
+            
+            const heading = heroContent.querySelector('h1');
+            const paragraph = heroContent.querySelector('p');
+            const button = heroContent.querySelector('.primary-button');
+            
+            if (heading) heading.style = '';
+            if (paragraph) paragraph.style = '';
+            if (button) button.style = '';
         }
     }
 }
@@ -79,82 +120,199 @@ function adaptHeroSection() {
 // 2. Функция адаптации стрелки прокрутки
 function adaptScrollDown(isMobile) {
     const scrollDown = document.querySelector('.scroll-down');
+    if (!scrollDown) return;
     
-    if (!scrollDown) {
-        console.error('Стрелка прокрутки не найдена');
-        return;
-    }
+    scrollDown.style.display = isMobile ? 'none' : '';
+}
+
+// 3. Настройка поведения навигационной панели
+function setupHeaderBehavior(isMobile) {
+    const header = document.querySelector('header');
+    if (!header) return;
     
     if (isMobile) {
-        console.log('Скрываем стрелку прокрутки на мобильных устройствах');
-        scrollDown.style.display = 'none';
+        // Фиксируем шапку для мобильных
+        header.style.position = 'sticky';
+        header.style.top = '0';
+        header.style.zIndex = '1000';
+        header.style.backgroundColor = '#ffffff';
+        header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
     } else {
-        console.log('Показываем стрелку прокрутки на десктопе');
-        scrollDown.style.display = '';
+        // Возвращаем стандартное поведение для десктопа
+        header.style = '';
     }
 }
 
-// 3. Функция адаптации раздела отзывов - удалена
-
-// Функция для исправления количества индикаторов в разделе отзывов - удалена
-
-// 4. Настройка поведения навигационной панели
-function setupHeaderBehavior(isMobile) {
-    const header = document.querySelector('header');
-    const heroSection = document.querySelector('.hero');
-    
-    if (!header || !heroSection) {
-        console.error('Не найдены необходимые элементы для настройки поведения шапки');
-        return;
-    }
-    
-    // Добавляем CSS для анимации
-    if (!document.getElementById('header-animation-styles')) {
-        const styleElement = document.createElement('style');
-        styleElement.id = 'header-animation-styles';
-        styleElement.textContent = `
-            header {
-                transition: transform 0.3s ease, opacity 0.3s ease;
-            }
-            .header-hidden {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            .header-visible {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        `;
-        document.head.appendChild(styleElement);
-    }
-    
-    // Скрываем шапку при загрузке страницы
-    header.classList.add('header-hidden');
-    
-    // Функция обработки прокрутки
-    function handleScroll() {
-        const scrollPosition = window.scrollY;
-        const heroHeight = heroSection.offsetHeight;
-        
-        // Показываем/скрываем шапку в зависимости от позиции прокрутки
-        if (scrollPosition > heroHeight * 0.7) {
-            header.classList.remove('header-hidden');
-            header.classList.add('header-visible');
+// 4. Оптимизация изображений
+function optimizeImages(isMobile) {
+    document.querySelectorAll('img[data-src]').forEach(img => {
+        if (isMobile && img.dataset.mobileSrc) {
+            img.src = img.dataset.mobileSrc;
         } else {
-            header.classList.remove('header-visible');
-            header.classList.add('header-hidden');
+            img.src = img.dataset.src;
+        }
+        
+        // Добавляем атрибуты для оптимизации загрузки
+        img.loading = 'lazy';
+        
+        // Добавляем размеры для предотвращения смещения макета
+        if (img.dataset.width && img.dataset.height) {
+            img.width = img.dataset.width;
+            img.height = img.dataset.height;
+        }
+    });
+}
+
+// 5. Настройка сенсорных событий для карусели отзывов
+function setupTouchEvents(isMobile) {
+    if (!isMobile) return;
+    
+    const reviewsCarousel = document.querySelector('.reviews-carousel');
+    if (!reviewsCarousel) return;
+    
+    // Удаляем существующие обработчики, если они есть
+    reviewsCarousel.removeEventListener('touchstart', handleTouchStart);
+    reviewsCarousel.removeEventListener('touchmove', handleTouchMove);
+    reviewsCarousel.removeEventListener('touchend', handleTouchEnd);
+    
+    // Добавляем новые обработчики
+    reviewsCarousel.addEventListener('touchstart', handleTouchStart, { passive: true });
+    reviewsCarousel.addEventListener('touchmove', handleTouchMove, { passive: false });
+    reviewsCarousel.addEventListener('touchend', handleTouchEnd, { passive: true });
+    
+    // Добавляем визуальную подсказку о свайпе
+    let swipeHint = reviewsCarousel.querySelector('.swipe-hint');
+    if (!swipeHint) {
+        swipeHint = document.createElement('div');
+        swipeHint.className = 'swipe-hint';
+        swipeHint.textContent = '← Свайп →';
+        swipeHint.style.textAlign = 'center';
+        swipeHint.style.fontSize = '0.8rem';
+        swipeHint.style.color = '#888';
+        swipeHint.style.marginTop = '10px';
+        reviewsCarousel.appendChild(swipeHint);
+    }
+}
+
+// Обработчики сенсорных событий
+let startX, startY;
+let isScrolling;
+
+function handleTouchStart(e) {
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    isScrolling = undefined;
+}
+
+function handleTouchMove(e) {
+    if (!startX || !startY) return;
+    
+    const x = e.touches[0].clientX;
+    const y = e.touches[0].clientY;
+    const diffX = startX - x;
+    const diffY = startY - y;
+    
+    // Определяем, является ли это вертикальной прокруткой
+    if (isScrolling === undefined) {
+        isScrolling = Math.abs(diffX) < Math.abs(diffY);
+    }
+    
+    // Если это горизонтальный свайп, предотвращаем прокрутку страницы
+    if (!isScrolling) {
+        e.preventDefault();
+    }
+}
+
+function handleTouchEnd(e) {
+    if (!startX || !startY || isScrolling) return;
+    
+    const x = e.changedTouches[0].clientX;
+    const diffX = startX - x;
+    
+    // Если свайп достаточно длинный, переключаем отзыв
+    if (Math.abs(diffX) > 50) {
+        if (diffX > 0) {
+            // Свайп влево - следующий отзыв
+            const nextButton = document.querySelector('.next-review');
+            if (nextButton) nextButton.click();
+        } else {
+            // Свайп вправо - предыдущий отзыв
+            const prevButton = document.querySelector('.prev-review');
+            if (prevButton) prevButton.click();
         }
     }
     
-    // Удаляем существующий обработчик, если он есть
-    window.removeEventListener('scroll', window.headerScrollHandler);
+    // Сбрасываем значения
+    startX = null;
+    startY = null;
+    isScrolling = undefined;
+}
+
+// 6. Адаптация карточек услуг
+function adaptServiceCards(isMobile) {
+    const serviceCards = document.querySelectorAll('.service-card');
+    if (!serviceCards.length) return;
     
-    // Добавляем новый обработчик
-    window.headerScrollHandler = handleScroll;
-    window.addEventListener('scroll', window.headerScrollHandler);
+    serviceCards.forEach(card => {
+        if (isMobile) {
+            // Увеличиваем размер карточки и интерактивных элементов
+            card.style.padding = '20px';
+            card.style.marginBottom = '20px';
+            
+            // Увеличиваем размер кнопок
+            const buttons = card.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.style.padding = '12px 20px';
+                button.style.fontSize = '1rem';
+                button.style.minHeight = '44px'; // Минимальная высота для удобства касания
+            });
+        } else {
+            // Сбрасываем стили для десктопа
+            card.style = '';
+            
+            const buttons = card.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.style = '';
+            });
+        }
+    });
+}
+
+// 7. Адаптация формы контактов
+function adaptContactForm(isMobile) {
+    const contactForm = document.querySelector('.contact-form');
+    if (!contactForm) return;
     
-    // Вызываем обработчик сразу для установки начального состояния
-    handleScroll();
+    const inputs = contactForm.querySelectorAll('input, textarea');
+    
+    if (isMobile) {
+        // Увеличиваем размер полей ввода для удобства на мобильных
+        inputs.forEach(input => {
+            input.style.padding = '15px';
+            input.style.fontSize = '16px'; // Предотвращает масштабирование на iOS
+            input.style.marginBottom = '15px';
+            input.style.borderRadius = '8px';
+        });
+        
+        // Настраиваем кнопку отправки
+        const submitButton = contactForm.querySelector('.submit-button');
+        if (submitButton) {
+            submitButton.style.padding = '15px';
+            submitButton.style.fontSize = '1.1rem';
+            submitButton.style.width = '100%';
+            submitButton.style.minHeight = '50px';
+        }
+    } else {
+        // Сбрасываем стили для десктопа
+        inputs.forEach(input => {
+            input.style = '';
+        });
+        
+        const submitButton = contactForm.querySelector('.submit-button');
+        if (submitButton) {
+            submitButton.style = '';
+        }
+    }
 }
 
 // Инициализация свайпа для отзывов на мобильных устройствах - удалена

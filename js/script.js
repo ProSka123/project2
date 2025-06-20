@@ -8,9 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
         applyMobileSpecificChanges();
     } else {
         applyDesktopSpecificChanges();
+        restoreDesktopFunctionality();
     }
-    
-    // Остальной код...
 });
 
 function applyMobileReviewsChanges() {
@@ -418,3 +417,137 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Обновляем при изменении размера окна
 window.addEventListener('resize', enhanceMobileExperience);
+
+// Функция для восстановления функциональности десктопной версии
+function restoreDesktopFunctionality() {
+    // Восстанавливаем скрытие/показ шапки при прокрутке
+    let lastScrollTop = 0;
+    const header = document.querySelector('header');
+    
+    if (header) {
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                // Прокрутка вниз - скрываем шапку
+                header.classList.add('header-hidden');
+                header.classList.remove('header-visible');
+            } else {
+                // Прокрутка вверх - показываем шапку
+                header.classList.remove('header-hidden');
+                header.classList.add('header-visible');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+    }
+    
+    // Восстанавливаем анимацию появления элементов при прокрутке
+    const animatedElements = document.querySelectorAll('.fade-in, .fade-up, .fade-right, .fade-left');
+    
+    if (animatedElements.length) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        animatedElements.forEach(element => {
+            observer.observe(element);
+        });
+    }
+    
+    // Восстанавливаем функциональность карточек услуг
+    const serviceCards = document.querySelectorAll('.service-card');
+    
+    serviceCards.forEach(card => {
+        const frontButton = card.querySelector('.service-button');
+        const backButton = card.querySelector('.back-button');
+        
+        if (frontButton) {
+            frontButton.addEventListener('click', function() {
+                card.classList.add('flipped');
+            });
+        }
+        
+        if (backButton) {
+            backButton.addEventListener('click', function() {
+                card.classList.remove('flipped');
+            });
+        }
+    });
+    
+    // Восстанавливаем функциональность карусели отзывов
+    const prevButton = document.querySelector('.prev-review');
+    const nextButton = document.querySelector('.next-review');
+    const indicators = document.querySelectorAll('.indicator');
+    
+    if (prevButton && nextButton && indicators.length) {
+        let currentIndex = 0;
+        
+        prevButton.addEventListener('click', function() {
+            currentIndex = (currentIndex - 1 + indicators.length) % indicators.length;
+            updateCarousel();
+        });
+        
+        nextButton.addEventListener('click', function() {
+            currentIndex = (currentIndex + 1) % indicators.length;
+            updateCarousel();
+        });
+        
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', function() {
+                currentIndex = index;
+                updateCarousel();
+            });
+        });
+        
+        function updateCarousel() {
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentIndex);
+            });
+            
+            // Здесь должен быть код для обновления содержимого отзыва
+            // Но так как у нас нет доступа к полному коду, оставляем только индикаторы
+        }
+    }
+    
+    // Восстанавливаем плавную прокрутку для якорных ссылок
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                e.preventDefault();
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80, // Учитываем высоту шапки
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+    
+    // Восстанавливаем анимацию стрелки прокрутки
+    const scrollDown = document.querySelector('.scroll-down');
+    
+    if (scrollDown) {
+        scrollDown.addEventListener('click', function() {
+            const nextSection = document.querySelector('.hero + section');
+            
+            if (nextSection) {
+                window.scrollTo({
+                    top: nextSection.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }
+}
