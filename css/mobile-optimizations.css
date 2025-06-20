@@ -1,0 +1,164 @@
+/* Дополнительные оптимизации для мобильных устройств */
+@media (max-width: 767px) {
+    /* Улучшение читабельности текста */
+    body {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+    
+    p {
+        font-size: 1rem;
+        line-height: 1.6;
+        letter-spacing: 0.01em;
+    }
+    
+    /* Увеличение размеров интерактивных элементов для тач-интерфейса */
+    button, 
+    .primary-button, 
+    .secondary-button,
+    input[type="submit"],
+    .menu-toggle,
+    nav ul li a {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 12px 20px;
+        touch-action: manipulation;
+    }
+    
+    /* Улучшение отступов для лучшей читабельности */
+    section {
+        padding: 3rem 0;
+    }
+    
+    .container {
+        padding: 0 20px;
+    }
+    
+    /* Улучшение мобильного меню */
+    nav {
+        padding-top: 70px; /* Больше места сверху */
+    }
+    
+    nav ul li {
+        margin-bottom: 8px;
+    }
+    
+    nav ul li a {
+        display: block;
+        padding: 12px 15px;
+        border-radius: 8px;
+        transition: background-color 0.2s ease;
+    }
+    
+    nav ul li a:active,
+    nav ul li a:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+    
+    /* Улучшение карточек и контейнеров */
+    .card,
+    .service-card,
+    .review-card,
+    .stat-item,
+    .contact-form {
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    
+    /* Улучшение отображения форм */
+    input, 
+    textarea, 
+    select {
+        font-size: 16px; /* Предотвращает масштабирование на iOS */
+        padding: 12px 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+    
+    /* Улучшение отображения кнопок */
+    .primary-button, 
+    .secondary-button {
+        border-radius: 8px;
+        font-weight: 500;
+        text-align: center;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .primary-button:active, 
+    .secondary-button:active {
+        transform: translateY(1px);
+    }
+    
+    /* Улучшение отображения hero секции */
+    .hero-content {
+        padding-top: 20%;
+    }
+    
+    .hero h1 {
+        font-size: 2.2rem;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+    }
+    
+    /* Улучшение отображения секции отзывов */
+    .reviews-carousel {
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .review-card {
+        padding: 20px;
+        margin: 0 auto 15px;
+    }
+    
+    /* Индикатор свайпа с анимацией */
+    .reviews-carousel::after {
+        content: "← Свайп →";
+        display: block;
+        text-align: center;
+        font-size: 0.85rem;
+        color: var(--text-light);
+        margin-top: 15px;
+        opacity: 0.7;
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0% { opacity: 0.4; }
+        50% { opacity: 0.8; }
+        100% { opacity: 0.4; }
+    }
+    
+    /* Улучшение отображения футера */
+    footer {
+        text-align: center;
+    }
+    
+    .footer-column {
+        margin-bottom: 2rem;
+    }
+    
+    /* Улучшение отображения разделителей секций */
+    .mobile-section-divider {
+        margin: 1.5rem auto;
+        width: 70%;
+    }
+    
+    /* Улучшение отображения кнопки WhatsApp */
+    .whatsapp-button {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #25D366;
+        color: white;
+        font-size: 28px;
+        position: fixed;
+    }
+}
