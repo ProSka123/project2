@@ -357,14 +357,15 @@ p {
 .services-slider {
     position: relative;
     padding: 10px 0 30px;
+    margin: 0 -15px; /* Компенсируем отступы контейнера */
 }
 
 .services-track {
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    gap: 0;
-    padding: 10px 0;
+    gap: 15px; /* Пространство между карточками */
+    padding: 10px 15px; /* Отступы по бокам, чтобы первая и последняя карточки не прилипали */
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
 }
@@ -374,8 +375,8 @@ p {
 }
 
 .service-card {
-    flex: 0 0 100%;
-    width: 100%;
+    flex: 0 0 90%; /* Ширина карточки, чтобы был виден край следующей */
+    width: 90%;
     scroll-snap-align: center;
     position: relative;
     perspective: 1000px;
@@ -695,10 +696,28 @@ footer {
     flex-direction: column;
     gap: 2rem;
     margin-bottom: 2rem;
+    align-items: center;
+    text-align: center;
+}
+
+.footer-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.footer-logo {
+    max-width: 80px;
+}
+
+.footer-logo img {
+    width: 100%;
+    height: auto;
 }
 
 .footer-column h3 {
-    color: white;
+    color: rgba(255, 255, 255, 0.7);
     margin-bottom: 1.5rem;
     font-size: 1.3rem;
 }
@@ -710,16 +729,18 @@ footer {
 
 .footer-contact-item {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 15px;
     color: rgba(255, 255, 255, 0.7);
+    gap: 10px;
 }
 
 .footer-contact-item i {
     color: var(--primary);
     font-size: 1.1rem;
-    margin-right: 15px;
-    margin-top: 3px;
+    margin-right: 0;
+    margin-top: 0;
 }
 
 .footer-bottom {
@@ -779,9 +800,10 @@ footer {
 .mobile-section-divider {
     width: 80%;
     height: 1px;
-    margin: 2rem auto;
+    margin: 3rem auto; /* Стандартизируем отступы */
     background: linear-gradient(to right, transparent, var(--primary), transparent);
     position: relative;
+    opacity: 0.5;
 }
 
 /* Подсветка формы при записи */
@@ -820,29 +842,27 @@ footer {
 .education-timeline {
     background-color: white;
     border-radius: 12px;
-    padding: 2rem;
+    padding: 1.5rem;
     box-shadow: var(--box-shadow);
 }
 
 .education-section-title {
     color: var(--primary);
-    font-size: 1.4rem;
-    margin: 2rem 0 1rem;
+    font-size: 1.3rem;
+    margin: 1.5rem 0 1rem;
     padding-bottom: 0.5rem;
     border-bottom: 2px solid var(--primary);
 }
 
-.education-section-title:first-child {
-    margin-top: 0;
-}
-
 .education-item {
     display: flex;
+    flex-direction: column;
     margin-bottom: 1.5rem;
     padding: 1rem;
     background-color: rgba(74, 144, 226, 0.05);
     border-radius: 8px;
     border-left: 4px solid var(--primary);
+    gap: 0.5rem;
 }
 
 .education-year {
@@ -852,7 +872,7 @@ footer {
     border-radius: 20px;
     font-weight: 600;
     font-size: 0.9rem;
-    margin-right: 1rem;
+    margin-right: 0;
     flex-shrink: 0;
     align-self: flex-start;
 }
