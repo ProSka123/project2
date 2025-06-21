@@ -3,11 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Инициализация мобильного меню
     initMobileMenu();
     
-    // Инициализация слайдера услуг
-    initServicesSlider();
-    
-    // Инициализация карточек услуг
-    initServiceCards();
+    // Инициализация модального окна для услуг
+    initServiceModal();
     
     // Плавная прокрутка для якорных ссылок
     initSmoothScroll();
@@ -49,104 +46,43 @@ function initMobileMenu() {
     });
 }
 
-// Инициализация слайдера услуг
-function initServicesSlider() {
-    const track = document.querySelector('.services-track');
-    if (!track) return;
+// Инициализация модального окна для услуг
+function initServiceModal() {
+    const modalContainer = document.getElementById('service-modal-container');
+    if (!modalContainer) return;
 
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-    let isScrolling = false;
+    const overlay = modalContainer.querySelector('.service-modal-overlay');
+    const closeButton = modalContainer.querySelector('.service-modal-close');
+    const modalBody = modalContainer.querySelector('.modal-body');
+    const openButtons = document.querySelectorAll('.service-button');
 
-    // Блокировка стандартного поведения скролла для предотвращения конфликтов
-    track.addEventListener('scroll', (e) => {
-        if (isScrolling) {
+    openButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
             e.preventDefault();
-        }
-    }, { passive: false });
+            const card = button.closest('.service-card');
+            const backContent = card.querySelector('.service-card-back');
+            
+            if (backContent) {
+                modalBody.innerHTML = backContent.innerHTML;
+                modalContainer.classList.add('active');
+                document.body.style.overflow = 'hidden';
 
-    track.addEventListener('mousedown', (e) => {
-        isDown = true;
-        track.classList.add('active');
-        startX = e.pageX - track.offsetLeft;
-        scrollLeft = track.scrollLeft;
-    });
-
-    track.addEventListener('mouseleave', () => {
-        isDown = false;
-        track.classList.remove('active');
-    });
-
-    track.addEventListener('mouseup', () => {
-        isDown = false;
-        track.classList.remove('active');
-        snapToNearest();
-    });
-
-    track.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - track.offsetLeft;
-        const walk = (x - startX) * 2; // Увеличиваем скорость скролла
-        track.scrollLeft = scrollLeft - walk;
-    });
-
-    track.addEventListener('touchstart', (e) => {
-        isDown = true;
-        startX = e.touches[0].pageX - track.offsetLeft;
-        scrollLeft = track.scrollLeft;
-    }, { passive: true });
-
-    track.addEventListener('touchend', () => {
-        isDown = false;
-        snapToNearest();
-    });
-
-    track.addEventListener('touchmove', (e) => {
-        if (!isDown) return;
-        const x = e.touches[0].pageX - track.offsetLeft;
-        const walk = x - startX;
-        track.scrollLeft = scrollLeft - walk;
-    }, { passive: true });
-
-    function snapToNearest() {
-        if (isScrolling) return;
-
-        isScrolling = true;
-
-        const cards = Array.from(track.querySelectorAll('.service-card'));
-        const trackRect = track.getBoundingClientRect();
-        const trackCenter = trackRect.left + trackRect.width / 2;
-
-        let closestCard = null;
-        let smallestDistance = Infinity;
-
-        cards.forEach(card => {
-            const cardRect = card.getBoundingClientRect();
-            const cardCenter = cardRect.left + cardRect.width / 2;
-            const distance = Math.abs(trackCenter - cardCenter);
-
-            if (distance < smallestDistance) {
-                smallestDistance = distance;
-                closestCard = card;
+                // Добавляем обработчик для кнопки "Назад" внутри модального окна
+                const backButton = modalBody.querySelector('.back-button');
+                if (backButton) {
+                    backButton.addEventListener('click', closeModal);
+                }
             }
         });
+    });
 
-        if (closestCard) {
-            const scrollTarget = closestCard.offsetLeft - (track.offsetWidth - closestCard.offsetWidth) / 2;
-            
-            track.scrollTo({
-                left: scrollTarget,
-                behavior: 'smooth'
-            });
-        }
-        
-        // Даем время на завершение анимации
-        setTimeout(() => {
-            isScrolling = false;
-        }, 500); // 500ms должно быть достаточно для плавной прокрутки
+    function closeModal() {
+        modalContainer.classList.remove('active');
+        document.body.style.overflow = '';
     }
+
+    closeButton.addEventListener('click', closeModal);
+    overlay.addEventListener('click', closeModal);
 }
 
 // Плавная прокрутка для якорных ссылок
