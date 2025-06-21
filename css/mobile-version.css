@@ -340,7 +340,7 @@ p {
 /* Секция "Услуги" */
 .services {
     padding: 40px 0;
-    background-color: #f9f9f9;
+    background-color: white;
 }
 
 .services .container {
@@ -1261,24 +1261,23 @@ a.privacy-link:hover {
 }
 
 .review-card {
-    background-color: white;
+    background-color: transparent; /* Убираем белый фон */
     color: #333;
-    padding: 20px;
-    border-radius: 12px;
+    padding: 20px 0; /* Убираем боковые отступы */
     margin-bottom: 20px;
     width: 100%;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    border: 1px solid #e8e8e8;
+    border: none; /* Убираем границу */
+    box-shadow: none; /* Убираем тень */
     position: relative;
 }
 
-/* Добавляем разделитель между отзывами */
+/* Добавляем простой синий разделитель на середине расстояния между отзывами */
 .review-card:not(:last-child)::after {
     content: '';
     position: absolute;
-    bottom: -10px;
-    left: 20px;
-    right: 20px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #e0e0e0, transparent);
+    bottom: -15px; /* Перемещаем на середину расстояния (gap: 30px / 2 = 15px) */
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #4a90e2; /* Синий цвет */
 }
