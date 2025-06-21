@@ -339,13 +339,16 @@ p {
 
 /* Секция "Услуги" */
 .services {
-    padding: 4rem 0;
-    background-color: var(--white);
+    padding: 40px 0;
+    background-color: #f9f9f9;
 }
 
-.section-header {
-    text-align: center;
-    margin-bottom: 2.5rem;
+.services .container {
+    padding: 0 20px;
+}
+
+.services .section-header {
+    margin-bottom: 30px;
 }
 
 .section-title {
@@ -354,7 +357,7 @@ p {
     color: #333;
     position: relative;
     display: inline-block;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
     margin-bottom: 30px;
 }
 
@@ -364,9 +367,11 @@ p {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 60px;
+    width: 80px;
     height: 4px;
-    background-color: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-color), #4a90e2);
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .section-subtitle {
@@ -679,6 +684,18 @@ p {
     font-size: 1rem;
 }
 
+.contact-form textarea {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    resize: none; /* Убираем возможность изменения размера */
+    min-height: 120px;
+    transition: border-color 0.3s;
+}
+
 .submit-button {
     width: 100%;
     padding: 14px;
@@ -769,7 +786,8 @@ footer {
 
 .footer-logo img {
     width: 100%;
-    height: auto;
+    height: 60px;
+    border-radius: 12px; /* Скругленные края */
 }
 
 .footer-social {
@@ -1155,7 +1173,7 @@ a.privacy-link:hover {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: var(--primary-color);
+    background-color: #4a90e2;
     color: white;
     display: flex;
     align-items: center;
@@ -1208,4 +1226,46 @@ a.privacy-link:hover {
 
 .reviews-page .section-header {
     margin-bottom: 40px;
+}
+
+.reviews-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 40px;
+    align-items: center;
+}
+
+.more-reviews-btn,
+.back-home-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.more-reviews-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.more-reviews-btn:hover {
+    background-color: #d4a574;
+    transform: translateY(-2px);
+}
+
+.back-home-btn {
+    background-color: #f0f0f0;
+    color: #333;
+    border: 2px solid #e0e0e0;
+}
+
+.back-home-btn:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-2px);
 }
