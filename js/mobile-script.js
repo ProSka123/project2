@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Инициализация мобильного меню
     initMobileMenu();
     
+    // Инициализация слайдера и индикаторов
+    initServicesSlider();
+    
     // Инициализация модального окна для услуг
     initServiceModal();
     
@@ -46,6 +49,47 @@ function initMobileMenu() {
     });
 }
 
+// Инициализация слайдера и индикаторов
+function initServicesSlider() {
+    const track = document.querySelector('.services-track');
+    const indicatorsContainer = document.querySelector('.slider-indicators');
+    if (!track || !indicatorsContainer) return;
+
+    const cards = track.querySelectorAll('.service-card');
+    let cardCount = cards.length;
+
+    // Создаем индикаторы
+    indicatorsContainer.innerHTML = '';
+    for (let i = 0; i < cardCount; i++) {
+        const indicator = document.createElement('div');
+        indicator.classList.add('slider-indicator');
+        indicator.addEventListener('click', () => {
+            const cardWidth = cards[i].offsetWidth;
+            const scrollPosition = i * (cardWidth + 15); // 15px - это gap
+            track.scrollTo({
+                left: scrollPosition,
+                behavior: 'smooth'
+            });
+        });
+        indicatorsContainer.appendChild(indicator);
+    }
+    const indicators = indicatorsContainer.querySelectorAll('.slider-indicator');
+
+    function updateIndicators() {
+        const scrollLeft = track.scrollLeft;
+        const cardWidth = cards[0].offsetWidth;
+        const gap = 15;
+        let currentIndex = Math.round(scrollLeft / (cardWidth + gap));
+        
+        indicators.forEach((indicator, index) => {
+            indicator.classList.toggle('active', index === currentIndex);
+        });
+    }
+
+    track.addEventListener('scroll', updateIndicators, { passive: true });
+    updateIndicators(); // Первоначальная установка
+}
+
 // Инициализация модального окна для услуг
 function initServiceModal() {
     const modalContainer = document.getElementById('service-modal-container');
@@ -67,10 +111,17 @@ function initServiceModal() {
                 modalContainer.classList.add('active');
                 document.body.style.overflow = 'hidden';
 
-                // Добавляем обработчик для кнопки "Назад" внутри модального окна
+                // Назначаем события для кнопок внутри модального окна
                 const backButton = modalBody.querySelector('.back-button');
                 if (backButton) {
                     backButton.addEventListener('click', closeModal);
+                }
+                const enrollButton = modalBody.querySelector('.enroll-button');
+                if(enrollButton) {
+                    enrollButton.addEventListener('click', () => {
+                        closeModal();
+                        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+                    });
                 }
             }
         });
