@@ -52,126 +52,101 @@ function initMobileMenu() {
 // Инициализация слайдера услуг
 function initServicesSlider() {
     const track = document.querySelector('.services-track');
-    const cards = document.querySelectorAll('.service-card');
-    const indicators = document.querySelectorAll('.slider-indicator');
-    
-    if (!track || !cards.length) return;
-    
-    let currentIndex = 0;
+    if (!track) return;
+
+    let isDown = false;
+    let startX;
+    let scrollLeft;
     let isScrolling = false;
-    let startX, startScrollLeft;
-    
-    // Обновление индикаторов
-    function updateIndicators() {
-        if (!indicators.length) return;
-        
-        indicators.forEach((indicator, index) => {
-            indicator.classList.toggle('active', index === currentIndex);
-        });
-    }
-    
-    // Плавная прокрутка к карточке
-    function scrollToCard(index) {
-        if (isScrolling || index < 0 || index >= cards.length) return;
-        
+
+    // Блокировка стандартного поведения скролла для предотвращения конфликтов
+    track.addEventListener('scroll', (e) => {
+        if (isScrolling) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+
+    track.addEventListener('mousedown', (e) => {
+        isDown = true;
+        track.classList.add('active');
+        startX = e.pageX - track.offsetLeft;
+        scrollLeft = track.scrollLeft;
+    });
+
+    track.addEventListener('mouseleave', () => {
+        isDown = false;
+        track.classList.remove('active');
+    });
+
+    track.addEventListener('mouseup', () => {
+        isDown = false;
+        track.classList.remove('active');
+        snapToNearest();
+    });
+
+    track.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - track.offsetLeft;
+        const walk = (x - startX) * 2; // Увеличиваем скорость скролла
+        track.scrollLeft = scrollLeft - walk;
+    });
+
+    track.addEventListener('touchstart', (e) => {
+        isDown = true;
+        startX = e.touches[0].pageX - track.offsetLeft;
+        scrollLeft = track.scrollLeft;
+    }, { passive: true });
+
+    track.addEventListener('touchend', () => {
+        isDown = false;
+        snapToNearest();
+    });
+
+    track.addEventListener('touchmove', (e) => {
+        if (!isDown) return;
+        const x = e.touches[0].pageX - track.offsetLeft;
+        const walk = x - startX;
+        track.scrollLeft = scrollLeft - walk;
+    }, { passive: true });
+
+    function snapToNearest() {
+        if (isScrolling) return;
+
         isScrolling = true;
-        currentIndex = index;
-        
-        const cardWidth = cards[0].offsetWidth;
-        const gap = 20; // Отступ между карточками
-        const scrollPosition = index * (cardWidth + gap);
-        
-        track.scrollTo({
-            left: scrollPosition,
-            behavior: 'smooth'
+
+        const cards = Array.from(track.querySelectorAll('.service-card'));
+        const trackRect = track.getBoundingClientRect();
+        const trackCenter = trackRect.left + trackRect.width / 2;
+
+        let closestCard = null;
+        let smallestDistance = Infinity;
+
+        cards.forEach(card => {
+            const cardRect = card.getBoundingClientRect();
+            const cardCenter = cardRect.left + cardRect.width / 2;
+            const distance = Math.abs(trackCenter - cardCenter);
+
+            if (distance < smallestDistance) {
+                smallestDistance = distance;
+                closestCard = card;
+            }
         });
+
+        if (closestCard) {
+            const scrollTarget = closestCard.offsetLeft - (track.offsetWidth - closestCard.offsetWidth) / 2;
+            
+            track.scrollTo({
+                left: scrollTarget,
+                behavior: 'smooth'
+            });
+        }
         
-        updateIndicators();
-        
-        // Сброс флага после завершения анимации
+        // Даем время на завершение анимации
         setTimeout(() => {
             isScrolling = false;
-        }, 500);
+        }, 500); // 500ms должно быть достаточно для плавной прокрутки
     }
-    
-    // Обработчик события прокрутки
-    track.addEventListener('scroll', function() {
-        if (isScrolling) return;
-        
-        const scrollPosition = track.scrollLeft;
-        const cardWidth = cards[0].offsetWidth;
-        const gap = 20;
-        const cardFullWidth = cardWidth + gap;
-        
-        // Определяем текущую карточку на основе позиции прокрутки
-        const newIndex = Math.round(scrollPosition / cardFullWidth);
-        
-        if (newIndex !== currentIndex && newIndex >= 0 && newIndex < cards.length) {
-            currentIndex = newIndex;
-            updateIndicators();
-        }
-    });
-    
-    // Обработчики для свайпа
-    track.addEventListener('touchstart', function(e) {
-        if (isScrolling) return;
-        
-        startX = e.touches[0].clientX;
-        startScrollLeft = track.scrollLeft;
-    });
-    
-    track.addEventListener('touchmove', function(e) {
-        if (!startX || isScrolling) return;
-        
-        e.preventDefault();
-        
-        const currentX = e.touches[0].clientX;
-        const diff = startX - currentX;
-        
-        // Плавная прокрутка во время свайпа
-        track.scrollLeft = startScrollLeft + diff;
-    });
-    
-    track.addEventListener('touchend', function(e) {
-        if (!startX || isScrolling) return;
-        
-        const endX = e.changedTouches[0].clientX;
-        const diff = startX - endX;
-        const threshold = 50; // Минимальное расстояние для свайпа
-        
-        if (Math.abs(diff) > threshold) {
-            if (diff > 0) {
-                // Свайп влево - следующая карточка
-                scrollToCard(Math.min(currentIndex + 1, cards.length - 1));
-            } else {
-                // Свайп вправо - предыдущая карточка
-                scrollToCard(Math.max(currentIndex - 1, 0));
-            }
-        } else {
-            // Возвращаемся к текущей карточке если свайп был недостаточным
-            scrollToCard(currentIndex);
-        }
-        
-        startX = null;
-        startScrollLeft = null;
-    });
-    
-    // Клик по индикаторам
-    if (indicators.length) {
-        indicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', function() {
-                scrollToCard(index);
-            });
-        });
-    }
-    
-    // Автоматическое выравнивание при загрузке
-    setTimeout(() => {
-        scrollToCard(0);
-    }, 100);
-    
-    // Инициализация
-    updateIndicators();
 }
 
 // Плавная прокрутка для якорных ссылок

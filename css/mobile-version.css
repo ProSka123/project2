@@ -343,13 +343,21 @@ p {
 
 .section-title {
     text-align: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--primary);
+    display: inline-block;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
 }
 
 .section-subtitle {
     text-align: center;
     color: var(--text-light);
-    margin-bottom: 2.5rem;
+    margin-bottom: 0;
     font-size: 1.1rem;
 }
 
@@ -422,6 +430,10 @@ p {
     justify-content: space-between;
 }
 
+.service-card-front h3 {
+    margin-bottom: 0.5rem;
+}
+
 .service-card-back {
     transform: rotateY(-180deg);
     z-index: 1;
@@ -438,25 +450,55 @@ p {
 
 .service-card-back h3 {
     color: var(--primary);
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     font-size: 1.3rem;
     text-align: center;
 }
 
-.service-card-back p {
+.service-card-back .service-subtitle {
+    font-size: 1rem;
     color: var(--text-light);
-    margin-bottom: 20px;
-    line-height: 1.6;
+    margin-bottom: 15px;
     text-align: center;
+}
+
+.service-card-back ul {
+    list-style: none;
+    padding-left: 0;
+    text-align: left;
+    margin-bottom: 20px;
     flex-grow: 1;
+}
+
+.service-card-back ul li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 10px;
+}
+
+.service-card-back ul li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.service-card-back .service-price-block {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .service-card-back .price {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--primary);
-    margin-bottom: 20px;
-    text-align: center;
+    display: block;
+}
+
+.service-card-back .duration {
+    font-size: 0.9rem;
+    color: var(--text-light);
 }
 
 .service-card-back .button-group {
@@ -475,10 +517,11 @@ p {
     background-color: transparent;
     color: var(--primary);
     border: 1px solid var(--primary);
-    padding: 10px 20px;
+    padding: 12px 20px;
     border-radius: var(--border-radius);
     cursor: pointer;
     transition: var(--transition);
+    order: 2;
 }
 
 .back-button:hover {
@@ -490,11 +533,12 @@ p {
     background-color: var(--primary);
     color: white;
     border: none;
-    padding: 12px 24px;
+    padding: 14px 24px;
     border-radius: var(--border-radius);
     cursor: pointer;
     transition: var(--transition);
     font-weight: 500;
+    order: 1;
 }
 
 .enroll-button:hover {
@@ -588,7 +632,7 @@ p {
 /* Секция "Контакты" */
 .contact {
     padding: 4rem 0;
-    background-color: var(--white);
+    background-color: var(--light-bg);
 }
 
 .contact-content {
@@ -686,29 +730,48 @@ p {
 
 /* Футер */
 footer {
-    background-color: #333;
+    background-color: #2f2f2f;
     color: white;
-    padding: 3rem 0 1.5rem;
+    padding: 2.5rem 0 1.5rem;
 }
 
 .footer-content {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    margin-bottom: 2rem;
-    align-items: center;
-    text-align: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
-.footer-info {
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.footer-contacts {
     display: flex;
     flex-direction: column;
+    gap: 0.5rem;
+}
+
+.footer-contacts a {
+    color: white;
+    text-decoration: none;
+    display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 10px;
+    transition: color 0.3s;
+}
+
+.footer-contacts a:hover {
+    color: var(--primary);
 }
 
 .footer-logo {
-    max-width: 80px;
+    max-width: 90px;
+    flex-shrink: 0;
 }
 
 .footer-logo img {
@@ -716,31 +779,21 @@ footer {
     height: auto;
 }
 
-.footer-column h3 {
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 1.5rem;
-    font-size: 1.3rem;
-}
-
-.footer-column p {
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 1.5rem;
-}
-
-.footer-contact-item {
+.footer-social {
     display: flex;
-    align-items: center;
     justify-content: center;
-    margin-bottom: 15px;
-    color: rgba(255, 255, 255, 0.7);
-    gap: 10px;
+    gap: 25px;
+    margin: 1rem 0;
 }
 
-.footer-contact-item i {
+.footer-social a {
+    color: white;
+    font-size: 1.8rem;
+    transition: color 0.3s;
+}
+
+.footer-social a:hover {
     color: var(--primary);
-    font-size: 1.1rem;
-    margin-right: 0;
-    margin-top: 0;
 }
 
 .footer-bottom {
@@ -750,7 +803,7 @@ footer {
 }
 
 .footer-bottom p {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.6);
     font-size: 0.9rem;
     margin: 0;
 }
