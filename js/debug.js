@@ -202,7 +202,7 @@ window.forceDeviceType = function(type) {
         console.log('Device detector not available');
         return;
     }
-
+    
     if (['mobile', 'tablet', 'desktop'].includes(type)) {
         deviceDetector.setDeviceType(type);
         console.log(`Device type forced to: ${type}`);
