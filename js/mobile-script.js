@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Инициализация слайдера услуг
     initServicesSlider();
     
+    // Инициализация карточек услуг
+    initServiceCards();
+    
     // Плавная прокрутка для якорных ссылок
     initSmoothScroll();
 });
@@ -192,6 +195,87 @@ function initSmoothScroll() {
                     top: offsetTop,
                     behavior: 'smooth'
                 });
+            }
+        });
+    });
+}
+
+// Инициализация карточек услуг
+function initServiceCards() {
+    // Находим все кнопки "Подробнее" и "Назад"
+    const serviceButtons = document.querySelectorAll('.service-button');
+    const backButtons = document.querySelectorAll('.back-button');
+    
+    // Добавляем обработчики для кнопок "Подробнее"
+    serviceButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const serviceType = this.getAttribute('data-service');
+            
+            const card = document.getElementById(`service-${serviceType}`);
+            if (card) {
+                card.classList.add('flipped');
+            }
+        });
+    });
+    
+    // Добавляем обработчики для кнопок "Назад"
+    backButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const card = this.closest('.service-card');
+            if (card) {
+                card.classList.remove('flipped');
+            }
+        });
+    });
+    
+    // Добавляем обработчики для кнопок "Записаться"
+    const enrollButtons = document.querySelectorAll('.enroll-button');
+    
+    enrollButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Получаем название услуги из родительской карточки
+            const card = this.closest('.service-card');
+            const serviceName = card ? card.querySelector('h3').textContent : 'Услуга';
+            
+            // Находим секцию контактов
+            const contactSection = document.getElementById('contact');
+            if (!contactSection) {
+                return;
+            }
+            
+            // Находим форму и поле сообщения
+            const contactForm = contactSection.querySelector('form');
+            const messageField = contactSection.querySelector('#message, [name="message"], textarea');
+            
+            // Прокручиваем к форме контактов
+            const contactPosition = contactSection.getBoundingClientRect().top + window.scrollY;
+            
+            window.scrollTo({
+                top: contactPosition - 20,
+                behavior: 'smooth'
+            });
+            
+            // Заполняем поле сообщения информацией об услуге
+            if (messageField) {
+                messageField.value = `Здравствуйте! Хочу записаться на услугу "${serviceName}".`;
+                
+                // Небольшая задержка перед установкой фокуса
+                setTimeout(() => {
+                    messageField.focus();
+                }, 800);
+            }
+            
+            // Добавляем подсветку формы
+            if (contactForm) {
+                contactForm.classList.add('highlight-form');
+                setTimeout(() => {
+                    contactForm.classList.remove('highlight-form');
+                }, 2000);
             }
         });
     });

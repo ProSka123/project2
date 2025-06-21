@@ -263,20 +263,24 @@ p {
 .stats-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    padding: 10px 0 20px;
+    gap: 20px;
+    padding: 15px 0 25px;
     margin: 2rem 0;
 }
 
 .stat-item {
     background-color: white;
     border-radius: 12px;
-    padding: 20px 15px;
+    padding: 25px 20px;
     text-align: center;
     box-shadow: var(--box-shadow);
     transition: var(--transition);
     border: 1px solid rgba(0, 0, 0, 0.05);
     width: 100%;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .stat-item:hover {
@@ -285,22 +289,23 @@ p {
 }
 
 .stat-item i {
-    font-size: 2rem;
+    font-size: 2.2rem;
     color: var(--primary);
     margin-bottom: 15px;
 }
 
 .stat-number {
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 700;
     color: var(--primary);
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     font-family: var(--font-heading);
 }
 
 .stat-text {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: var(--text-light);
+    line-height: 1.3;
 }
 
 .about-buttons {
@@ -352,7 +357,7 @@ p {
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    gap: 20px;
+    gap: 0;
     padding: 10px 0;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
@@ -363,21 +368,115 @@ p {
 }
 
 .service-card {
-    flex: 0 0 auto;
-    width: 280px;
+    flex: 0 0 100%;
+    width: 100%;
     background-color: white;
     border-radius: 12px;
     box-shadow: var(--box-shadow);
     padding: 25px 20px;
-    scroll-snap-align: start;
+    scroll-snap-align: center;
     transition: var(--transition);
     border: 1px solid rgba(0, 0, 0, 0.05);
     position: relative;
+    margin: 0 10px;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+.service-card:first-child {
+    margin-left: 0;
+}
+
+.service-card:last-child {
+    margin-right: 0;
 }
 
 .service-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.service-card-front,
+.service-card-back {
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.6s ease-in-out;
+}
+
+.service-card-front {
+    transform: rotateY(0deg);
+}
+
+.service-card-back {
+    transform: rotateY(180deg);
+    background-color: white;
+    border-radius: 12px;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.service-card.flipped .service-card-front {
+    transform: rotateY(180deg);
+}
+
+.service-card.flipped .service-card-back {
+    transform: rotateY(0deg);
+}
+
+.service-card-back h3 {
+    color: var(--primary);
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.service-card-back p {
+    color: var(--text-light);
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.service-card-back .price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+.back-button {
+    background-color: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    margin-bottom: 15px;
+}
+
+.back-button:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+.enroll-button {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 500;
+}
+
+.enroll-button:hover {
+    background-color: var(--primary-dark);
 }
 
 .service-icon {
@@ -631,6 +730,16 @@ footer {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     z-index: 1000;
     animation: pulse 2s infinite;
+    text-decoration: none;
+    border: none;
+    outline: none;
+}
+
+.whatsapp-button i {
+    line-height: 1;
+    display: block;
+    margin: 0;
+    padding: 0;
 }
 
 @keyframes pulse {
@@ -652,4 +761,114 @@ footer {
     margin: 2rem auto;
     background: linear-gradient(to right, transparent, var(--primary), transparent);
     position: relative;
+}
+
+/* Подсветка формы при записи */
+.contact-form.highlight-form {
+    animation: formHighlight 2s ease-in-out;
+}
+
+@keyframes formHighlight {
+    0%, 100% {
+        box-shadow: var(--box-shadow);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(74, 144, 226, 0.5);
+    }
+}
+
+/* Стили для страницы образования */
+.education.fullscreen {
+    min-height: 100vh;
+    padding: 6rem 0 4rem;
+    background-color: var(--light-bg);
+}
+
+.education h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--primary);
+    font-size: 2rem;
+}
+
+.education-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.education-timeline {
+    background-color: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: var(--box-shadow);
+}
+
+.education-section-title {
+    color: var(--primary);
+    font-size: 1.4rem;
+    margin: 2rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary);
+}
+
+.education-section-title:first-child {
+    margin-top: 0;
+}
+
+.education-item {
+    display: flex;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: rgba(74, 144, 226, 0.05);
+    border-radius: 8px;
+    border-left: 4px solid var(--primary);
+}
+
+.education-year {
+    background-color: var(--primary);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-right: 1rem;
+    flex-shrink: 0;
+    align-self: flex-start;
+}
+
+.education-info h3 {
+    color: var(--text-dark);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+.education-info p {
+    color: var(--text-light);
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.back-to-main {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--primary);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.back-link:hover {
+    background-color: var(--primary);
+    color: white;
 }
