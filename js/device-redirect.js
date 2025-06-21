@@ -32,11 +32,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const isMainPage = window.location.pathname === '/' || 
                                window.location.pathname.includes('index.html');
             const isMobilePage = window.location.pathname.includes('mobile-index.html');
+            const isEducationPage = window.location.pathname.includes('education.html');
             
             console.log('Quick check:', {
                 isMobileDevice: isMobileDevice,
                 isMainPage: isMainPage,
                 isMobilePage: isMobilePage,
+                isEducationPage: isEducationPage,
                 screenWidth: screenWidth,
                 userAgent: userAgent.substring(0, 50) + '...'
             });
@@ -46,6 +48,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 performRedirect('mobile-index.html');
             } else if (isMobilePage && !isMobileDevice) {
                 performRedirect('index.html');
+            } else if (isEducationPage && isMobileDevice) {
+                // Перенаправляем на мобильную версию образования для мобильных устройств
+                performRedirect('mobile-education.html');
             } else {
                 console.log('Перенаправление не требуется');
                 localStorage.removeItem(redirectKey);
@@ -94,3 +99,18 @@ showDeviceInfo();
 
 // Принудительно установить тип устройства
 forceDeviceType('mobile');
+
+// Функция для обработки ссылок на образование
+function handleEducationLink() {
+    const userAgent = navigator.userAgent.toLowerCase();
+    const screenWidth = window.innerWidth;
+    const isMobileByUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
+    const isMobileByWidth = screenWidth < 768;
+    const isMobileDevice = isMobileByUA || isMobileByWidth;
+    
+    if (isMobileDevice) {
+        window.location.href = 'mobile-education.html';
+    } else {
+        window.location.href = 'education.html';
+    }
+}

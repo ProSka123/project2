@@ -55,7 +55,8 @@ function initServicesSlider() {
     if (!track || !cards.length) return;
     
     let currentIndex = 0;
-    let startX, moveX;
+    let isScrolling = false;
+    let startX, startScrollLeft;
     
     // Обновление индикаторов
     function updateIndicators() {
@@ -66,73 +67,105 @@ function initServicesSlider() {
         });
     }
     
-    // Обработчик события прокрутки
-    track.addEventListener('scroll', function() {
-        if (!cards.length || !track) return;
+    // Плавная прокрутка к карточке
+    function scrollToCard(index) {
+        if (isScrolling || index < 0 || index >= cards.length) return;
         
-        const scrollPosition = track.scrollLeft;
-        const cardWidth = cards[0].offsetWidth + 20; // Ширина карточки + отступ
-        currentIndex = Math.round(scrollPosition / cardWidth);
+        isScrolling = true;
+        currentIndex = index;
         
-        if (currentIndex >= cards.length) {
-            currentIndex = cards.length - 1;
-        }
+        const cardWidth = cards[0].offsetWidth;
+        const gap = 20; // Отступ между карточками
+        const scrollPosition = index * (cardWidth + gap);
+        
+        track.scrollTo({
+            left: scrollPosition,
+            behavior: 'smooth'
+        });
         
         updateIndicators();
+        
+        // Сброс флага после завершения анимации
+        setTimeout(() => {
+            isScrolling = false;
+        }, 500);
+    }
+    
+    // Обработчик события прокрутки
+    track.addEventListener('scroll', function() {
+        if (isScrolling) return;
+        
+        const scrollPosition = track.scrollLeft;
+        const cardWidth = cards[0].offsetWidth;
+        const gap = 20;
+        const cardFullWidth = cardWidth + gap;
+        
+        // Определяем текущую карточку на основе позиции прокрутки
+        const newIndex = Math.round(scrollPosition / cardFullWidth);
+        
+        if (newIndex !== currentIndex && newIndex >= 0 && newIndex < cards.length) {
+            currentIndex = newIndex;
+            updateIndicators();
+        }
     });
     
     // Обработчики для свайпа
     track.addEventListener('touchstart', function(e) {
+        if (isScrolling) return;
+        
         startX = e.touches[0].clientX;
+        startScrollLeft = track.scrollLeft;
     });
     
     track.addEventListener('touchmove', function(e) {
-        if (!startX) return;
-        moveX = e.touches[0].clientX;
+        if (!startX || isScrolling) return;
+        
+        e.preventDefault();
+        
+        const currentX = e.touches[0].clientX;
+        const diff = startX - currentX;
+        
+        // Плавная прокрутка во время свайпа
+        track.scrollLeft = startScrollLeft + diff;
     });
     
-    track.addEventListener('touchend', function() {
-        if (!startX || !moveX) return;
+    track.addEventListener('touchend', function(e) {
+        if (!startX || isScrolling) return;
         
-        const diff = startX - moveX;
+        const endX = e.changedTouches[0].clientX;
+        const diff = startX - endX;
         const threshold = 50; // Минимальное расстояние для свайпа
         
         if (Math.abs(diff) > threshold) {
             if (diff > 0) {
                 // Свайп влево - следующая карточка
-                currentIndex = Math.min(currentIndex + 1, cards.length - 1);
+                scrollToCard(Math.min(currentIndex + 1, cards.length - 1));
             } else {
                 // Свайп вправо - предыдущая карточка
-                currentIndex = Math.max(currentIndex - 1, 0);
+                scrollToCard(Math.max(currentIndex - 1, 0));
             }
-            
-            const scrollPosition = currentIndex * (cards[0].offsetWidth + 20);
-            track.scrollTo({
-                left: scrollPosition,
-                behavior: 'smooth'
-            });
+        } else {
+            // Возвращаемся к текущей карточке если свайп был недостаточным
+            scrollToCard(currentIndex);
         }
         
         startX = null;
-        moveX = null;
+        startScrollLeft = null;
     });
     
     // Клик по индикаторам
     if (indicators.length) {
         indicators.forEach((indicator, index) => {
             indicator.addEventListener('click', function() {
-                currentIndex = index;
-                const scrollPosition = currentIndex * (cards[0].offsetWidth + 20);
-                
-                track.scrollTo({
-                    left: scrollPosition,
-                    behavior: 'smooth'
-                });
-                
-                updateIndicators();
+                scrollToCard(index);
             });
         });
     }
+    
+    // Автоматическое выравнивание при загрузке
+    setTimeout(() => {
+        scrollToCard(0);
+    }, 100);
     
     // Инициализация
     updateIndicators();
