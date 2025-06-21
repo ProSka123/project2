@@ -13,19 +13,28 @@
     
     <!-- Предзагрузка изображений -->
     <script>
-        // Определяем тип устройства
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
-        
-        // Предзагружаем соответствующие изображения
-        if (isMobile) {
-            // Мобильные изображения
-            document.write('<link rel="preload" href="images/hero-bg-mobile.jpg" as="image">');
-            document.write('<link rel="preload" href="images/logo-small.png" as="image">');
-        } else {
-            // Десктопные изображения
-            document.write('<link rel="preload" href="images/hero-bg.jpg" as="image">');
-            document.write('<link rel="preload" href="images/logo.png" as="image">');
+        // Упрощенная предзагрузка изображений
+        function preloadImages() {
+            const userAgent = navigator.userAgent.toLowerCase();
+            const screenWidth = window.innerWidth;
+            
+            // Простая логика определения устройства
+            const isMobileByUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
+            const isMobileByWidth = screenWidth < 768;
+            const isMobileDevice = isMobileByUA || isMobileByWidth;
+            
+            if (isMobileDevice) {
+                // Мобильные изображения
+                document.write('<link rel="preload" href="images/hero-bg-mobile.jpg" as="image">');
+                document.write('<link rel="preload" href="images/logo-small.png" as="image">');
+            } else {
+                // Десктопные изображения
+                document.write('<link rel="preload" href="images/hero-bg.jpg" as="image">');
+                document.write('<link rel="preload" href="images/logo.png" as="image">');
+            }
         }
+        
+        preloadImages();
     </script>
 </head>
 <body>
@@ -316,7 +325,7 @@
                                 </div>
                             </div>
                             <div class="review-text">
-                                Ирина - замечательный, необыкновенный, чуткий, добрый человек! Отличный специалист, дочь занимается с огромным удовольствием,за несколько месяцев из неговорящей малышки, дочь превратилась в болтушку. Низкий поклон за работу, за отношение и за необыкновенную добрую улыбку! И если бы можно было поставить 10 звезд, хотя и 10 тоже мало!
+                                Ирина - замечательный, необыкновенный, чуткий, добрый человек! Отличный специалист, дочь занимается с огромным удовольствием,за несколько месяцев из加坡щей малышки, дочь превратилась в болтушку. Низкий поклон за работу, за отношение и за необыкновенную добрую улыбку! И если бы можно было поставить 10 звезд, хотя и 10 тоже мало!
                             </div>
                         </div>
                         
@@ -493,10 +502,12 @@
         </div>
     </footer>
 
+    <script src="js/device-detection.js"></script>
+    <script src="js/device-redirect.js"></script>
+    <script src="js/debug.js"></script>
     <script src="js/script.js"></script>
     <script src="js/services.js"></script>
     <script src="js/smooth-scroll.js"></script>
-    <script src="js/device-detection.js"></script>
     <script src="js/mobile-menu.js"></script>
 </body>
 </html>

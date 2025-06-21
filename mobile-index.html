@@ -11,8 +11,16 @@
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
     
     <!-- Предзагрузка изображений -->
-    <link rel="preload" href="images/hero-bg-mobile.jpg" as="image">
-    <link rel="preload" href="images/logo-small.png" as="image">
+    <script>
+        // Упрощенная предзагрузка изображений для мобильной версии
+        function preloadImages() {
+            // Для мобильной версии всегда загружаем мобильные изображения
+            document.write('<link rel="preload" href="images/hero-bg-mobile.jpg" as="image">');
+            document.write('<link rel="preload" href="images/logo-small.png" as="image">');
+        }
+        
+        preloadImages();
+    </script>
 </head>
 <body>
     <!-- Фиксированная кнопка-гамбургер -->
@@ -79,5 +87,18 @@
                             <i class="fas fa-award"></i>
                             <div class="stat-number">15+</div>
                             <div class="stat-text">сертификатов</div>
-                        
-</augment_code_snippet>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Скрипты -->
+    <script src="js/device-detection.js"></script>
+    <script src="js/device-redirect.js"></script>
+    <script src="js/debug.js"></script>
+    <script src="js/mobile-script.js"></script>
+    <script src="js/mobile-menu.js"></script>
+</body>
+</html>

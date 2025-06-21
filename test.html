@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест обнаружения устройств</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .info {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .mobile { background: #e8f5e8; }
+        .tablet { background: #fff3cd; }
+        .desktop { background: #d1ecf1; }
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .mobile-btn { background: #28a745; color: white; }
+        .tablet-btn { background: #ffc107; color: black; }
+        .desktop-btn { background: #17a2b8; color: white; }
+    </style>
+</head>
+<body>
+    <h1>Тест системы обнаружения устройств</h1>
+    
+    <div class="info" id="device-info">
+        <h3>Информация об устройстве:</h3>
+        <p>Загрузка...</p>
+    </div>
+    
+    <div class="info">
+        <h3>Тестирование:</h3>
+        <button class="mobile-btn" onclick="forceDeviceType('mobile')">Принудительно мобильное</button>
+        <button class="tablet-btn" onclick="forceDeviceType('tablet')">Принудительно планшет</button>
+        <button class="desktop-btn" onclick="forceDeviceType('desktop')">Принудительно десктоп</button>
+        <br><br>
+        <button onclick="showDeviceInfo()">Показать детальную информацию</button>
+        <button onclick="enableDeviceDebug()">Включить отладку</button>
+        <button onclick="disableDeviceDebug()">Выключить отладку</button>
+    </div>
+    
+    <div class="info">
+        <h3>Перенаправление:</h3>
+        <a href="index.html" class="desktop-btn" style="text-decoration: none; padding: 10px 15px;">Перейти на десктопную версию</a>
+        <a href="mobile-index.html" class="mobile-btn" style="text-decoration: none; padding: 10px 15px; margin-left: 10px;">Перейти на мобильную версию</a>
+    </div>
+
+    <script src="js/device-detection.js"></script>
+    <script src="js/device-redirect.js"></script>
+    <script src="js/debug.js"></script>
+    
+    <script>
+        // Обновляем информацию об устройстве
+        function updateDeviceInfo() {
+            const infoDiv = document.getElementById('device-info');
+            const deviceDetector = window.deviceDetector;
+            
+            if (deviceDetector && deviceDetector.isInitialized) {
+                const deviceType = deviceDetector.getDeviceType();
+                infoDiv.className = `info ${deviceType}`;
+                infoDiv.innerHTML = `
+                    <h3>Информация об устройстве:</h3>
+                    <p><strong>Тип устройства:</strong> ${deviceType}</p>
+                    <p><strong>Размер экрана:</strong> ${window.innerWidth}×${window.innerHeight}</p>
+                    <p><strong>User Agent:</strong> ${navigator.userAgent.substring(0, 100)}...</p>
+                    <p><strong>Сенсорный экран:</strong> ${'ontouchstart' in window ? 'Да' : 'Нет'}</p>
+                    <p><strong>Текущая страница:</strong> ${window.location.pathname}</p>
+                `;
+            } else {
+                infoDiv.innerHTML = `
+                    <h3>Информация об устройстве:</h3>
+                    <p>Детектор устройств еще не инициализирован...</p>
+                `;
+            }
+        }
+        
+        // Обновляем информацию каждые 2 секунды
+        setInterval(updateDeviceInfo, 2000);
+        
+        // Первоначальное обновление
+        setTimeout(updateDeviceInfo, 1000);
+    </script>
+</body>
+</html> 
