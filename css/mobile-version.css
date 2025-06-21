@@ -343,6 +343,11 @@ p {
     background-color: var(--white);
 }
 
+.section-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
 .section-title {
     position: relative;
     padding-bottom: 0.75rem;
@@ -353,16 +358,12 @@ p {
 .section-title::after {
     content: '';
     position: absolute;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
     bottom: 0;
     width: 100%;
     height: 2px;
     background: var(--primary);
-}
-
-.section-header {
-    text-align: center;
-    margin-bottom: 2.5rem;
 }
 
 .section-subtitle {
@@ -394,55 +395,37 @@ p {
 }
 
 .service-card {
-    display: flex; /* Для корректной работы с контентом внутри */
-    flex-direction: column;
-    min-height: auto; /* Убираем старую высоту */
-    flex: 0 0 90%; /* Ширина карточки, чтобы был виден край следующей */
+    flex: 0 0 90%;
     width: 90%;
     scroll-snap-align: center;
     position: relative;
-    perspective: 1000px;
-    background-color: transparent;
-    border-radius: 0;
-    box-shadow: none;
-    padding: 0;
-    border: none;
-}
-
-.service-card:hover {
-    transform: none;
-    box-shadow: none;
-}
-
-.service-card-front,
-.service-card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    backface-visibility: hidden;
-    transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
-    display: flex;
-    flex-direction: column;
-    padding: 25px 20px;
     background-color: white;
     border-radius: 12px;
     box-shadow: var(--box-shadow);
     border: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: var(--transition);
+    min-height: 380px;
 }
 
-.service-card-front:hover {
+.service-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .service-card-front {
-    transform: rotateY(0deg);
-    z-index: 2;
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    height: 100%; /* Занимает всю высоту карточки */
-    min-height: 360px; /* Уменьшаем высоту карточки */
+    flex-grow: 1;
+}
+
+.service-card-front:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .service-card-front h3 {
@@ -743,10 +726,10 @@ p {
 
 /* Футер */
 footer {
-    background-color: #ffffff;
-    color: var(--text-dark);
+    background-color: #2f2f2f;
+    color: white;
     padding: 2.5rem 0 1.5rem;
-    border-top: 1px solid #e0e0e0;
+    border-top: none;
 }
 
 .footer-main {
@@ -764,7 +747,7 @@ footer {
 }
 
 .footer-contacts a {
-    color: var(--text-dark);
+    color: white;
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -778,7 +761,6 @@ footer {
 
 .footer-logo {
     max-width: 80px;
-    flex-shrink: 0;
 }
 
 .footer-logo img {
@@ -806,16 +788,16 @@ footer {
 .footer-bottom {
     text-align: center;
     padding-top: 1.5rem;
-    border-top: 1px solid #e0e0e0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .footer-bottom p {
-    color: var(--text-light);
+    color: rgba(255, 255, 255, 0.6);
     margin-bottom: 0.5rem;
 }
 
 a.privacy-link {
-    color: var(--text-light);
+    color: rgba(255, 255, 255, 0.6);
     text-decoration: none;
     font-size: 0.9rem;
 }
@@ -1050,4 +1032,25 @@ a.privacy-link:hover {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.mobile-menu .mobile-menu-contacts {
+    padding: 20px;
+    margin-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-menu-contacts a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    transition: color 0.3s;
+}
+
+.mobile-menu-contacts a:hover {
+    color: var(--primary);
 }
