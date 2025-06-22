@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест Header - Скрытие на главной секции</title>
+    <!-- Cache-busting -->
+    <link rel="stylesheet" href="css/styles.css?v=1718824311">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Дополнительные стили для тестирования */
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .test-content {
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+        }
+        
+        .test-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .about-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+        
+        .services-section {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+        
+        .scroll-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <!-- Индикатор прокрутки -->
+    <div class="scroll-indicator">
+        <div>Прокрутка: <span id="scroll-position">0</span>px</div>
+        <div>Header: <span id="header-status">Видимый</span></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="#">
+                    <img src="images/logo.png" alt="ЛогоПед" class="logo-image">
+                    <span class="logo-text">ЛогоПед</span>
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#about">Обо мне</a></li>
+                    <li><a href="#services">Услуги</a></li>
+                    <li><a href="#reviews">Отзывы</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Тестовый контент -->
+    <div class="test-content">
+        <section id="home" class="test-section hero-section">
+            <div>
+                <h1>Главная секция (Hero)</h1>
+                <p>Header должен быть скрыт здесь</p>
+                <p>Прокрутите вниз, чтобы увидеть header</p>
+            </div>
+        </section>
+        <section id="about" class="test-section about-section">
+            <div>
+                <h1>Секция "Обо мне"</h1>
+                <p>Header должен появиться здесь</p>
+                <p>Прокрутите вверх, чтобы скрыть header</p>
+            </div>
+        </section>
+        <section id="services" class="test-section services-section">
+            <div>
+                <h1>Секция "Услуги"</h1>
+                <p>Header остается видимым</p>
+            </div>
+        </section>
+    </div>
+
+    <script src="js/header-scroll.js"></script>
+    <script>
+        // Дополнительный скрипт для отображения статуса
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            const header = document.querySelector('header');
+            const headerStatus = header.classList.contains('header-hidden') ? 'Скрыт' : 'Видимый';
+            
+            document.getElementById('scroll-position').textContent = Math.round(scrollPosition);
+            document.getElementById('header-status').textContent = headerStatus;
+        });
+    </script>
+</body>
+</html> 
