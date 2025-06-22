@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Инициализация модального окна для услуг
     initServiceModal();
     
+    // Инициализация карточек услуг
+    initServiceCards();
+    
     // Плавная прокрутка для якорных ссылок
     initSmoothScroll();
 });
@@ -120,7 +123,45 @@ function initServiceModal() {
                 if(enrollButton) {
                     enrollButton.addEventListener('click', () => {
                         closeModal();
-                        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+                        
+                        // Получаем название услуги из родительской карточки
+                        const serviceName = card ? card.querySelector('h3').textContent : 'Услуга';
+                        
+                        // Находим секцию контактов
+                        const contactSection = document.getElementById('contact');
+                        if (!contactSection) {
+                            return;
+                        }
+                        
+                        // Находим форму и поле сообщения
+                        const contactForm = contactSection.querySelector('form');
+                        const messageField = contactSection.querySelector('#message, [name="message"], textarea');
+                        
+                        // Прокручиваем к форме контактов
+                        const contactPosition = contactSection.getBoundingClientRect().top + window.scrollY;
+                        
+                        window.scrollTo({
+                            top: contactPosition - 20,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Заполняем поле сообщения информацией об услуге
+                        if (messageField) {
+                            messageField.value = `Здравствуйте! Хочу записаться на услугу "${serviceName}".`;
+                            
+                            // Небольшая задержка перед установкой фокуса
+                            setTimeout(() => {
+                                messageField.focus();
+                            }, 800);
+                        }
+                        
+                        // Добавляем подсветку формы
+                        if (contactForm) {
+                            contactForm.classList.add('highlight-form');
+                            setTimeout(() => {
+                                contactForm.classList.remove('highlight-form');
+                            }, 2000);
+                        }
                     });
                 }
             }
