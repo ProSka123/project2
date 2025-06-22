@@ -1441,3 +1441,31 @@ a.privacy-link:hover {
     text-align: center;
     margin-top: 30px;
 }
+
+header {
+    display: flex;
+    justify-content: flex-end; /* Сдвигаем все вправо */
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+.mobile-menu-toggle {
+    font-size: 1.5rem;
+    color: #333;
+    cursor: pointer;
+}
+
+.education-section h2 {
+    text-align: center;
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    color: #333;
+}
