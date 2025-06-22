@@ -65,7 +65,7 @@ h2::after {
     transform: translateX(-50%);
     width: 60px;
     height: 3px;
-    background: linear-gradient(90deg, var(--primary), var(--accent));
+    background: #5568C7;
     border-radius: 2px;
 }
 
@@ -157,7 +157,9 @@ p {
 }
 
 .mobile-menu ul li a {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 15px;
     padding: 15px 25px;
     color: var(--text-dark);
     text-decoration: none;
@@ -166,8 +168,19 @@ p {
     transition: var(--transition);
 }
 
+.mobile-menu ul li a i {
+    width: 20px;
+    text-align: center;
+    color: var(--primary);
+    font-size: 16px;
+}
+
 .mobile-menu ul li a:hover {
     background-color: rgba(74, 144, 226, 0.1);
+    color: var(--primary);
+}
+
+.mobile-menu ul li a:hover i {
     color: var(--primary);
 }
 
@@ -1169,7 +1182,7 @@ a.privacy-link:hover {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: #4a90e2;
+    background-color: #5568C7;
     color: white;
     display: flex;
     align-items: center;
@@ -1246,7 +1259,7 @@ a.privacy-link:hover {
 }
 
 .more-reviews-btn {
-    background-color: #4a90e2; /* Синий цвет */
+    background-color: #6A7FDB;
     color: white;
 }
 
@@ -1285,5 +1298,5 @@ a.privacy-link:hover {
     left: 0;
     right: 0;
     height: 2px;
-    background-color: #4a90e2; /* Синий цвет */
+    background-color: #5568C7;
 }
