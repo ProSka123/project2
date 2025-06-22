@@ -1337,7 +1337,65 @@ a.privacy-link:hover {
 
 /* Стили для страницы образования */
 .main-content {
-    padding-top: 60px; /* Чтобы контент не уезжал под шапку */
+    padding-top: 70px; /* Отступ от фиксированной шапки */
+}
+
+.education-section {
+    background-color: #f4f7f6; /* Мягкий фон */
+    padding: 25px 15px;
+    min-height: 100vh;
+}
+
+.education-section h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #2c3e50; /* Темно-синий цвет */
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.education-block {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Мягкая тень */
+}
+
+.education-block p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #34495e;
+}
+
+.education-block p b {
+    color: #2980b9; /* Синий акцент для подзаголовков */
+    font-weight: 600;
+}
+
+.education-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 15px;
+}
+
+.education-list li {
+    background-color: #fdfdfd;
+    border-left: 4px solid #3498db; /* Синяя боковая линия */
+    padding: 15px;
+    margin-bottom: 12px;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.95rem;
+    color: #555;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.education-list li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.07);
+}
+
+.education-block .education-list {
+    margin-bottom: 0;
 }
 
 .education-mobile {
