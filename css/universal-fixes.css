@@ -1,0 +1,338 @@
+/* Универсальные исправления для всех устройств */
+
+/* Базовые исправления */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Исправления для изображений */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Исправления для контейнеров */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+/* Исправления для форм */
+input, textarea, select, button {
+    font-family: inherit;
+    font-size: inherit;
+    box-sizing: border-box;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+/* Исправления для кнопок */
+button, .primary-button, .secondary-button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    text-decoration: none;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+/* Исправления для навигации */
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li a {
+    text-decoration: none;
+    display: block;
+    box-sizing: border-box;
+}
+
+/* Исправления для секций */
+section {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 40px 0;
+}
+
+/* Исправления для заголовков */
+h1, h2, h3, h4, h5, h6 {
+    margin: 0 0 20px 0;
+    line-height: 1.2;
+    word-wrap: break-word;
+}
+
+/* Исправления для параграфов */
+p {
+    margin: 0 0 15px 0;
+    line-height: 1.6;
+    word-wrap: break-word;
+}
+
+/* Исправления для списков */
+ul, ol {
+    margin: 0 0 15px 0;
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+/* Исправления для ссылок */
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+/* Исправления для футера */
+footer {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Исправления для flexbox */
+.flex {
+    display: flex;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.align-center {
+    align-items: center;
+}
+
+/* Исправления для grid */
+.grid {
+    display: grid;
+}
+
+/* Исправления для позиционирования */
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.fixed {
+    position: fixed;
+}
+
+/* Исправления для отображения */
+.hidden {
+    display: none !important;
+}
+
+.visible {
+    display: block !important;
+}
+
+/* Исправления для текста */
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+/* Исправления для отступов */
+.no-margin {
+    margin: 0 !important;
+}
+
+.no-padding {
+    padding: 0 !important;
+}
+
+/* Исправления для скролла */
+.scroll-smooth {
+    scroll-behavior: smooth;
+}
+
+/* Исправления для touch устройств */
+@media (hover: none) and (pointer: coarse) {
+    /* Увеличиваем размеры интерактивных элементов для touch */
+    button, 
+    .primary-button, 
+    .secondary-button,
+    input[type="submit"],
+    nav ul li a {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 12px 20px;
+    }
+    
+    /* Убираем hover эффекты на touch устройствах */
+    button:hover, 
+    .primary-button:hover, 
+    .secondary-button:hover,
+    nav ul li a:hover {
+        transform: none;
+    }
+}
+
+/* Исправления для высоких DPI экранов */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Исправления для печати */
+@media print {
+    * {
+        background: transparent !important;
+        color: black !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+    
+    a, a:visited {
+        text-decoration: underline;
+    }
+    
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+    
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+    
+    .no-print {
+        display: none !important;
+    }
+}
+
+/* Исправления для уменьшенной моторики */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Исправления для высокого контраста */
+@media (prefers-contrast: high) {
+    * {
+        border-color: currentColor !important;
+    }
+    
+    button, .primary-button, .secondary-button {
+        border: 2px solid currentColor !important;
+    }
+}
+
+/* Исправления для темной темы */
+@media (prefers-color-scheme: dark) {
+    /* Если сайт поддерживает темную тему, можно добавить стили здесь */
+}
+
+/* Исправления для фокуса */
+*:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+/* Исправления для скринридеров */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Исправления для RTL языков */
+[dir="rtl"] {
+    text-align: right;
+}
+
+[dir="rtl"] .text-left {
+    text-align: right;
+}
+
+[dir="rtl"] .text-right {
+    text-align: left;
+}
+
+/* Исправления для старых браузеров */
+@supports not (display: grid) {
+    .grid {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .grid > * {
+        flex: 1 1 300px;
+        margin: 10px;
+    }
+}
+
+/* Исправления для IE */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .grid {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .grid > * {
+        flex: 1 1 300px;
+        margin: 10px;
+    }
+} 
