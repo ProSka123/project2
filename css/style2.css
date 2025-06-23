@@ -1437,3 +1437,80 @@ p, span, div, a, button, input, textarea, label {
         width: 95%;
     }
 }
+
+/* --- Адаптация для больших экранов --- */
+@media (min-width: 1400px) {
+  .services-grid {
+    max-width: 1300px;
+    gap: 3rem;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .reviews-grid {
+    gap: 2.5rem;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .contact-content {
+    gap: 5rem;
+  }
+  .footer-content {
+    gap: 5rem;
+  }
+}
+@media (min-width: 1600px) {
+  .services-grid {
+    max-width: 1500px;
+    gap: 4rem;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .reviews-grid {
+    gap: 3rem;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .contact-content {
+    gap: 7rem;
+  }
+  .footer-content {
+    gap: 7rem;
+  }
+}
+@media (min-width: 1920px) {
+  .services-grid {
+    max-width: 1700px;
+    gap: 5rem;
+  }
+  .reviews-grid {
+    gap: 4rem;
+  }
+  .contact-content {
+    gap: 10rem;
+  }
+  .footer-content {
+    gap: 10rem;
+  }
+}
+
+/* --- Адаптация для маленьких ноутбуков --- */
+@media (max-width: 1366px) and (min-width: 1024px) {
+  .services-grid {
+    max-width: 900px;
+    gap: 1.2rem;
+  }
+  .reviews-grid {
+    gap: 1.2rem;
+  }
+  .contact-content {
+    gap: 1.5rem;
+  }
+  .footer-content {
+    gap: 1.5rem;
+  }
+  h1 {
+    font-size: 2rem;
+  }
+  h2 {
+    font-size: 1.3rem;
+  }
+  .service-card, .review-card {
+    padding: 1rem;
+  }
+}
