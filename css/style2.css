@@ -1437,3 +1437,59 @@ p, span, div, a, button, input, textarea, label {
         width: 95%;
     }
 }
+
+/* Удаляем пятиугольную раскладку */
+/*
+.services-pentagon {
+  position: relative;
+  width: 600px;
+  height: 600px;
+  margin: 0 auto 4rem auto;
+  display: block;
+}
+.services-pentagon .service-card {
+  position: absolute;
+  width: 200px;
+  height: 220px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.services-pentagon .service-card:nth-child(1) {
+  transform: translate(-50%, -50%) rotate(0deg) translateY(-240px) rotate(0deg);
+}
+.services-pentagon .service-card:nth-child(2) {
+  transform: translate(-50%, -50%) rotate(72deg) translateY(-240px) rotate(-72deg);
+}
+.services-pentagon .service-card:nth-child(3) {
+  transform: translate(-50%, -50%) rotate(144deg) translateY(-240px) rotate(-144deg);
+}
+.services-pentagon .service-card:nth-child(4) {
+  transform: translate(-50%, -50%) rotate(216deg) translateY(-240px) rotate(-216deg);
+}
+.services-pentagon .service-card:nth-child(5) {
+  transform: translate(-50%, -50%) rotate(288deg) translateY(-240px) rotate(-288deg);
+}
+@media (max-width: 900px) {
+  .services-pentagon {
+    width: 100vw;
+    height: 100vw;
+    min-width: 320px;
+    min-height: 320px;
+    max-width: 95vw;
+    max-height: 95vw;
+  }
+  .services-pentagon .service-card {
+    width: 140px;
+    height: 160px;
+  }
+}
+@media (max-width: 768px) {
+  .services-pentagon {
+    display: none;
+  }
+  .services-grid {
+    display: grid;
+  }
+}
+*/
