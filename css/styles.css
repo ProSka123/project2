@@ -1561,96 +1561,20 @@ footer {
     color: var(--primary-dark);
 }
 
-/* --- Адаптация для больших экранов --- */
-@media (min-width: 1400px) {
-  .container {
-    max-width: 1350px;
-  }
-  .about-content {
-    gap: 6rem;
-  }
-  .services-grid {
-    gap: 3rem;
-  }
-  .footer-content {
-    gap: 5rem;
-  }
+/* --- Desktop adaptive: только размеры объектов, не layout --- */
+@media (max-width: 1600px) {
+  h1, .reviews-title { font-size: clamp(2.2rem, 4vw, 2.8rem); }
+  h2 { font-size: clamp(1.7rem, 3vw, 2.2rem); }
+  h3, .stat-number, .service-card h3 { font-size: clamp(1.1rem, 2vw, 1.5rem); }
+  .primary-button, .secondary-button { font-size: clamp(0.95rem, 1.5vw, 1.1rem); }
+  .reviewer-avatar { width: clamp(36px, 4vw, 60px); height: clamp(36px, 4vw, 60px); font-size: clamp(1.1rem, 2vw, 1.5rem); }
+  .about-image { max-width: clamp(180px, 25vw, 350px); }
 }
-@media (min-width: 1600px) {
-  .container {
-    max-width: 1500px;
-  }
-  .about-content {
-    gap: 8rem;
-  }
-  .services-grid {
-    gap: 4rem;
-  }
-  .footer-content {
-    gap: 7rem;
-  }
-}
-@media (min-width: 1920px) {
-  .container {
-    max-width: 1700px;
-  }
-  .about-content {
-    gap: 10rem;
-  }
-  .services-grid {
-    gap: 5rem;
-  }
-  .footer-content {
-    gap: 10rem;
-  }
-}
-
-/* --- Улучшение отзывов и услуг для больших экранов --- */
-@media (min-width: 1400px) {
-  .reviews-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem;
-  }
-  .services-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-@media (min-width: 1800px) {
-  .reviews-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  .services-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-/* --- Адаптация для маленьких ноутбуков --- */
-@media (max-width: 1366px) and (min-width: 1024px) {
-  .container {
-    max-width: 1000px;
-  }
-  .about-content {
-    gap: 2.5rem;
-  }
-  .services-grid {
-    gap: 1.5rem;
-  }
-  .footer-content {
-    gap: 2rem;
-  }
-  h1 {
-    font-size: 2.2rem;
-  }
-  h2 {
-    font-size: 1.5rem;
-  }
-  .hero-content {
-    padding: 2rem 0;
-  }
-  .stat-item {
-    padding: 1rem;
-  }
-  .review-card, .service-card {
-    padding: 1rem;
-  }
+@media (max-width: 1280px) {
+  h1, .reviews-title { font-size: clamp(1.7rem, 3vw, 2.2rem); }
+  h2 { font-size: clamp(1.2rem, 2vw, 1.7rem); }
+  h3, .stat-number, .service-card h3 { font-size: clamp(1rem, 1.3vw, 1.1rem); }
+  .primary-button, .secondary-button { font-size: clamp(0.9rem, 1.2vw, 1rem); }
+  .reviewer-avatar { width: clamp(28px, 3vw, 40px); height: clamp(28px, 3vw, 40px); font-size: clamp(0.9rem, 1.5vw, 1.1rem); }
+  .about-image { max-width: clamp(120px, 20vw, 250px); }
 }
